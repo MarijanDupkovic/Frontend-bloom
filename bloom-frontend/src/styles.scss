@@ -1,0 +1,19 @@
+
+/* Importing Bootstrap SCSS file. */
+@import 'bootstrap/scss/bootstrap';
+
+body{
+  background: rgb(34, 193, 195);
+  background: linear-gradient(0deg, rgba(34, 193, 195, 1) 0%, rgba(42, 140, 230, 0.9556197478991597) 100%);
+  min-height: 100vh;
+
+}
+
+a{
+  color: #000000;
+  text-decoration: none;
+}
+
+.btn-shadow{
+  box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
+}
