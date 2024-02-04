@@ -30,4 +30,20 @@
             }
         }
     }
+
+    .icons {
+        display: flex;
+        align-items: center; 
+        justify-content: center; 
+        gap: 20px; 
+    }
+    
+    .icons a {
+        text-decoration: underline;
+        color: inherit;
+    }
+    
+    .icon-separator {
+        color: inherit; 
+    }
 }
