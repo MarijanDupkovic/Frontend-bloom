@@ -37,20 +37,6 @@
         }
     }
 
-    .social-media {
-        display:flex;
-        justify-content: center;
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .icons {
-        display: flex;
-        align-items: center; 
-        justify-content: center; 
-        gap: 20px; 
-    }
-    
     .icons a {
         text-decoration: underline;
         color: inherit;
@@ -58,21 +44,5 @@
     
     .icon-separator {
         color: inherit; 
-    }
-
-    .data-protection {
-        display:flex;
-        justify-content: center;
-        gap:16px;
-    }
-
-    .name {
-        display:flex;
-        justify-content: center;
-    }
-
-    .newsletter {
-        display:flex;
-        justify-content: center;
     }
 }
