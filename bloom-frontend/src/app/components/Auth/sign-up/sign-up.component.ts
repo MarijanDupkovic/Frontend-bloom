@@ -1,6 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { AuthService } from '../../../services/auth/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sign-up',
@@ -21,15 +23,15 @@ export class SignUpComponent {
   message = ``;
   success: boolean = false;
   signup_failed: boolean = false;
-  // constructor(private authService: AuthService, private router: Router) { this.addEnterListener() }
+  constructor(private authService: AuthService, private router: Router) { this.addEnterListener() }
 
   async signup() {
     this.send = true;
     try {
-      // 
-      // let resp: any = await this.authService.signUp(this.email, this.password, this.password2, this.username);
-      // this.success = true;
-      // setTimeout(() => this.router.navigateByUrl('/login'), 5000);
+      
+      let resp: any = await this.authService.signUp(this.email, this.password, this.password2, this.username);
+      this.success = true;
+      setTimeout(() => this.router.navigateByUrl('/login'), 5000);
     } catch (e) {
       let error: any = e;
       if (error.status == 405) {

@@ -1,6 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule, NgModel } from '@angular/forms';
+import { AuthService } from '../../../services/auth/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -19,14 +21,17 @@ export class LoginComponent {
   fail_message: string = '';
   message = ``;
 
+  constructor(private authService: AuthService, private router: Router) {
+    this.addEnterListener();
+  }
+
   async login() {
     let resp: any;
     this.send = true;
     try {
-      //todo: login
-      // resp = await this.authService.loginWithEmailandPassword(this.email, this.password);
-      // localStorage.setItem('token', resp['token']);
-      // this.router.navigateByUrl('/site/videos');
+      resp = await this.authService.loginWithEmailandPassword(this.email, this.password);
+      localStorage.setItem('token', resp['token']);
+      this.router.navigateByUrl('/site/videos');//todo: route anpassen wenn erstellt
     } catch (e) {
       let error: any = e;
       if (error.status == 403) this.setErrorMessage(' Bitte bestätige zuerst deine Emailadresse.', error);
