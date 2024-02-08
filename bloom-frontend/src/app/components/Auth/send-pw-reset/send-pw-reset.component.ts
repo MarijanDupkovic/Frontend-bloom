@@ -1,6 +1,6 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { lastValueFrom } from 'rxjs';
 import { environment } from '../../../../environtments/environtment';
 import { FormsModule } from '@angular/forms';
@@ -9,7 +9,7 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-send-pw-reset',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule,HttpClientModule,RouterLink],
   templateUrl: './send-pw-reset.component.html',
   styleUrl: './send-pw-reset.component.scss'
 })
