@@ -1,5 +1,5 @@
-import { HttpClient, HttpClientModule, HttpHandler } from '@angular/common/http';
-import { Component, Injectable, NgModule } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { lastValueFrom } from 'rxjs';
 import { environment } from '../../../environtments/environtment';
