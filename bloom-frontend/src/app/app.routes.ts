@@ -10,6 +10,7 @@ import { DashboardComponent } from './components/post-login/dashboard/dashboard.
 import { AuthguardService } from './guards/auth/authguard.service';
 import { UserComponent } from './components/post-login/user/user.component';
 import { PostAppComponent } from './components/post-login/post-app/post-app.component';
+import { EditUserComponent } from './components/post-login/edit-user/edit-user.component';
 
 export const routes: Routes = [
     { path: '', component: ContentComponent, pathMatch: 'full' },
@@ -24,7 +25,8 @@ export const routes: Routes = [
         path: 'site', component: PostAppComponent, canActivate: [AuthguardService],
         children: [
             { path: 'dashboard', component: DashboardComponent },
-            { path: 'profile' , component:UserComponent }
+            { path: 'profile' , component:UserComponent },
+            { path: 'edit-profile' , component:EditUserComponent }
         ]
         
     

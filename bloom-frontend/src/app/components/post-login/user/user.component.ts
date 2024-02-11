@@ -12,7 +12,6 @@ import { CommonModule } from '@angular/common';
 export class UserComponent {
   profileImg = 'https://www.w3schools.com/howto/img_avatar.png';
   public user: any;
-  data: any;
   constructor(private userService: UserService) { }
 
   async ngOnInit() {
