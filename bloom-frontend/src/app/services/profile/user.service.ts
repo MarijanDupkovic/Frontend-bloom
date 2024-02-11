@@ -15,4 +15,11 @@ export class UserService {
     const headers = new HttpHeaders().set('Authorization', `token ${localStorage.getItem('token')}`);
     return lastValueFrom(this.http.get(url, { headers }));
   }
+
+  changeUserData(path: string, username: string, email: string,uid: string){
+    const url = environment.baseUrl + path + '/' + uid + '/';
+    const headers = new HttpHeaders().set('Authorization', `token ${localStorage.getItem('token')}`);
+    const body = { "username":username,"email": email};
+    return lastValueFrom(this.http.put(url, body, { headers }));
+  }
 }
