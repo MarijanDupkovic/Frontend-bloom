@@ -1,16 +1,18 @@
 import { Component } from '@angular/core';
 import { UserService } from '../../../services/profile/user.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-user',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './user.component.html',
   styleUrl: './user.component.scss'
 })
 export class UserComponent {
   profileImg = 'https://www.w3schools.com/howto/img_avatar.png';
-  user: any;
+  public user: any;
+  data: any;
   constructor(private userService: UserService) { }
 
   async ngOnInit() {
@@ -19,7 +21,6 @@ export class UserComponent {
 
   async getUserData() {
     this.user = await this.userService.getUserData('/user');
-    console.log(this.user);
     
   }
 }
