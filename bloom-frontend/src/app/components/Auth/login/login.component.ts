@@ -8,8 +8,8 @@ import { HttpClient, HttpClientModule, HttpHandler } from '@angular/common/http'
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule,CommonModule,HttpClientModule,RouterLink],
-  providers: [HttpClient,AuthService,Router,],
+  imports: [FormsModule,CommonModule,RouterLink,HttpClientModule],
+  providers: [HttpClient,AuthService, RouterLink,NgModel,Router,HttpClientModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
@@ -32,7 +32,8 @@ export class LoginComponent {
     try {
       resp = await this.authService.loginWithEmailandPassword(this.email, this.password);
       localStorage.setItem('token', resp['token']);
-      this.router.navigateByUrl('/site/videos');//todo: route anpassen wenn erstellt
+      
+      this.router.navigateByUrl('/site/dashboard');
     } catch (e) {
       let error: any = e;
       if (error.status == 403) this.setErrorMessage(' Bitte bestätige zuerst deine Emailadresse.', error);
