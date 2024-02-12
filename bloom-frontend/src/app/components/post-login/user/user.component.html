@@ -1,7 +1,11 @@
 <div style="min-height: calc(100vh - 80px);">
     <div class="d-flex justify-content-center p-3 flex-column align-items-center">
-        <img [src]="profileImg" class="w-50 rounded-circle mt-3" alt="">
-        <a>edit avatar</a>
+        <form class="d-flex flex-column justify-content-center align-items-center" id="uploadform" method="put" enctype="multipart/form-data">
+            <img [src]="profileImg" class="rounded-circle mt-3 " style="object-fit: cover; width: 140px;height: 140px;" alt="">
+            <label class="mt-2" for="choose-image">edit avatar</label>
+            <input class="d-none" type="file" id="choose-image" name="img" ((input))="handleFileInput()" #fileInput accept=".jpg,.jpeg,.png">
+            
+        </form>
     </div>
 
     <div class="d-flex flex-column align-items-start mt-3">
@@ -21,7 +25,7 @@
             <h3>Newsletter</h3>
         </div>
         <div class="d-flex justify-content-center gap-2 align-items-center">
-            <input type="checkbox">I want to get the Newsletter
+            <input type="checkbox">Subscribe to newsletter
         </div>
 
 

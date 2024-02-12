@@ -22,4 +22,11 @@ export class UserService {
     const body = { "username":username,"email": email};
     return lastValueFrom(this.http.put(url, body, { headers }));
   }
+
+  changeProfilePicture(path:string,picture:any){
+
+    const url = environment.baseUrl + path + '/' + localStorage.getItem('token') + '/';
+    
+    return lastValueFrom(this.http.put(url, picture));
+  }
 }
