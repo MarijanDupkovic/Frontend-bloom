@@ -1,12 +1,11 @@
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { UserService } from '../../../services/profile/user.service';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-user',
   standalone: true,
-  imports: [CommonModule,RouterLink],
+  imports: [CommonModule],
   templateUrl: './user.component.html',
   styleUrl: './user.component.scss'
 })
