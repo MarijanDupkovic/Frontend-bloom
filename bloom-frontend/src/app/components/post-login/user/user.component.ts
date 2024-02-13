@@ -30,7 +30,8 @@ export class UserComponent implements AfterViewInit {
   }
 
   handleFileInput() {
- 
+    debugger;
+
     if (this.user[0]) {
       const file = this.fileInput.nativeElement.files[0];
       const formData: FormData = new FormData();
