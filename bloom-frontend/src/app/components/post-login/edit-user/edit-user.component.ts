@@ -15,6 +15,9 @@ export class EditUserComponent {
   username: string = '';
   email: string = '';
   user: any;
+  failed: boolean = false;
+  fail_message: string = '';
+  message = ``;
   constructor(private userService: UserService) { }
   
   async ngOnInit() {
@@ -31,13 +34,39 @@ export class EditUserComponent {
 
   changeData() {
     this.send = true;
+    let resp: any;
+    try {
+    resp = this.userService.changeUserData('/user', this.username, this.email, this.user[0].id);
+    }catch(e){
+      let error: any = e;
+      this.setErrorMessage('Ein Fehler ist aufgetreten.', error);
+    }
 
-    this.userService.changeUserData('/user', this.username, this.email, this.user[0].id);
 
     setTimeout(() => {
       this.send = false;
     }, 2000);
   }
 
+  back() {
+    window.history.back();
+  }
+
+  setErrorMessage(message: string, error: any) {
+    this.failed = true;
+    this.fail_message = error.error;
+    this.message = message;
+    this.resetErrorMessage();
+  }
+
+  resetErrorMessage() {
+    setTimeout(() => {
+      this.failed = false;
+      this.fail_message = '';
+      this.message = '';
+      this.send = false;
+     
+    }, 3000);
+  }
   
 }
