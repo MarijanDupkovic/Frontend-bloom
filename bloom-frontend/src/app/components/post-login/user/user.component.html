@@ -3,7 +3,7 @@
         <form class="d-flex flex-column justify-content-center align-items-center" id="uploadform" method="put" enctype="multipart/form-data">
             <img [src]="profileImg" class="rounded-circle mt-3 " style="object-fit: cover; width: 140px;height: 140px;" alt="">
             <label class="mt-2" for="choose-image">edit avatar</label>
-            <input class="d-none" type="file" id="choose-image" name="img" ((input))="handleFileInput()" #fileInput accept=".jpg,.jpeg,.png">
+            <input class="d-none" type="file" id="choose-image" name="img" (change)="handleFileInput()" #fileInput accept=".jpg,.jpeg">
             
         </form>
     </div>

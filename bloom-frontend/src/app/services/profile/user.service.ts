@@ -24,9 +24,10 @@ export class UserService {
   }
 
   changeProfilePicture(path:string,picture:any){
+    const headers = new HttpHeaders().set('Authorization', `token ${localStorage.getItem('token')}`);
 
     const url = environment.baseUrl + path + '/' + localStorage.getItem('token') + '/';
     
-    return lastValueFrom(this.http.put(url, picture));
+    return lastValueFrom(this.http.put(url, picture, { headers }));
   }
 }
