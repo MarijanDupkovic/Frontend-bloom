@@ -20,17 +20,20 @@ export class UserComponent implements AfterViewInit {
   }
 
   async getUserData() {
+    let url = '';
     await this.userService.getUserData('/user').then((data: any) => {
-      let splitted = data[0].profile_picture.split('/');
-      let url = splitted[3] + '/' + splitted[4] + '/' + splitted[5] + '/';
+      if (data[0].profile_picture) {
+        let splitted = data[0].profile_picture.split('/');
+        url = splitted[3] + '/' + splitted[4] + '/' + splitted[5] + '/';
+        this.profileImg = 'https://be.recsync.app/' + url;
+      }
       this.user = data;
-      this.profileImg = 'https://be.recsync.app/' + url;
+      
     });
 
   }
 
   handleFileInput() {
-    debugger;
 
     if (this.user[0]) {
       const file = this.fileInput.nativeElement.files[0];
