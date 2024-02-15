@@ -1,1 +1,37 @@
-<p>recording works!</p>
+<div>
+    <h1>Recording</h1>
+
+    <div>
+        <h6>Preview</h6>
+
+        <a class="btn btn-shadow" (click)="showPreview()">Start Preview</a>
+        <div>
+            <div class="d-flex flex-column gap1 align-items-center jc-center">
+                <canvas #canvasScreen name="canvasScreen" id="canvasScreen" width="1920"
+                    height="1080" autoplay> </canvas>
+
+                <video #screenVideo hidden id="screenVideo" width="1920" height="1080" autoplay>
+                    <source>
+                </video>
+                <video #webcamVideo hidden id="webcamVideo" width="1920" height="1080" autoplay>
+                    <source>
+                </video>
+                <canvas #webcamCanvas hidden id="webcamCanvas" width="1920" height="1080" autoplay></canvas>
+            </div>
+        </div>
+
+
+
+    </div>
+
+    <div>
+        <h2>Recording options</h2>
+        <div>
+            <button class="btn btn-shadow" (click)="startRecordingAll()">Start recording</button>
+            <button class="btn btn-shadow" (click)="stopRecordingAll()">Stop recording</button>
+            <button class="btn btn-shadow" (click)="activateBlur()">Acivate blurr</button>
+
+
+        </div>
+    </div>
+</div>
