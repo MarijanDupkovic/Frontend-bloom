@@ -1,17 +1,18 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, Input, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { start } from '@popperjs/core';
 import * as bodyPix from '@tensorflow-models/body-pix';
 import * as tf from '@tensorflow/tfjs';
 import { VideoService } from '../../../services/Stream/video.service';
 import { UserService } from '../../../services/profile/user.service';
+import { eventListeners } from '@popperjs/core';
+import { Observable, fromEvent } from 'rxjs';
 
 
 @Component({
   selector: 'app-recording',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule,],
   providers: [FormData],
   templateUrl: './recording.component.html',
   styleUrl: './recording.component.scss'
@@ -31,18 +32,36 @@ export class RecordingComponent {
   webcam_running: boolean = false;
   ctx: any;
   userData: any;
-  @Input() screen_width: any;
-  @Input() screen_height: any;
+  @Input() screenwidth: any;
+  @Input() screenheight: any;
+  @Input() style: any;
+
   constructor(private video: VideoService, private user: UserService) {
     this.getUserData();
+    this.getScreenSize();
+    this.checkScreenSize();
+
   }
   @ViewChild('canvasScreen') canvasScreen?: ElementRef;
   @ViewChild('screenVideo') screenVideo?: ElementRef;
   @ViewChild('webcamVideo') webcamVideo?: ElementRef;
   @ViewChild('webcamCanvas') webcamCanvas?: ElementRef;
 
+  checkScreenSize() {
+    fromEvent(window, 'resize').subscribe((event) => {
+      this.getScreenSize();
+    });
 
+  }
 
+  getScreenSize() {
+    this.screenwidth = document.body.clientWidth;
+    this.screenheight = document.body.clientHeight;
+    this.style = 'height:' + this.screenheight*0.8 + 'px;width: ' + this.screenwidth *0.8 + 'px;background-color: rgba(0, 0, 0, 0.25);border-radius: 10px;z-index:-1;';
+
+    this.screenwidth = this.screenwidth * 0.75;
+    this.screenheight = this.screenheight *0.75 ;    
+  }
 
   async loadScreenStream(screenStream: any) {
     if (this.screenVideo) {
@@ -184,23 +203,12 @@ export class RecordingComponent {
   }
 
   async startRecordingLive() {
-    if (window.screen.width < 1920) {
-      this.screen_width = window.screen.width;
 
-    } else {
-      this.screen_width = 1920;
-    }
-    if (window.screen.height < 1080) {
-      this.screen_height = window.screen.height;
-    } else {
-      this.screen_height = 1080;
-    }
 
 
     await this.getMediaDevices();
-    let stream: any;
     await this.getAudioStream().then((audioStream) => {
-      stream = this.canvasScreen!.nativeElement.captureStream();
+      let stream = this.canvasScreen!.nativeElement.captureStream();
       if (this.screen_running && this.webcam_running) { this.startRecording(stream, audioStream); }
     });
 
@@ -221,17 +229,13 @@ export class RecordingComponent {
   }
 
   async getUserData() {
-    let url = '';
     await this.user.getUserData('/user').then((data: any) => {
       if (data[0].username) {
         this.userData = data[0];
-        console.log(this.userData.id);
-
       }
-
     });
-
   }
+
   async stopRecordingLive() {
     this.blur = false;
     this.mediaRecorder.onstop = () => {
@@ -242,28 +246,26 @@ export class RecordingComponent {
       // link.href = url;
       // link.click();
 
-
-
       let formData = new FormData();
       formData.append('video_file', blob, 'video.mp4');
       formData.append('author', this.userData.id);
       this.video.uploadVideo(formData);
-
-
     }
+
     this.mediaRecorder.stop();
     this.mediaRecorder.stream.getTracks().forEach((track: any) => track.stop());
     this.recordedChunks = [];
     await this.stopMediaDevices();
-      this.screen_running = false;
-      this.webcam_running = false;
-      this.screen_width = 10;
-      this.screen_height = 10;
-    
+    this.screen_running = false;
+    this.webcam_running = false;
+    this.screenwidth = 10;
+    this.screenheight = 10;
   }
+
   showPreview() {
     this.startRecordingLive();
   }
+
   hidePreview() {
     this.stopMediaDevices();
   }
