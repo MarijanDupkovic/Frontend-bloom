@@ -1,39 +1,5 @@
-<div class="container-header">
-  <div>
-    <a [href]="'/'">RECSYNC</a>
-  </div>
-  <div class="container-header-desktop">
-
-    <a [href]="'#about'" translate>About me</a>
-    <a [href]="'#skills'" translate>Skills</a>
-    <a [href]="'#portfolio'" translate>Portfolio</a>
-    <a [href]="'#contact'" translate>Contact</a>
-
-  </div>
-
-  <div (click)="toggleMenu()" class="container-header-b-menu">
-    <div class="b-menu"></div>
-    <div class="b-menu"></div>
-    <div class="b-menu"></div>
-  </div>
-</div>
-<div *ngIf="isOpen" class="container-menu">
-
-  <div class="container-items">
-    <div class="container-menu-item">
-      <a class="menu-item" [href]="'#about'" (click)="toggleMenu()" translate>Home</a>
-    </div>
-    <div class="container-menu-item">
-      <a class="menu-item" routerLink="/signin" (click)="toggleMenu()" translate>Login</a>
-    </div>
-    <div class="container-menu-item">
-      <a class="menu-item" routerLink="/signup" (click)="toggleMenu()" translate>Sign up</a>
-    </div>
-    <div class="container-menu-item">
-      <a class="menu-item" [href]="'#contact'" (click)="toggleMenu()" translate>Legal Notice</a>
-    </div>
-  </div>
-</div>
+<app-pre-login class="w-100" *ngIf="!loggedIn"></app-pre-login>
+<app-post-login class="w-100" *ngIf="loggedIn"></app-post-login>
 <!-- <div class="collapse navbar-collapse" id="navbarToggleExternalContent" >
   <ul class="navbar-nav mr-auto">
     <li class="nav-item active">
