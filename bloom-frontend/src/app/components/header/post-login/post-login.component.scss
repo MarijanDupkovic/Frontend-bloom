@@ -1,0 +1,110 @@
+.container-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 101;
+    height: 100px;
+    width: 100%;
+    padding: 0 2rem;
+    box-shadow: 0px 4px 4px rgba($color: #000000, $alpha: 0.25);
+    @media(min-width:1024px) {
+        justify-content: center;
+    }
+    
+
+
+    .container-header-b-menu {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+
+        .b-menu {
+            width: 2rem;
+            border: 1px solid rgba($color: #FFFFFF, $alpha: 1.0);
+        }
+        @media(min-width:1024px) {
+            display: none;
+        }
+        }
+    }
+
+
+.container-menu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    bottom: 0;
+    top: 6.125rem;
+    width: 100%;
+    gap: 1rem;
+    background-color: rgba($color: #000000, $alpha: 0.45);
+    z-index: 105;
+    .container-items{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+        padding-bottom: 10rem;
+    }
+
+    .menu-item {
+        color: #FFFFFF;
+        text-decoration: none;
+        font-size: 1.5rem;
+
+        &:hover {
+            color: #00BEE8;
+        }
+    }
+}
+.active {
+    color: #00BEE8 !important;
+}
+.container-header-desktop {
+    display: none;
+    
+
+    .language-container {
+        font-size: 0.75rem;
+        padding-top: 0.75rem;
+
+        .language {
+            font-size: 0.75rem;
+        }
+    }
+
+    a {
+        color: #FFFFFF;
+        text-decoration: none;
+        font-size: 1.5rem;
+        position: relative; /* Für die Positionierung des Pseudo-Elements */
+        display: inline-block; /* Ermöglicht die korrekte Anwendung des Pseudo-Elements */
+    }
+    
+    a::after {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 5px; /* Dicke des Unterstrichs */
+        left: 0;
+        bottom: -5px; /* Abstand vom Text zum Unterstrich */
+        background-color: white;
+        transform: scaleX(0); /* Startet unsichtbar */
+        transition: transform 0.3s ease-in-out; /* Sanfter Übergang */
+    }
+    
+    a:hover::after {
+        transform: scaleX(1); /* Wird vollständig sichtbar beim Hover */
+    }
+
+    @media(min-width:1024px) {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 2rem;
+        padding: 1rem 2rem;
+        z-index: 101;
+    }
+}
