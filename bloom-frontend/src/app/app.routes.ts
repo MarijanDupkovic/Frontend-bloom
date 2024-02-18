@@ -13,6 +13,8 @@ import { PostAppComponent } from './components/post-login/post-app/post-app.comp
 import { EditUserComponent } from './components/post-login/edit-user/edit-user.component';
 import { LibraryComponent } from './components/post-login/library/library.component';
 import { RecordingComponent } from './components/post-login/recording/recording.component';
+import { PublicVideoComponent } from './components/public-video/public-video.component';
+import { VideoDetailComponent } from './components/post-login/video-detail/video-detail.component';
 
 export const routes: Routes = [
     { path: '', component: ContentComponent, pathMatch: 'full' },
@@ -22,6 +24,7 @@ export const routes: Routes = [
     { path: 'reset-mail', component: SendPwResetComponent },
     { path: 'reset-pw/:token', component: ResetPwComponent },
     { path: 'activate/:token', component: UserActivationComponent },
+    { path: 'public-video/:str', component: PublicVideoComponent },
 
     {
         path: 'site', component: PostAppComponent, canActivate: [AuthguardService],
@@ -30,7 +33,8 @@ export const routes: Routes = [
             { path: 'profile' , component:UserComponent },
             { path: 'edit-profile' , component:EditUserComponent },
             { path: 'library' , component:LibraryComponent },
-            { path: 'recording' , component:RecordingComponent }
+            { path: 'recording' , component:RecordingComponent },
+            { path: 'video-details/:str', component: VideoDetailComponent },
         ]
         
     
