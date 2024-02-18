@@ -3,28 +3,15 @@
 
     <h6 class="m-0 p-0">Latest videos</h6>
     <div class="w-100 mt-1 mb-3" style="background-color: rgba(0, 0, 0, 0.25);height: 2px;"></div>
-    <!-- Maximal 4 letzte Videos -->
     <div>
         <div class="d-flex flex-wrap mb-5">
-            <div class="d-flex flex-column align-items-center justify-content-center m-2"
-                style="width: 150px;height: 180px;background-color: rgba(0, 0, 0, 0.25);border-radius: 10px;">
-                <img src="https://via.placeholder.com/130" alt="video" style="width: 130px;height: 130px;">
-                <h6 class="m-0 p-0 mt-2">Video 1</h6>
-            </div>
-            <div class="d-flex flex-column align-items-center justify-content-center m-2"
-                style="width: 150px;height: 180px;background-color: rgba(0, 0, 0, 0.25);border-radius: 10px;">
-                <img src="https://via.placeholder.com/130" alt="video" style="width: 130px;height: 130px;">
-                <h6 class="m-0 p-0 mt-2">Video 2</h6>
-            </div>
-            <div class="d-flex flex-column align-items-center justify-content-center m-2"
-                style="width: 150px;height: 180px;background-color: rgba(0, 0, 0, 0.25);border-radius: 10px;">
-                <img src="https://via.placeholder.com/130" alt="video" style="width: 130px;height: 130px;">
-                <h6 class="m-0 p-0 mt-2">Video 3</h6>
-            </div>
-            <div class="d-flex flex-column align-items-center justify-content-center m-2"
-                style="width: 150px;height: 180px;background-color: rgba(0, 0, 0, 0.25);border-radius: 10px;">
-                <img src="https://via.placeholder.com/130" alt="video" style="width: 130px;height: 130px;">
-                <h6 class="m-0 p-0 mt-2">Video 4</h6>
+            <div *ngFor="let video of videos;let i = index;">
+                <div *ngIf="i < 6" class="d-flex flex-column align-items-center justify-content-center m-2"
+                    style="width: 150px;height: 180px;background-color: rgba(0, 0, 0, 0.25);border-radius: 10px;">
+                    <video [src]="convertLink(video.video_file)" alt="video" style="width: 130px;height: 130px;"
+                        preload></video>
+                    <h6 class="m-0 p-0 mt-2">{{ video.created_at }}</h6>
+                </div>
             </div>
 
         </div>
@@ -34,26 +21,13 @@
     <div class="w-100 mt-1 mb-3" style="background-color: rgba(0, 0, 0, 0.25);height: 2px;"></div>
 
     <div class="d-flex flex-wrap mb-5">
-        <div class="d-flex flex-column align-items-center justify-content-center m-2"
+        <div *ngFor="let video of videos" class="d-flex flex-column align-items-center justify-content-center m-2"
             style="width: 150px;height: 180px;background-color: rgba(0, 0, 0, 0.25);border-radius: 10px;">
-            <img src="https://via.placeholder.com/130" alt="video" style="width: 130px;height: 130px;">
-            <h6 class="m-0 p-0 mt-2">Video 1</h6>
+            <video [src]="convertLink(video.video_file)" alt="video" style="width: 130px;height: 130px;"
+                preload></video>
+            <h6 class="m-0 p-0 mt-2">{{ video.created_at }}</h6>
         </div>
-        <div class="d-flex flex-column align-items-center justify-content-center m-2"
-            style="width: 150px;height: 180px;background-color: rgba(0, 0, 0, 0.25);border-radius: 10px;">
-            <img src="https://via.placeholder.com/130" alt="video" style="width: 130px;height: 130px;">
-            <h6 class="m-0 p-0 mt-2">Video 2</h6>
-        </div>
-        <div class="d-flex flex-column align-items-center justify-content-center m-2"
-            style="width: 150px;height: 180px;background-color: rgba(0, 0, 0, 0.25);border-radius: 10px;">
-            <img src="https://via.placeholder.com/130" alt="video" style="width: 130px;height: 130px;">
-            <h6 class="m-0 p-0 mt-2">Video 3</h6>
-        </div>
-        <div class="d-flex flex-column align-items-center justify-content-center m-2"
-            style="width: 150px;height: 180px;background-color: rgba(0, 0, 0, 0.25);border-radius: 10px;">
-            <img src="https://via.placeholder.com/130" alt="video" style="width: 130px;height: 130px;">
-            <h6 class="m-0 p-0 mt-2">Video 4</h6>
-        </div>
+
 
     </div>
 </div>
