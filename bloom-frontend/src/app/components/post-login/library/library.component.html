@@ -8,7 +8,7 @@
             <div *ngFor="let video of videos;let i = index;">
                 <div *ngIf="i < 6" class="d-flex flex-column align-items-center justify-content-center m-2"
                     style="width: 150px;height: 180px;background-color: rgba(0, 0, 0, 0.25);border-radius: 10px;">
-                    <video [src]="convertLink(video.video_file)" alt="video" style="width: 130px;height: 130px;"
+                    <video [src]="convertLink(video.video_file)" [routerLink]="'/site/video-details/' + video.title" alt="video" style="width: 130px;height: 130px;"
                         preload></video>
                     <h6 class="m-0 p-0 mt-2">{{ video.created_at }}</h6>
                 </div>
@@ -23,11 +23,13 @@
     <div class="d-flex flex-wrap mb-5">
         <div *ngFor="let video of videos" class="d-flex flex-column align-items-center justify-content-center m-2"
             style="width: 150px;height: 180px;background-color: rgba(0, 0, 0, 0.25);border-radius: 10px;">
-            <video [src]="convertLink(video.video_file)" alt="video" style="width: 130px;height: 130px;"
+            <video [src]="convertLink(video.video_file)" [routerLink]="'/site/video-details/' + video.title" alt="video" style="width: 130px;height: 130px;"
                 preload></video>
             <h6 class="m-0 p-0 mt-2">{{ video.created_at }}</h6>
         </div>
 
 
     </div>
+
 </div>
+

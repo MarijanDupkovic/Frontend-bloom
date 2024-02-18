@@ -1,0 +1,12 @@
+<div class="d-flex flex-column justify-content-center align-items-center mt-3 mb-5">
+    @if (video){
+    <div class="d-flex flex-column align-items-start justify-content-start shadow p-3 ">
+        <h6 class="m-0 p-0">Title:</h6>{{ video.title }}
+        <h6 class="m-0 p-0">Created at:</h6>{{ video.created_at }}
+
+    </div>
+    <video [src]="convertLink(video.video_file)" controls preload></video>
+    }
+
+
+</div>

@@ -2,11 +2,12 @@ import { Component, Input } from '@angular/core';
 import { VideoService } from '../../../services/Stream/video.service';
 import { CommonModule } from '@angular/common';
 import { environment } from '../../../../environtments/environtment';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-library',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,RouterLink],
   templateUrl: './library.component.html',
   styleUrl: './library.component.scss'
 })
