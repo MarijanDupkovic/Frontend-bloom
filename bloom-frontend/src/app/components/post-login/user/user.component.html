@@ -10,22 +10,25 @@
                     accept=".jpg,.jpeg,.png">
 
             </form>
-            <div class="d-flex flex-column align-items-start mt-3 w-100" style="max-width: 20rem;" >
+            <div class="d-flex flex-column align-items-start mt-3 w-100" style="max-width: 20rem;">
                 <div class="d-flex w-100 mb-2">
                     <h3 class="m-0 p-0">Details</h3>
-    
+
                     <div class="d-flex justify-content-end align-items-end w-100">
-                        <a routerLink="/site/edit-profile">edit Details</a>
+                        <a id="editDetails" routerLink="/site/edit-profile">edit Details</a>
                     </div>
                 </div>
-                <div class="d-flex justify-content-center">
-                    <span *ngIf="user">{{ user[0].username }}</span>
+                <div class="d-flex justify-content-center flex-column mb-2">
+                    <h6 style="font-weight: 700;">Username:</h6>
+                    <span id="username" *ngIf="user">{{ user[0].username }}</span>
                 </div>
-                <div class="d-flex justify-content-center">
-                    <span *ngIf="user">{{ user[0].email }}</span>
+                <div class="d-flex justify-content-center flex-column">
+                    <h6 style="font-weight: 700;">Username:</h6>
+
+                    <span id="email" *ngIf="user">{{ user[0].email }}</span>
                 </div>
             </div>
-            <div class="d-flex flex-column align-items-start mt-3 w-100" style="max-width: 20rem;">
+            <!-- <div class="d-flex flex-column align-items-start mt-3 w-100" style="max-width: 20rem;">
                 <div class="d-flex ">
                     <h3>Newsletter</h3>
                 </div>
@@ -34,9 +37,9 @@
                 </div>
     
     
-            </div>
+            </div> -->
         </div>
-        </div>
+    </div>
 
-        
+
 </div>

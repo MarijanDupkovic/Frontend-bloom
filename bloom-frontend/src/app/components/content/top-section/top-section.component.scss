@@ -1,4 +1,17 @@
 .intro {
-    width: 325px;
-    height: 250px;
-}
+    width: 100%;
+    max-width: 900px;
+    height: auto;
+    z-index: 1;
+    position: relative;
+  }
+  
+  .marketing-landing {
+    background-color: #000;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+  }
+  .overlapping-element {
+    z-index: 2;
+  }

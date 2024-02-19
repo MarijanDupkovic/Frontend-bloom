@@ -1,9 +1,15 @@
-<div class="text-center pb-5">
-    <h1>Show and say all you want in a short video!</h1>
-    <h2>The easiest way to share short videomessages in your team....</h2>
-    <a class="btn btn-info btn-shadow mt-3" href="#">Use RECSYNC for free!</a>
-</div>
+<div class="d-flex flex-column align-items-center justify-content-center" style="width:100%">
+    <div class="mt-4" style="width: 80%;">
+        <div class="text-center pb-5">
+            <h1>Show and say all you want in a short video!</h1>
+            <h6>The easiest way to share short videomessages in your team....</h6>
+            <a class="btn btn-info btn-shadow mt-3" routerLink="/signup">Use RECSYNC for free!</a>
+        </div>
 
-<div class="d-flex justify-content-center">
-    <img class="intro" src="assets/images/Example.png">
+        <div class="d-flex justify-content-center marketing-landing">
+            <video #videoPlayer class="intro" autoplay preload (ended)="nextVideo()" [src]="videos[currentVideoIndex]">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+    </div>
 </div>
