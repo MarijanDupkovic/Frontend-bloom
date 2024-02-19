@@ -1,33 +1,42 @@
-<div style="min-height: calc(100vh - 80px);">
-    <div class="d-flex justify-content-center p-3 flex-column align-items-center">
-        <form class="d-flex flex-column justify-content-center align-items-center" id="uploadform" method="put" enctype="multipart/form-data">
-            <img [src]="profileImg" class="rounded-circle mt-3 " style="object-fit: cover; width: 140px;height: 140px;" alt="">
-            <label class="mt-2" for="choose-image">edit avatar</label>
-            <input class="d-none" type="file" id="choose-image" name="img" (change)="handleFileInput()" #fileInput accept=".jpg,.jpeg">
-            
-        </form>
-    </div>
+<div class="d-flex align-items-center flex-column mb-5" style="min-height: calc(100vh - 100px - 180px);">
+    <div style="width: 80%;">
+        <div class="d-flex justify-content-center p-3 flex-column align-items-center w-100">
+            <form class="d-flex flex-column justify-content-center align-items-center" id="uploadform" method="put"
+                enctype="multipart/form-data">
+                <img [src]="profileImg" class="rounded-circle mt-3 shadow-lg border border-2 border-info"
+                    style="object-fit: cover; width: 140px;height: 140px;" alt="">
+                <label class="mt-2" for="choose-image">edit avatar</label>
+                <input class="d-none" type="file" id="choose-image" name="img" (change)="handleFileInput()" #fileInput
+                    accept=".jpg,.jpeg,.png">
 
-    <div class="d-flex flex-column align-items-start mt-3">
-        <div class="d-flex justify-content-between w-100">
-            <h3>Details</h3>
-            <a href="">edit Details</a>
+            </form>
+            <div class="d-flex flex-column align-items-start mt-3 w-100" style="max-width: 20rem;" >
+                <div class="d-flex w-100 mb-2">
+                    <h3 class="m-0 p-0">Details</h3>
+    
+                    <div class="d-flex justify-content-end align-items-end w-100">
+                        <a routerLink="/site/edit-profile">edit Details</a>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-center">
+                    <span *ngIf="user">{{ user[0].username }}</span>
+                </div>
+                <div class="d-flex justify-content-center">
+                    <span *ngIf="user">{{ user[0].email }}</span>
+                </div>
+            </div>
+            <div class="d-flex flex-column align-items-start mt-3 w-100" style="max-width: 20rem;">
+                <div class="d-flex ">
+                    <h3>Newsletter</h3>
+                </div>
+                <div class="align-items-start" >
+                    <input  type="checkbox"><span class="mx-5">Subscribe to Newsletter</span>
+                </div>
+    
+    
+            </div>
         </div>
-        <div class="d-flex justify-content-center">
-            <span *ngIf="user">{{ user[0].username }}</span>
-        </div>
-        <div class="d-flex justify-content-center">
-            <span *ngIf="user">{{ user[0].email }}</span>
-        </div>
-    </div>
-    <div class="d-flex flex-column align-items-start mt-3">
-        <div class="d-flex justify-content-center">
-            <h3>Newsletter</h3>
-        </div>
-        <div class="d-flex justify-content-center gap-2 align-items-center">
-            <input type="checkbox">Subscribe to newsletter
         </div>
 
-
-    </div>
+        
 </div>

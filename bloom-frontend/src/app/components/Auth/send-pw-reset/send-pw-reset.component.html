@@ -1,17 +1,18 @@
-<div class="w-100 d-flex justify-content-center align-items-center flex-column" style="height:calc(100vh - 20vh);">
-    <h2 class="mb-3">Passwort zurücksetzen</h2>
+<div class="w-100 d-flex justify-content-center align-items-center flex-column" style="height: calc(100vh - 100px - 180px);">
 
-    <div class="w-50 h-25">
+    <div style="width: 80%;">
+        <h2 class="mb-3">Get reset-mail</h2>
+        <p class="mb-3">Enter your email address and we will send you a link to reset your password</p>
         <form class="d-flex flex-column form-floating" (ngSubmit)="getResetPasswordMail()">
 
             <div class="form-floating mb-3 w-100 align-self-center" style="max-width:18rem;">
-                <input type="email" class="form-control text-secondary border-0 shadow-none" placeholder="name@example.com"
+                <input type="email" class="form-control text-secondary border-0 shadow-none rounded-5" placeholder="name@example.com"
                     name="email" id="emailField" [(ngModel)]="email" required>
                 <label for="emailField">Enter your email</label>
 
             </div>
-            <button class="btn btn-info btn-shadow mt-3"
-                style="max-width:18rem;max-height:3rem;height:2.5rem;" [disabled]="send">Absenden</button>
+            <button class="w-100 btn btn-info btn-shadow align-self-center mt-3 rounded border-0"
+                style="max-width:8rem;max-height:3rem;height:2.5rem;" [disabled]="send">Send</button>
                 
         </form>
 
