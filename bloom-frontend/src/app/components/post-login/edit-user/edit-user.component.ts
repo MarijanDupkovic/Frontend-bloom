@@ -6,7 +6,7 @@ import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-edit-user',
   standalone: true,
-  imports: [CommonModule,FormsModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './edit-user.component.html',
   styleUrl: './edit-user.component.scss'
 })
@@ -18,31 +18,54 @@ export class EditUserComponent {
   failed: boolean = false;
   fail_message: string = '';
   message = ``;
+  location: any;
   constructor(private userService: UserService) { }
-  
+
   async ngOnInit() {
     this.getData();
   }
-
 
   async getData() {
     this.user = await this.userService.getUserData('/user');
     this.username = this.user[0].username;
     this.email = this.user[0].email;
-
   }
 
-  changeData() {
+  async changeData() {
     this.send = true;
-    this.userService.changeUserData('/user', this.username, this.email, this.user[0].id);
-  
-    setTimeout(() => {
-      this.send = false;
-    }, 2000);
+    let resp: any;
+    resp = await this.userService.changeUserData('/user', this.username, this.email, this.user[0].id).then((data: any) => {
+      this.setErrorMessage('Daten erfolgreich geändert', 'Daten erfolgreich geändert');
+
+    }).catch((err) => {
+      if (err.status == 404) {
+        this.setErrorMessage(' Benutzer mit dieser Emailadresse nicht vorhanden.', err);
+      }
+      else if (err.status == 400) {
+        this.setErrorMessage(' Bitte gib eine Emailadresse ein.', err);
+      }
+    });
   }
 
   back() {
     window.history.back();
   }
-  
+
+  setErrorMessage(message: string, error: any) {
+    this.failed = true;
+    this.fail_message = error.error;
+    this.message = message;
+    this.resetErrorMessage();
+  }
+
+  resetErrorMessage() {
+    setTimeout(() => {
+      this.failed = false;
+      this.fail_message = '';
+      this.message = '';
+      this.send = false;
+      this.back();
+    }, 3000);
+  }
+
 }

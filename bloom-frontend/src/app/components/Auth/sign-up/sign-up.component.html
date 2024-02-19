@@ -1,23 +1,23 @@
 <div class="w-100 d-flex justify-content-center align-items-center flex-column mb-5" style="height:calc(100vh - 25vh);">
-    <h2 class="mb-3">Sign up</h2>
+<div style="width: 80%;">
+    <h1 class="mb-3">Sign up</h1>
 
-    <div class="w-50 h-75">
         <form class="d-flex flex-column form-floating" (ngSubmit)="signup()">
             <div class="form-floating mb-3 w-100 align-self-center" style="max-width:18rem;">
-                <input type="text" class="form-control text-secondary border-0 shadow-none" placeholder="username"
+                <input type="text" class="form-control text-secondary border-0 shadow-none rounded-5" placeholder="username"
                     name="email" id="usernameField" [(ngModel)]="username" required>
                 <label for="usernameField">Enter your username</label>
 
             </div>
             <div class="form-floating mb-3 w-100 align-self-center" style="max-width:18rem;">
-                <input type="email" class="form-control text-secondary border-0 shadow-none"
+                <input type="email" class="form-control text-secondary border-0 shadow-none rounded-5"
                     placeholder="name@example.com" name="email" id="emailField" [(ngModel)]="email" required>
                 <label for="emailField">Enter your email</label>
             </div>
             <div class="form-floating mb-3 w-100 align-self-center" style="max-width:18rem;">
-                <input [type]="hide ? 'password' : 'text'" class="form-control text-secondary border-0 shadow-none"
+                <input [type]="hide ? 'password' : 'text'" class="form-control text-secondary border-0 shadow-none rounded-5"
                     name="password" id="passwordField" [(ngModel)]="password" placeholder="Enter your password">
-                <button tabindex="-1" (click)="togglePWField($event)" class="border-0 text-secondary rounded-2"
+                <button tabindex="-1" (click)="togglePWField($event)" class="border-0 text-secondary rounded-4"
                     [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide"
                     style="color: white;position:absolute;right:0;bottom:0;top:0;">
                     <span class="material-icons">{{hide ? 'visibility_off' : 'visibility'}}</span>
@@ -27,17 +27,17 @@
             <div [class.invalid]="password != password2 && password.length > 0 && password2.length > 0"
                 [class.valid]="password == password2 && password.length > 0 && password2.length > 0"
                 class="form-floating mb-3 w-100 align-self-center" style="max-width:18rem;">
-                <input [type]="hide2 ? 'password' : 'text'" class="form-control text-secondary border-0 shadow-none"
+                <input [type]="hide2 ? 'password' : 'text'" class="form-control text-secondary border-0 shadow-none rounded-5"
                     name="password2" id="passwordField2" [(ngModel)]="password2" placeholder="Bestätige dein Password">
-                <button tabindex="-1" (click)="togglePWField2($event)" class="border-0 text-secondary rounded-2"
+                <button tabindex="-1" (click)="togglePWField2($event)" class="border-0 text-secondary rounded-4"
                     [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide"
                     style="color: white;position:absolute;right:0;bottom:0;top:0;">
                     <span class="material-icons">{{hide2 ? 'visibility_off' : 'visibility'}}</span>
                 </button>
                 <label for="passwordField">Reenter your password</label>
             </div>
-            <button class="btn btn-info btn-shadow"
-                style="max-width:18rem;max-height:3rem;height:2.5rem;" [disabled]="send">Jetzt registrieren</button>
+            <button class="w-100 btn btn-info btn-shadow align-self-center mt-3 rounded border-0"
+            style="max-width:8rem;max-height:3rem;height:2.5rem;" [disabled]="send">Signup</button>
 
             <div class="mt-3 align-self-center ">
                 <span>Bereits registriert?<a routerLink="/signin">Jetzt einloggen</a></span>
@@ -45,7 +45,7 @@
 
         </form>
 
-    </div>
+</div>
     <div class="card text-bg-dark rounded-3" *ngIf="success" style="position:absolute;z-index:100;max-width:25rem;">
         <div class="card-title text-danger d-flex text-align-center justify-content-center align-items-center w-100"
             style="font-weight:900; font-size:4rem;">RECSYNC</div>
