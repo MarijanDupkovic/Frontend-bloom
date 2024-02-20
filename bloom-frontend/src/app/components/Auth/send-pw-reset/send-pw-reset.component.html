@@ -5,9 +5,9 @@
         <p class="mb-3">Enter your email address and we will send you a link to reset your password</p>
         <form class="d-flex flex-column form-floating" (ngSubmit)="getResetPasswordMail()">
 
-            <div class="form-floating mb-3 w-100 align-self-center" style="max-width:18rem;">
+            <div class="form-floating mb-3 w-100 align-self-center" style="max-width:20rem;">
                 <input type="email" class="form-control text-secondary border-0 shadow-none rounded-5" placeholder="name@example.com"
-                    name="email" id="emailField" [(ngModel)]="email" required>
+                    name="email" style="background: transparent;" id="emailField" [(ngModel)]="email" required>
                 <label for="emailField">Enter your email</label>
 
             </div>

@@ -22,10 +22,20 @@
                     <h6 style="font-weight: 700;">Username:</h6>
                     <span id="username" *ngIf="user">{{ user[0].username }}</span>
                 </div>
-                <div class="d-flex justify-content-center flex-column">
-                    <h6 style="font-weight: 700;">Username:</h6>
+                <div class="d-flex justify-content-center flex-column mb-2">
+                    <h6 style="font-weight: 700;">Email:</h6>
 
                     <span id="email" *ngIf="user">{{ user[0].email }}</span>
+                </div>
+                <div class="d-flex justify-content-center flex-column mb-2">
+                    <h6 style="font-weight: 700;">First name:</h6>
+
+                    <span id="firstName" *ngIf="user">{{ user[0].first_name }}</span>
+                </div>
+                <div class="d-flex justify-content-center flex-column mb-2">
+                    <h6 style="font-weight: 700;">Last name:</h6>
+
+                    <span id="lastName" *ngIf="user">{{ user[0].last_name }}</span>
                 </div>
             </div>
             <!-- <div class="d-flex flex-column align-items-start mt-3 w-100" style="max-width: 20rem;">
