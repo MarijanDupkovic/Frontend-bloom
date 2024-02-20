@@ -35,10 +35,12 @@ export class AuthService {
     return token !== null;
   }
 
-  public signUp(email: string, password: string, password2: string, username: string) {
+  public signUp(email: string, password: string, password2: string, username: string, firstName: string, lastName: string) {
     const url = environment.baseUrl + '/register/';
     const body = {
       "email": email,
+      "first_name": firstName,
+      "last_name": lastName,
       "password": password,
       "password2": password2,
       "username": username,

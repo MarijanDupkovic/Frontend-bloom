@@ -6,18 +6,18 @@
     <div style="width: 80%;">
         <form class="d-flex flex-column form-floating" (ngSubmit)="login()">
 
-            <div class="form-floating mb-3 w-100 align-self-center " style="max-width:18rem;">
-                <input type="email" class="form-control text-secondary border-0 shadow rounded-5" placeholder="name@example.com"
+            <div class="form-floating mb-3 w-100 align-self-center " style="max-width:20rem;">
+                <input type="email" style="background: transparent;" class="form-control text-secondary border-0 rounded-5" placeholder="name@example.com"
                     name="email" id="emailField" [(ngModel)]="email" required>
                 <label for="emailField">Enter your email</label>
 
             </div>
-            <div class="form-floating mb-3 w-100 align-self-center d-flex rounded-5" style="max-width:18rem;">
+            <div class="form-floating mb-3 w-100 align-self-center d-flex rounded-5" style="max-width:20rem;">
 
-                <input [type]="hide ? 'password' : 'text'" class="form-control text-secondary border-0 shadow w-100 rounded-5"
+                <input [type]="hide ? 'password' : 'text'" style="background: transparent;" class="form-control text-secondary border-0 w-100 rounded-5"
                     name="password" id="passwordField" [(ngModel)]="password" placeholder="Enter your password">
                 <button tabindex="-1" (click)="togglePWField($event)" class="border-0 text-secondary rounded-4"  [attr.aria-label]="'Hide password'"
-                    [attr.aria-pressed]="hide" style="color: white;position:absolute;right:0;bottom:0;top:0;">
+                    [attr.aria-pressed]="hide" style="color: white;position:absolute;right:0;bottom:0;top:0;background: transparent;">
                     <span class="material-icons rounded-5">{{hide ? 'visibility_off' : 'visibility'}}</span>
                 </button>
                 <label for="passwordField">Enter your password</label>

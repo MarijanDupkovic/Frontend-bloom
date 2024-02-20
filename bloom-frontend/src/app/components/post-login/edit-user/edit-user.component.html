@@ -4,18 +4,18 @@
     <form class="d-flex flex-column form-floating" (ngSubmit)="changeData()">
 
         <div class="w-100 d-flex flex-column align-items-center justify-content-center gap-2">
-            <div class="form-floating mb-3 w-100 align-self-center" style="max-width:18rem;">
+            <div class="form-floating mb-3 w-100 align-self-center" style="max-width:20rem;">
 
-                <input type="text" class="form-control text-secondary border-0 shadow rounded-5" placeholder="username"
-                    name="username" id="username" [(ngModel)]="username" required>
+                <input type="text" class="form-control text-secondary border-0 rounded-5" placeholder="username"
+                    name="username" id="username" style="background: transparent;" [(ngModel)]="username" required>
                     <label for="username">Enter your username</label>
             </div>
 
 
-            <div class="form-floating mb-3 w-100 align-self-center" style="max-width:18rem;">
+            <div class="form-floating mb-3 w-100 align-self-center" style="max-width:20rem;">
 
-                <input type="email" class="form-control text-secondary border-0 shadow rounded-5"
-                    placeholder="name@example.com" name="email" id="emailField" [(ngModel)]="email" required>
+                <input type="email" class="form-control text-secondary border-0 "
+                    placeholder="name@example.com" style="background: transparent;" name="email" id="emailField" [(ngModel)]="email" required>
                 <label for="emailField">Enter your email</label>
             </div>
 

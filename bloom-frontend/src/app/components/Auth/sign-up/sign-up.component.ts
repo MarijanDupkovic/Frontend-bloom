@@ -15,6 +15,8 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 })
 export class SignUpComponent {
   email: string = '';
+  firstName: string = '';
+  lastName: string = '';
   password: string = '';
   password2: string = '';
   username: string = '';
@@ -31,9 +33,9 @@ export class SignUpComponent {
     this.send = true;
     try {
       
-      let resp: any = await this.authService.signUp(this.email, this.password, this.password2, this.username);
+      let resp: any = await this.authService.signUp(this.email, this.password, this.password2, this.username, this.firstName, this.lastName);
       this.success = true;
-      setTimeout(() => this.router.navigateByUrl('/login'), 5000);
+      setTimeout(() => this.router.navigateByUrl('/signin'), 5000);
     } catch (e) {
       let error: any = e;
       if (error.status == 405) {
