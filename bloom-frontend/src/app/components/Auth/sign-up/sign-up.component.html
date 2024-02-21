@@ -1,12 +1,12 @@
 <div class="w-100 d-flex justify-content-center align-items-center flex-column mb-5 mt-3"
     style="min-height: calc(100vh - 100px - 180px);">
-    <div style="width: 80%;">
+    <div class="d-flex justify-content-center" style="width: 80%;">
 
-        <div class="d-flex flex-column justify-content-center align-items-center">
-            <h1 class="mb-3">Sign up</h1>
+        <div class="d-flex justify-content-center align-items-center flex-column" style="max-width: 320px;">
+            <h1 class="mb-4 align-self-start">Sign up</h1>
 
             <div>
-                <span id="step1" [ngClass]="step1 ? 'active-link': ''"  (click)="next('step1')">Step 1</span>
+                <span id="step1" [ngClass]="step1 ? 'active-link': ''" (click)="next('step1')">Step 1</span>
                 -
                 <span id="step2" [ngClass]="step2 ? 'active-link': ''" (click)="next('step2')">Step 2</span>
                 -
@@ -20,28 +20,28 @@
                         <input type="text" class="form-control text-secondary border-0 shadow-none rounded-5"
                             style="background: transparent;" placeholder="username" name="username" id="usernameField"
                             [(ngModel)]="username" required>
-                        <label for="usernameField">Enter your username</label>
+                        <label for="usernameField" class="m-0 p-0 pt-3">Enter your username</label>
 
                     </div>
                     <div *ngIf="step1" class="form-floating mb-3 w-100 align-self-center" style="max-width:20rem;">
                         <input type="email" class="form-control text-secondary border-0 shadow-none rounded-5"
                             placeholder="name@example.com" style="background: transparent;" name="email" id="emailField"
                             [(ngModel)]="email" required>
-                        <label for="emailField">Enter your email</label>
+                        <label for="emailField" class="m-0 p-0 pt-3">Enter your email</label>
                     </div>
                     <div *ngIf="step2" class="form-floating mb-3 w-100 align-self-center" style="max-width:20rem;">
                         <input type="email" style="background: transparent;"
                             class="form-control text-secondary border-0 shadow-none rounded-5"
                             placeholder="name@example.com" name="firstName" id="firstNameField" [(ngModel)]="firstName"
                             required>
-                        <label for="firstNameField">Enter your first name</label>
+                        <label for="firstNameField" class="m-0 p-0 pt-3">Enter your first name</label>
                     </div>
                     <div *ngIf="step2" class="form-floating mb-3 w-100 align-self-center" style="max-width:20rem;">
                         <input type="email" style="background: transparent;"
                             class="form-control text-secondary border-0 shadow-none rounded-5"
                             placeholder="name@example.com" name="lastName" id="lastNameField" [(ngModel)]="lastName"
                             required>
-                        <label for="lastNameField">Enter your last name</label>
+                        <label for="lastNameField" class="m-0 p-0 pt-3">Enter your last name</label>
                     </div>
                     <div *ngIf="step3" class="form-floating mb-3 w-100 align-self-center" style="max-width:20rem;">
                         <input [type]="hide ? 'password' : 'text'"
@@ -55,9 +55,10 @@
                                 'visibility_off'
                                 : 'visibility'}}</span>
                         </button>
-                        <label for="passwordField">Enter your password</label>
+                        <label for="passwordField" class="m-0 p-0 pt-3">Enter your password</label>
                     </div>
-                    <div *ngIf="step3" [class.invalid]="password != password2 && password.length > 0 && password2.length > 0"
+                    <div *ngIf="step3"
+                        [class.invalid]="password != password2 && password.length > 0 && password2.length > 0"
                         [class.valid]="password == password2 && password.length > 0 && password2.length > 0"
                         class="form-floating mb-3 w-100 align-self-center" style="max-width:20rem;">
                         <input [type]="hide2 ? 'password' : 'text'"
@@ -69,49 +70,51 @@
                             style="color: white;position:absolute;right:0;bottom:0;top:0;background: transparent;">
                             <span class="material-icons">{{hide2 ? 'visibility_off' : 'visibility'}}</span>
                         </button>
-                        <label for="passwordField">Reenter your password</label>
+                        <label for="passwordField2" class="m-0 p-0 pt-3">Reenter your password</label>
                     </div>
                     <div *ngIf="step4" class="form-floating mb-3 w-100 align-self-center" style="max-width:20rem;">
                         <input type="text" style="background: transparent;"
                             class="form-control text-secondary border-0 shadow-none rounded-5"
-                            placeholder="name@example.com" name="street" id="streetField" [(ngModel)]="street"
-                            required>
-                        <label for="streetField">Street + number</label>
+                            placeholder="name@example.com" name="street" id="streetField" [(ngModel)]="street" required>
+                        <label for="streetField" class="m-0 p-0 pt-3">Street + number</label>
                     </div>
                     <div *ngIf="step4" class="d-flex gap-3">
-                        <div  class="form-floating mb-3 align-self-center p-0" style="max-width:20rem;">
+                        <div class="form-floating mb-3 align-self-center p-0" style="max-width:20rem;">
                             <input type="number" style="background: transparent;"
                                 class="form-control text-secondary border-0 shadow-none rounded-5"
                                 placeholder="name@example.com" name="zipCode" id="zipCodeField" [(ngModel)]="zipCode"
                                 required>
-                            <label for="zipCodeField">Zip-code</label>
+                            <label for="zipCodeField" class="m-0 p-0 pt-3">Zip-code</label>
                         </div>
                         <div class="form-floating mb-3 align-self-center" style="max-width:20rem;">
                             <input type="text" style="background: transparent;"
                                 class="form-control text-secondary border-0 shadow-none rounded-5"
-                                placeholder="name@example.com" name="city" id="cityField" [(ngModel)]="city"
-                                required>
-                            <label for="cityField">City</label>
+                                placeholder="name@example.com" name="city" id="cityField" [(ngModel)]="city" required>
+                            <label for="cityField" class="m-0 p-0 pt-3">City</label>
                         </div>
-                       
+
                     </div>
                     <div *ngIf="step4" class="form-floating mb-3 align-self-center w-100" style="max-width:20rem;">
                         <input type="text" style="background: transparent;"
                             class="form-control text-secondary border-0 shadow-none rounded-5"
                             placeholder="name@example.com" name="country" id="countryField" [(ngModel)]="country"
                             required>
-                        <label for="countryField">Country</label>
+                        <label for="countryField" class="m-0 p-0 pt-3">Country</label>
                     </div>
 
                     <div class="d-flex gap-2">
-                        <button type="button" [disabled]="step1"  class="w-100 btn btn-info btn-shadow align-self-center mt-3 rounded border-0"
-                        style="max-width:8rem;max-height:3rem;height:2.5rem;" (click)="back()" >Back</button>
-                        <button type="button" [disabled]="isDisabled()" *ngIf="!step4" class="w-100 btn btn-info btn-shadow align-self-center mt-3 rounded border-0"
-                        style="max-width:8rem;max-height:3rem;height:2.5rem;" (click)="forward()" >Next</button>
-                        <button type="submit" *ngIf="step4" class="w-100 btn btn-info btn-shadow align-self-center mt-3 rounded border-0"
-                        style="max-width:8rem;max-height:3rem;height:2.5rem;" [disabled]="send || isDisabled()">Signup</button>
+                        <button type="button" [disabled]="step1"
+                            class="w-100 btn btn-info btn-shadow align-self-center mt-3 rounded border-0"
+                            style="max-width:8rem;max-height:3rem;height:2.5rem;" (click)="back()">Back</button>
+                        <button type="button" [disabled]="isDisabled()" *ngIf="!step4"
+                            class="w-100 btn btn-info btn-shadow align-self-center mt-3 rounded border-0"
+                            style="max-width:8rem;max-height:3rem;height:2.5rem;" (click)="forward()">Next</button>
+                        <button type="submit" *ngIf="step4"
+                            class="w-100 btn btn-info btn-shadow align-self-center mt-3 rounded border-0"
+                            style="max-width:8rem;max-height:3rem;height:2.5rem;"
+                            [disabled]="send || isDisabled()">Signup</button>
                     </div>
-                    
+
 
                     <div class="mt-3 align-self-center ">
                         <span>Bereits registriert?<a routerLink="/signin">Jetzt einloggen</a></span>

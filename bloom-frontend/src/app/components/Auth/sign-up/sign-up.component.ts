@@ -74,18 +74,22 @@ export class SignUpComponent {
 
   async signup() {
     this.send = true;
-    try {
       
-      let resp: any = await this.authService.signUp(this.email, this.password, this.password2, this.username, this.firstName, this.lastName, this.street, this.zipCode, this.city, this.country);
-      this.success = true;
-      setTimeout(() => this.router.navigateByUrl('/signin'), 5000);
-    } catch (e) {
-      let error: any = e;
-      if (error.status == 405) {
-        this.setErrorMessage('Email oder username bereits in Verwendung', error);
-      }
+      await this.authService.signUp(this.email, this.password, this.password2, this.username, this.firstName, this.lastName, this.street, this.zipCode, this.city, this.country)
+      .then(()=>{
+        this.success = true;
+        setTimeout(() => this.router.navigateByUrl('/signin'), 5000);
 
-    }
+      }).catch((e) => { 
+        let error: any = e;
+        
+        if (error.status == 400) {
+          this.setErrorMessage('Email oder username bereits in Verwendung', error);
+        }
+        if (error.status == 405) {
+          this.setErrorMessage('Email oder username bereits in Verwendung', error);
+        }
+       });
   }
   resetErrorMessage() {
     setTimeout(() => {
@@ -94,14 +98,8 @@ export class SignUpComponent {
       this.fail_message = '';
       this.message = '';
       this.send = false;
-      const passwordField = document.getElementById('passwordField') as HTMLInputElement;
-      const emailField = document.getElementById('emailField') as HTMLInputElement;
-      const usernameField = document.getElementById('usernameField') as HTMLInputElement;
-      const passwordField2 = document.getElementById('passwordField2') as HTMLInputElement;
-      passwordField.value = '';
-      passwordField2.value = '';
-      emailField.value = '';
-      usernameField.value = '';
+
+     
     }, 3000);
 
   }
