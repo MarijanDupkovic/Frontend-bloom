@@ -35,7 +35,7 @@ export class AuthService {
     return token !== null;
   }
 
-  public signUp(email: string, password: string, password2: string, username: string, firstName: string, lastName: string) {
+  public signUp(email: string, password: string, password2: string, username: string, firstName: string, lastName: string, street: string, zipCode: string, city: string, country: string) {
     const url = environment.baseUrl + '/register/';
     const body = {
       "email": email,
@@ -44,6 +44,10 @@ export class AuthService {
       "password": password,
       "password2": password2,
       "username": username,
+      "street": street,
+      "zip_code": zipCode,
+      "city": city,
+      "country": country
     };
     return lastValueFrom(this.http.post(url, body));
   }
