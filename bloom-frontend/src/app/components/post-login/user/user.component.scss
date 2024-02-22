@@ -1,0 +1,21 @@
+.detailsContainer {
+}
+
+
+
+@media (min-width:900px) {
+    .detailsContainer {
+        max-width:unset !important; ;
+
+        h5{
+            font-size: 1.8rem;
+        }
+        span {
+            font-size: 1.2rem;
+        }
+    }
+    h1{
+        font-size: 4rem;
+    }
+    
+}

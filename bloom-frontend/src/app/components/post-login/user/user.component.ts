@@ -28,8 +28,7 @@ export class UserComponent implements AfterViewInit {
         url = splitted[3] + '/' + splitted[4] + '/' + splitted[5] + '/';
         this.profileImg = 'https://be.recsync.app/' + url;
       }
-      this.user = data;
-      
+      this.user = data;      
     });
 
   }
