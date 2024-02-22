@@ -22,11 +22,14 @@ a {
   border: none !important;
   border-bottom: 1px solid rgba(0,0,0,0.25) !important;
   border-radius: 0 !important;
+  color: #000 !important;
+
 }
 
 .form-floating .form-control:focus {
   border-color: #000;
   box-shadow: none !important;
+  color: #000 !important;
 }
 
 label::after {
@@ -40,3 +43,5 @@ label::after {
     max-width: 780px;
   }
 }
+
+

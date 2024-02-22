@@ -10,8 +10,8 @@
         <div class="d-flex justify-content-center p-3 flex-column align-items-center w-100">
             <form class="d-flex flex-column justify-content-center align-items-center" id="uploadform" method="put"
                 enctype="multipart/form-data">
-                <img [src]="profileImg" class="rounded-circle shadow-lg border border-2 border-info"
-                    style="object-fit: cover; width: 140px;height: 140px;" alt="">
+                <img [src]="profileImg" class="rounded-circle shadow-lg border border-2 border-info profileImg"
+                    style="object-fit: cover;" alt="">
                 <label class="mt-2" for="choose-image">edit avatar</label>
                 <input class="d-none" type="file" id="choose-image" name="img" (change)="handleFileInput()" #fileInput
                     accept=".jpg,.jpeg,.png">
