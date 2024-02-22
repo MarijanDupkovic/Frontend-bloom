@@ -1,7 +1,7 @@
-<div class="d-flex align-items-center flex-column justify-content-center"
+<div class="d-flex align-items-center flex-column justify-content-center "
     style="min-height: calc(100vh - 100px - 180px);">
-    <div class="d-flex justify-content-center" style="width: 80%;">
-        <div class="d-flex justify-content-center align-items-center flex-column" style="max-width: 320px;">
+    <div class="d-flex justify-content-center w-80 signupHead" >
+        <div class="d-flex justify-content-center align-items-center flex-column"style="max-width: 320px;">
             <h1 class="mb-4 align-self-start">Sign in</h1>
 
             <form class="d-flex flex-column form-floating w-100" (ngSubmit)="login()">
@@ -9,7 +9,7 @@
                 <div class="form-floating mb-3 w-100 align-self-center " style="max-width:20rem;">
                     <input type="email" style="background: transparent;"
                         class="form-control text-secondary border-0 rounded-5 w-100" placeholder="name@example.com"
-                        name="email" id="emailField" [(ngModel)]="email" required>
+                        name="email" id="emailField" [(ngModel)]="email" required >
                     <label for="emailField" class="m-0 p-0 pt-3">Enter your email</label>
 
                 </div>
@@ -17,7 +17,7 @@
 
                     <input [type]="hide ? 'password' : 'text'" style="background: transparent;"
                         class="form-control text-secondary border-0 w-100 rounded-5" name="password" id="passwordField"
-                        [(ngModel)]="password" placeholder="Enter your password">
+                        [(ngModel)]="password" placeholder="Enter your password" >
                     <button tabindex="-1" (click)="togglePWField($event)" class="border-0 text-secondary rounded-4"
                         [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide"
                         style="color: white;position:absolute;right:0;bottom:0;top:0;background: transparent;">

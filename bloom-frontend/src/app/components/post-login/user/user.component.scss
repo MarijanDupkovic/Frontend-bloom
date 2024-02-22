@@ -1,9 +1,14 @@
-.detailsContainer {
+.profileImg{
+    width: 140px;
+    height: 140px;
 }
 
-
-
 @media (min-width:900px) {
+    .profileImg{
+        width: 250px;
+        height: 250px;
+    }
+
     .detailsContainer {
         max-width:unset !important; ;
 

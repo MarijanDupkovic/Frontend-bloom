@@ -13,6 +13,12 @@ import { FormsModule } from '@angular/forms';
 export class EditUserComponent {
   send: boolean = false;
   username: string = '';
+  firstName: string = '';
+  lastName: string = '';
+  street: string = '';
+  zipCode: string = '';
+  city: string = '';
+  country: string = '';
   email: string = '';
   user: any;
   failed: boolean = false;
@@ -29,6 +35,12 @@ export class EditUserComponent {
     this.user = await this.userService.getUserData('/user');
     this.username = this.user[0].username;
     this.email = this.user[0].email;
+    this.firstName = this.user[0].first_name;
+    this.lastName = this.user[0].last_name;
+    this.street = this.user[0].street;
+    this.zipCode = this.user[0].zip_code;
+    this.city = this.user[0].city;
+    this.country = this.user[0].country;
   }
 
   async changeData() {
