@@ -32,3 +32,11 @@ a {
 label::after {
   display: none;   
 }
+
+.w-80{
+  width: 80%;
+  @media (min-width: 900px) {
+    width: 50%;
+    max-width: 780px;
+  }
+}
