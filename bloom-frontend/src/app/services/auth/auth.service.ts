@@ -10,7 +10,7 @@ import { environment } from '../../../environtments/environtment';
 
 
 export class AuthService {
-  public loggedIn = new BehaviorSubject<boolean>(false);
+  private loggedIn = new BehaviorSubject<boolean>(false);
   loggedIn$ = this.loggedIn.asObservable();
   constructor(private http: HttpClient) {
     this.loggedIn.next(this.isAuthenticated());
