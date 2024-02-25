@@ -1,35 +1,53 @@
-import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
-import { PreLoginComponent } from './pre-login/pre-login.component';
-import { PostLoginComponent } from './post-login/post-login.component';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { filter } from 'rxjs/operators';
+import { CommonModule, NgIf } from '@angular/common';
+import { ChangeDetectorRef, Component, EventEmitter, Input, NgZone, OnChanges, OnInit } from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
+import { AuthService } from '../../services/auth/auth.service';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import { data } from '@tensorflow/tfjs';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [PreLoginComponent, PostLoginComponent,CommonModule],
+  imports: [CommonModule, RouterLink],
   providers: [],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })
 export class HeaderComponent implements OnInit {
   url: any = '';
-  @Input() loggedIn: boolean = false;
-  constructor(private router: Router) { }
+  isOpen: boolean = false;
+  private subscription: Subscription | undefined;
+  @Input() active: boolean = false;
+  signedIn: boolean = false;
+
+  constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit() {
-    this.router.events.pipe(
-      filter(event => event instanceof NavigationEnd)
-    ).subscribe((event: any) => { // Fix: Add type assertion to NavigationEnd
-      this.url = event.url;
-      this.url = this.url.split('/');
+    this.subscription = this.authService.loggedIn$.subscribe((value: boolean) => { // Specify the type argument as boolean
+      if (!value) {
+        this.signedIn = value;
+      } else {
+        this.signedIn = value;
 
-      this.url.forEach((element: any) => {
-        if (element === 'site') this.loggedIn = true;
       }
-
-      )
     });
   }
+
+  ngOnDestroy() {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
+  }
+
+  toggleMenu() {
+    this.isOpen = !this.isOpen;
+  }
+
+  async logout() {
+    await this.authService.logout().then(() => {
+      this.router.navigateByUrl('');
+    });
+
+  }
+
 }

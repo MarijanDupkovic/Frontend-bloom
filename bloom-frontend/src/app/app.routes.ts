@@ -36,8 +36,8 @@ export const routes: Routes = [
             { path: 'recording' , component:RecordingComponent },
             { path: 'video-details/:str', component: VideoDetailComponent },
         ]
-        
-    
+
+
     },
 
 ];
