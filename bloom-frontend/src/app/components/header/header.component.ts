@@ -4,11 +4,13 @@ import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth/auth.service';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { data } from '@tensorflow/tfjs';
+import { PreLoginComponent } from './pre-login/pre-login.component';
+import { PostLoginComponent } from './post-login/post-login.component';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink,PreLoginComponent,PostLoginComponent],
   providers: [],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'

@@ -1,10 +1,12 @@
-<div class="w-100 d-flex flex-column mt-5 align-items-center" style="min-height: calc(100vh - 100px - 180px);">
-    <div style="width:80%">
-        <h1 class="mb-3">Edit Pfofile</h1>
-        <form class="d-flex flex-column form-floating mb-5" (ngSubmit)="changeData()">
+<div class="w-100 d-flex flex-column mt-5 align-items-center" style="min-height: calc(100vh - 100px - 210px);">
+    <div class="w-80">
+        <h1 class="mb-5">Edit Pfofile</h1>
+        <div class="d-flex justify-content-center flex-column align-items-center w-100 ">
 
-            <div class="w-100 d-flex flex-column align-items-center justify-content-center gap-2 ">
-                <div class="form-floating mb-3 w-100 align-self-center" style="max-width:20rem;">
+        <form class="d-flex flex-column w-100 detailsContainer" (ngSubmit)="changeData()">
+
+            <div class="w-100 d-flex flex-column align-items-center justify-content-center gap-2 mt-4">
+                <div class="form-floating mb-3 w-100 align-self-start" style="max-width:20rem;">
 
                     <input type="text" class="form-control text-secondary border-0 rounded-5" placeholder="username"
                         name="username" id="username" style="background: transparent;" [(ngModel)]="username" required autocomplete="off">
@@ -12,7 +14,7 @@
                 </div>
 
 
-                <div class="form-floating mb-3 w-100 align-self-center" style="max-width:20rem;">
+                <div class="form-floating mb-3 w-100 align-self-start" style="max-width:20rem;">
 
                     <input type="email" class="form-control text-secondary border-0 " placeholder="name@example.com"
                         style="background: transparent;" name="email" id="emailField" [(ngModel)]="email" required autocomplete="off">
@@ -20,8 +22,8 @@
                 </div>
 
 
-                <div class="d-flex w-100 justify-content-between gap-2">
-                    <div class="form-floating mb-3 w-100 align-self-center " style="max-width:20rem;">
+                <div class="d-flex w-100 justify-content-between align-self-start gap-2">
+                    <div class="form-floating mb-3 w-100" style="max-width:20rem;">
 
                         <input type="text" class="form-control text-secondary border-0 rounded-5"
                             placeholder="First name" name="firstName" id="firstName" style="background: transparent;"
@@ -29,7 +31,7 @@
                         <label for="firstName" class="m-0 p-0 pt-2">First name</label>
                     </div>
 
-                    <div class="form-floating mb-3 w-100 align-self-center " style="max-width:20rem;">
+                    <div class="form-floating mb-3 w-100" style="max-width:20rem;">
 
                         <input type="text" class="form-control text-secondary border-0 rounded-5"
                             placeholder="Last name" name="lastName" id="lastName" style="background: transparent;"
@@ -37,40 +39,41 @@
                         <label for="lastName" class="m-0 p-0 pt-2">Last name</label>
                     </div>
                 </div>
-                <div class="form-floating mb-3 w-100 align-self-center" style="max-width:20rem;">
+                <div class="form-floating mb-3 w-100 align-self-start" style="max-width:20rem;">
                     <input type="text" class="form-control text-secondary border-0 rounded-5" placeholder="Street"
-                        name="street" id="street" style="background: transparent;" [(ngModel)]="street" required autocomplete="off"> 
+                        name="street" id="street" style="background: transparent;" [(ngModel)]="street" required autocomplete="off">
                     <label for="street" class="m-0 p-0 pt-2">Street</label>
                 </div>
-                <div class="d-flex w-100 justify-content-between gap-2">
-                    <div class="form-floating mb-3 w-100 align-self-center" style="max-width:20rem;">
+                <div class="d-flex w-100 justify-content-between gap-2 align-self-start">
+                    <div class="form-floating mb-3 w-100" style="max-width:20rem;">
                         <input type="text" class="form-control text-secondary border-0 rounded-5" placeholder="Zipcode"
                             name="zipCode" id="zipCode" style="background: transparent;" [(ngModel)]="zipCode"
                             required autocomplete="off">
                         <label for="zipCode" class="m-0 p-0 pt-2">Zipcode</label>
                     </div>
-                    <div class="form-floating mb-3 w-100 align-self-center" style="max-width:20rem;">
+                    <div class="form-floating mb-3 w-100" style="max-width:20rem;">
                         <input type="text" class="form-control text-secondary border-0 rounded-5" placeholder="City"
                             name="city" id="city" style="background: transparent;" [(ngModel)]="city"
                             required autocomplete="off">
                         <label for="city" class="m-0 p-0 pt-2">City</label>
                     </div>
                 </div>
-                <div class="form-floating mb-3 w-100 align-self-center" style="max-width:20rem;">
+                <div class="form-floating mb-3 w-100 align-self-start" style="max-width:20rem;">
                     <input type="text" class="form-control text-secondary border-0 rounded-5" placeholder="Country"
                         name="country" id="country" style="background: transparent;" [(ngModel)]="country" required autocomplete="off">
                     <label for="country" class="m-0 p-0 pt-2">Country</label>
                 </div>
-                <div class="d-flex gap-2">
+                <div class="d-flex gap-2 mt-5">
                     <button type="button" class="w-100 btn btn-info btn-shadow align-self-center mt-3 rounded border-0"
                     style="max-width:8rem;max-height:3rem;height:2.5rem;" (click)="back()">Abort</button>
                     <button type="submit" class="w-100 btn btn-info btn-shadow align-self-center mt-3 rounded border-0"
                         style="max-width:8rem;max-height:3rem;height:2.5rem;" [disabled]="send">Change</button>
-                    
+
                 </div>
             </div>
 
         </form>
+        </div>
     </div>
     <div class="card rounded-3" *ngIf="failed"
         style="position:absolute;z-index:100;max-width:25rem;min-width:20rem;min-height:15rem;">
