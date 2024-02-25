@@ -1,80 +1,8 @@
-<div *ngIf="!signedIn" class="container-header">
-    <div class="d-flex justify-content-between align-items-center w-80" >
-      <a [href]="'/'">RECSYNC</a>
-      <div class="container-header-desktop">
-
-        <a [href]="'#about'" translate>Home</a>
-        <a routerLink="signin" translate>Sign in</a>
-        <a routerLink="signup" translate>Sign up</a>
-        <a  translate>Contact</a>
-      </div>
-
-      <div (click)="toggleMenu()" class="container-header-b-menu">
-        <div class="b-menu"></div>
-        <div class="b-menu"></div>
-        <div class="b-menu"></div>
-      </div>
-    </div>
-    <div *ngIf="isOpen" class="container-menu">
-
-      <div class="container-items">
-        <div class="container-menu-item">
-          <a class="menu-item" [href]="'#'" (click)="toggleMenu()" translate>Home</a>
-        </div>
-        <div class="container-menu-item">
-          <a class="menu-item" routerLink="/signin" (click)="toggleMenu()" translate>Sign in</a>
-        </div>
-        <div class="container-menu-item">
-          <a class="menu-item" routerLink="/signup" (click)="toggleMenu()" translate>Sign up</a>
-        </div>
-        <div class="container-menu-item">
-          <a class="menu-item" [href]="'#'" (click)="toggleMenu()" translate>Legal Notice</a>
-        </div>
-      </div>
-    </div>
-  </div>
+<app-pre-login *ngIf="!signedIn" class="w-100"></app-pre-login>
 
 
 
-  <div *ngIf="signedIn" class="container-header w-100 d-flex align-items-center justify-content-center">
-    <div class="d-flex justify-content-between align-items-center w-80" >
-        <a [href]="'/'">RECSYNC</a>
-        <div class="container-header-desktop">
-            <a routerLink="site/dashboard" translate>Home</a>
-            <a routerLink="site/recording" translate>Record</a>
-            <a routerLink="site/library" translate>Library</a>
-            <a routerLink="site/profile" translate>Profile</a>
-            <a (click)="logout()" translate>Logout</a>
-        </div>
-
-        <div (click)="toggleMenu()" class="container-header-b-menu">
-            <div class="b-menu"></div>
-            <div class="b-menu"></div>
-            <div class="b-menu"></div>
-        </div>
-    </div>
-    <div *ngIf="isOpen" class="container-menu">
-
-        <div class="container-items">
-            <div class="container-menu-item">
-                <a class="menu-item" routerLink="site/dashboard" (click)="toggleMenu()" translate>Home</a>
-            </div>
-            <div class="container-menu-item">
-                <a class="menu-item" routerLink="site/recording" (click)="toggleMenu()" translate>Record</a>
-            </div>
-            <div class="container-menu-item">
-                <a class="menu-item" routerLink="site/library" (click)="toggleMenu()" translate>Library</a>
-            </div>
-            <div class="container-menu-item">
-                <a class="menu-item" routerLink="site/profile" (click)="toggleMenu()" translate>Profile</a>
-            </div>
-            <div class="container-menu-item">
-                <a class="menu-item" (click)="logout()" translate>Logout</a>
-            </div>
-        </div>
-    </div>
-</div>
-
+<app-post-login *ngIf="signedIn" class="w-100"></app-post-login>
 
 
 

@@ -23,6 +23,11 @@ a {
   border-radius: 0 !important;
   color: #000 !important;
   font-size: 18px !important;
+  @media (min-width:900px) {
+    font-size: 1.2rem !important;
+    padding-bottom: 0rem !important;
+
+  }
 
 }
 
@@ -33,7 +38,7 @@ a {
 }
 
 label::after {
-  display: none;   
+  display: none;
 
 }
 
@@ -41,7 +46,9 @@ label::after {
   color: #000 !important;
   font-size: 18px !important;
   font-weight: 500 !important;
-
+  @media (min-width:900px) {
+    font-size: 1.5rem !important;
+  }
 }
 
 
@@ -49,7 +56,7 @@ label::after {
   width: 80%;
   @media (min-width: 900px) {
     width: 50%;
-    max-width: 780px;
+    max-width: 1024px;
   }
 }
 

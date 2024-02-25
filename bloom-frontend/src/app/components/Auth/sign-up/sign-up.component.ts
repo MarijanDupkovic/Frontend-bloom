@@ -9,7 +9,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
   selector: 'app-sign-up',
   standalone: true,
   imports: [FormsModule, CommonModule,HttpClientModule,RouterLink,RouterLinkActive,NgIf],
-  providers: [AuthService,HttpClient,Router],
+  providers: [],
   templateUrl: './sign-up.component.html',
   styleUrl: './sign-up.component.scss'
 })
@@ -74,15 +74,15 @@ export class SignUpComponent {
 
   async signup() {
     this.send = true;
-      
+
       await this.authService.signUp(this.email, this.password, this.password2, this.username, this.firstName, this.lastName, this.street, this.zipCode, this.city, this.country)
       .then(()=>{
         this.success = true;
         setTimeout(() => this.router.navigateByUrl('/signin'), 5000);
 
-      }).catch((e) => { 
+      }).catch((e) => {
         let error: any = e;
-        
+
         if (error.status == 400) {
           this.setErrorMessage('Email oder username bereits in Verwendung', error);
         }
@@ -99,7 +99,7 @@ export class SignUpComponent {
       this.message = '';
       this.send = false;
 
-     
+
     }, 3000);
 
   }
@@ -122,7 +122,7 @@ export class SignUpComponent {
   }
   addEnterListener() {
     addEventListener('keydown', (e: KeyboardEvent) => {
-     
+
       if (e.key === 'Enter') {
         e.preventDefault();
         e.stopPropagation();
@@ -160,7 +160,7 @@ export class SignUpComponent {
       this.step1 = false
       this.step2 = false;
       this.step3 = false;
-      
+
     }
   }
 
