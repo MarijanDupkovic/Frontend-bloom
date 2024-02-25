@@ -3,6 +3,7 @@ import { Component, Input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { UserService } from '../../../services/profile/user.service';
 import { Subscription } from 'rxjs';
+import { AuthService } from '../../../services/auth/auth.service';
 
 @Component({
   selector: 'app-post-login',
@@ -16,8 +17,8 @@ export class PostLoginComponent {
   @Input() active: boolean = false;
   profilePicture: string = '';
   private subscription: Subscription | undefined;
-
-  constructor(private user: UserService) { }
+  dropdownMenuOpened = false;
+  constructor(private user: UserService,private auth:AuthService) { }
   ngOnInit() {
     this.user.getUserData('/user').then((resp: any) => {
       this.subscription = this.user.profilePicture$.subscribe((value: any) => { // Specify the type argument as boolean
@@ -39,4 +40,14 @@ export class PostLoginComponent {
     return 'https://www.w3schools.com/howto/img_avatar.png';
 
 }
+
+  ngOnDestroy() {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
+  }
+
+  logout(){
+    this.auth.logout();
+  }
 }
