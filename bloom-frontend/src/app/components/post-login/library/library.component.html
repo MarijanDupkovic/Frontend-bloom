@@ -1,36 +1,68 @@
-<div class="d-flex align-items-center flex-column mb-5 w-100" style="min-height: calc(100vh - 100px - 180px);">
-    <div class="w-80">
+<div
+  class="d-flex align-items-center flex-column mb-5 w-100"
+  style="min-height: calc(100vh - 100px - 210px)"
+>
+  <div class="w-80">
     <h1 class="mt-3">Library</h1>
 
-    <h6 class="m-0 p-0">Latest videos</h6>
-    <div class="w-100 mt-1 mb-3" style="background-color: rgba(0, 0, 0, 0.25);height: 2px;"></div>
-    <div>
-        <div class="d-flex flex-wrap mb-5">
-            <div *ngFor="let video of videos;let i = index;">
-                <div *ngIf="i < 6" class="d-flex flex-column align-items-center justify-content-center m-2"
-                    style="width: 150px;height: 180px;background-color: rgba(0, 0, 0, 0.25);border-radius: 10px;">
-                    <video [src]="convertLink(video.video_file)" [routerLink]="'/site/video-details/' + video.title" alt="video" style="width: 130px;height: 130px;"
-                        preload></video>
-                    <h6 class="m-0 p-0 mt-2">{{ video.created_at }}</h6>
-                </div>
-            </div>
 
+    <div class="detailsContainer">
+      <h6 class="m-0 p-0">Latest videos</h6>
+      <div
+        class="w-100 mt-1 mb-3"
+        style="background-color: rgba(0, 0, 0, 0.25); height: 2px"
+      ></div>
+      <div class="d-flex flex-wrap mb-5">
+        <div *ngFor="let video of videos; let i = index">
+          <div
+            *ngIf="i < 6"
+            class="d-flex flex-column align-items-center justify-content-center m-2"
+            style="
+              width: 150px;
+              height: 180px;
+              background-color: rgba(0, 0, 0, 0.25);
+              border-radius: 10px;
+            "
+          >
+            <video
+              [src]="convertLink(video.video_file)"
+              [routerLink]="'/site/video-details/' + video.title"
+              alt="video"
+              style="width: 130px; height: 130px"
+              preload
+            ></video>
+            <span class="m-0 p-0 mt-2">{{ video.created_at }}</span>
+          </div>
         </div>
-    </div>
+      </div>
 
     <h6 class="m-0 p-0">All videos</h6>
-    <div class="w-100 mt-1 mb-3" style="background-color: rgba(0, 0, 0, 0.25);height: 2px;"></div>
+    <div
+      class="w-100 mt-1 mb-3"
+      style="background-color: rgba(0, 0, 0, 0.25); height: 2px"
+    ></div>
 
     <div class="d-flex flex-wrap mb-5">
-        <div *ngFor="let video of videos" class="d-flex flex-column align-items-center justify-content-center m-2"
-            style="width: 150px;height: 180px;background-color: rgba(0, 0, 0, 0.25);border-radius: 10px;">
-            <video [src]="convertLink(video.video_file)" [routerLink]="'/site/video-details/' + video.title" alt="video" style="width: 130px;height: 130px;"
-                preload></video>
-            <h6 class="m-0 p-0 mt-2">{{ video.created_at }}</h6>
-        </div>
-
-
+      <div
+        *ngFor="let video of videos"
+        class="d-flex flex-column align-items-center justify-content-center m-2"
+        style="
+          width: 150px;
+          height: 180px;
+          background-color: rgba(0, 0, 0, 0.25);
+          border-radius: 10px;
+        "
+      >
+        <video
+          [src]="convertLink(video.video_file)"
+          [routerLink]="'/site/video-details/' + video.title"
+          alt="video"
+          style="width: 130px; height: 130px"
+          preload
+        ></video>
+        <span class="m-0 p-0 mt-2">{{ video.created_at }}</span>
+      </div>
     </div>
-    </div>
+  </div>
 </div>
-
+</div>
