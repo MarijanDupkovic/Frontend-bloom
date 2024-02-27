@@ -1,72 +1,105 @@
-<div class="d-flex align-items-center flex-column mb-5 w-100" style="min-height: calc(100vh - 100px - 180px);">
-    <div class="w-80">
-        <div class="d-flex w-100 mb-2">
-            <h1 class="m-0 p-0 mb-3 mt-5" style="font-weight: 700;">Details</h1>
+<div
+  class="d-flex align-items-center flex-column mb-5 w-100"
+  style="min-height: calc(100vh - 100px - 180px)"
+>
+  <div class="w-80">
+    <div class="d-flex w-100 mb-2">
+      <h1 class="m-0 p-0 mb-3 mt-5" style="font-weight: 700">Details</h1>
 
-            <div class="d-flex justify-content-end align-items-end w-100 mb-3">
-                <a id="editDetails" routerLink="/site/edit-profile">edit Details</a>
-            </div>
-        </div>
-        <div class="d-flex justify-content-center p-3 flex-column align-items-center w-100">
-            <form class="d-flex flex-column justify-content-center align-items-center" id="uploadform" method="put"
-                enctype="multipart/form-data">
-                <img [src]="profileImg" class="rounded-circle shadow-lg border border-2 border-info profileImg"
-                    style="object-fit: cover;" alt="">
-                <label class="mt-2" for="choose-image">edit avatar</label>
-                <input class="d-none" type="file" id="choose-image" name="img" (change)="handleFileInput()" #fileInput
-                    accept=".jpg,.jpeg,.png">
-
-            </form>
-            <div class="d-flex flex-column align-items-start mt-3 w-100 detailsContainer" >
-               
-                <div class="d-flex justify-content-center flex-column mb-2">
-                    <h5 style="font-weight: 500;">Username:</h5>
-                    <span id="username" *ngIf="user">{{ user[0].username }}</span>
-                </div>
-                <div class="d-flex justify-content-center flex-column mb-2">
-                    <h5 style="font-weight: 500;">Email:</h5>
-
-                    <span id="email" *ngIf="user">{{ user[0].email }}</span>
-                </div>
-                <div class="d-flex justify-content-between w-100">
-                    <div class="d-flex justify-content-center flex-column mb-2">
-                        <h5 style="font-weight: 500;">First name:</h5>
-
-                        <span id="firstName" *ngIf="user">{{ user[0].first_name }}</span>
-                    </div>
-                    <div class="d-flex justify-content-center flex-column mb-2">
-                        <h5 style="font-weight: 500;">Last name:</h5>
-
-                        <span id="lastName" *ngIf="user">{{ user[0].last_name }}</span>
-                    </div>
-                </div>
-                <div class="d-flex justify-content-center flex-column mb-2">
-                    <h5 style="font-weight: 500;">Last name:</h5>
-
-                    <span id="lastName" *ngIf="user">{{ user[0].street }}</span>
-                </div>
-                <div class="d-flex justify-content-between w-100">
-
-                    <div class="d-flex justify-content-center flex-column mb-2">
-                        <h5 style="font-weight: 500;">Last name:</h5>
-
-                        <span id="lastName" *ngIf="user">{{ user[0].zip_code }}</span>
-                    </div>
-                    <div class="d-flex justify-content-center flex-column mb-2">
-                        <h5 style="font-weight: 500;">Last name:</h5>
-
-                        <span id="lastName" *ngIf="user">{{ user[0].city }}</span>
-                    </div>
-                </div>
-                <div class="d-flex justify-content-center flex-column mb-2">
-                    <h5 style="font-weight: 500;">Last name:</h5>
-
-                    <span id="lastName" *ngIf="user">{{ user[0].country }}</span>
-                </div>
-            </div>
-
-        </div>
+      <div class="d-flex justify-content-end align-items-end w-100 mb-3">
+        <a id="editDetails" routerLink="/site/edit-profile">
+          <mat-icon class="editDetailsIcon" >edit</mat-icon>
+        </a>
+      </div>
     </div>
+    <div
+      class="d-flex justify-content-center p-3 flex-column align-items-center w-100"
+    >
+      <form
+        class="d-flex flex-column justify-content-center align-items-center position-relative"
+        id="uploadform"
+        method="put"
+        enctype="multipart/form-data"
+        (mouseenter)="hovering = true"
+        (mouseleave)="hovering = false"
+      >
+        <img
+          [src]="profileImg"
+          class="rounded-circle shadow-lg border border-2 border-info profileImg"
+          style="object-fit: cover"
+          alt=""
+        />
+        <label
+          *ngIf="hovering"
+          class="d-flex align-items-center position-absolute profileImgLabel w-100 h-100 justify-content-center rounded-circle"
+          for="choose-image"
+        >
+          <mat-icon class="profileImgIcon">edit</mat-icon>
+        </label>
+        <label
+          *ngIf="isMobileDevice()"
+          class="d-flex align-items-center w-100 h-100 justify-content-center"
+          for="choose-image"
+        >
+          Change profile picture
+        </label>
+        <input
+          class="d-none"
+          type="file"
+          id="choose-image"
+          name="img"
+          (change)="handleFileInput()"
+          #fileInput
+          accept=".jpg,.jpeg,.png"
+        />
+      </form>
+      <div
+        class="d-flex flex-column align-items-start mt-3 w-100 detailsContainer"
+      >
+        <div class="d-flex justify-content-center flex-column mb-2">
+          <h5 style="font-weight: 500">Username:</h5>
+          <span id="username" *ngIf="user">{{ user[0].username }}</span>
+        </div>
+        <div class="d-flex justify-content-center flex-column mb-2">
+          <h5 style="font-weight: 500">Email:</h5>
 
+          <span id="email" *ngIf="user">{{ user[0].email }}</span>
+        </div>
+        <div class="d-flex justify-content-between w-100">
+          <div class="d-flex justify-content-center flex-column mb-2">
+            <h5 style="font-weight: 500">First name:</h5>
 
+            <span id="firstName" *ngIf="user">{{ user[0].first_name }}</span>
+          </div>
+          <div class="d-flex justify-content-center flex-column mb-2">
+            <h5 style="font-weight: 500">Last name:</h5>
+
+            <span id="lastName" *ngIf="user">{{ user[0].last_name }}</span>
+          </div>
+        </div>
+        <div class="d-flex justify-content-center flex-column mb-2">
+          <h5 style="font-weight: 500">Last name:</h5>
+
+          <span id="lastName" *ngIf="user">{{ user[0].street }}</span>
+        </div>
+        <div class="d-flex justify-content-between w-100">
+          <div class="d-flex justify-content-center flex-column mb-2">
+            <h5 style="font-weight: 500">Last name:</h5>
+
+            <span id="lastName" *ngIf="user">{{ user[0].zip_code }}</span>
+          </div>
+          <div class="d-flex justify-content-center flex-column mb-2">
+            <h5 style="font-weight: 500">Last name:</h5>
+
+            <span id="lastName" *ngIf="user">{{ user[0].city }}</span>
+          </div>
+        </div>
+        <div class="d-flex justify-content-center flex-column mb-2">
+          <h5 style="font-weight: 500">Last name:</h5>
+
+          <span id="lastName" *ngIf="user">{{ user[0].country }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

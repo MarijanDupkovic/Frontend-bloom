@@ -30,20 +30,12 @@ export class LoginComponent {
   }
 
   async login() {
-    let resp: any;
     this.send = true;
     try {
-      console.log('try login');
-      await this.authService.loginWithEmailandPassword(this.email, this.password).then((response: any) => {
-        resp = response;
-        console.log('tried login');
-
+      await this.authService.loginWithEmailandPassword(this.email, this.password).then(() => {
         this.router.navigateByUrl('/site/dashboard');
       });
-      // localStorage.setItem('token', resp['token']);
-
-    } catch (e) {
-      let error: any = e;
+    } catch (error:any){
       if (error.status == 403) this.setErrorMessage(' Bitte bestätige zuerst deine Emailadresse.', error);
       else if (error.status == 401) this.setErrorMessage(' Benutzername oder Password ist nicht korrekt.', error);
       else if (error.status == 404) this.setErrorMessage('Emailadresse ist nicht korrekt.', error);

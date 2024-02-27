@@ -1,11 +1,14 @@
 /* Importing Bootstrap SCSS file. */
-@import 'bootstrap/scss/bootstrap';
-@import 'material-icons/iconfont/material-icons.css';
+@import "bootstrap/scss/bootstrap";
+@import "material-icons/iconfont/material-icons.css";
 
 body {
   background: rgb(34, 193, 195);
-  background: linear-gradient(0deg, rgba(34, 193, 195, 1) 0%, rgba(42, 140, 230, 0.9556197478991597) 100%);
-
+  background: linear-gradient(
+    0deg,
+    rgba(34, 193, 195, 1) 0%,
+    rgba(42, 140, 230, 0.9556197478991597) 100%
+  );
 }
 
 a {
@@ -19,16 +22,14 @@ a {
 
 .form-floating .form-control {
   border: none !important;
-  border-bottom: 1px solid rgba(0,0,0,0.25) !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.25) !important;
   border-radius: 0 !important;
   color: #000 !important;
   font-size: 18px !important;
-  @media (min-width:900px) {
+  @media (min-width: 900px) {
     font-size: 1.2rem !important;
     padding-bottom: 0rem !important;
-
   }
-
 }
 
 .form-floating .form-control:focus {
@@ -39,28 +40,24 @@ a {
 
 label::after {
   display: none;
-
 }
 
 .form-floating label {
   color: #000 !important;
   font-size: 18px !important;
   font-weight: 500 !important;
-  @media (min-width:900px) {
+  @media (min-width: 900px) {
     font-size: 1.5rem !important;
   }
 }
 
-
-.w-80{
+.w-80 {
   width: 80%;
   @media (min-width: 900px) {
     width: 50%;
     max-width: 1024px;
   }
 }
-
-
 
 body::-webkit-scrollbar {
   display: none !important;

@@ -1,41 +1,101 @@
-<div class="d-flex flex-column align-items-center w-100" style="min-height: calc(100vh - 100px - 210px);" >
-    <div class="w-80" >
-        <h1 class="m-0 p-0 mt-3">Recording</h1>
+<div
+  class="d-flex flex-column align-items-center w-100"
+  style="min-height: calc(100vh - 100px - 210px)"
+>
+  <div class="w-80">
+    <h1 class="m-0 p-0 mt-3 mb-3">Recording</h1>
 
-        <div class="d-flex justify-content-center gap-3">
-            <div class="mb-5 d-flex flex-column align-items-center">
-                <h6>Preview</h6>
-                <div class="d-flex flex-column gap-2">
-                    <a class="btn btn-info btn-shadow " style="max-width: 10rem;" (click)="showPreview()">Start
-                        Preview</a>
-                    <a class="btn btn-info btn-shadow " style="max-width: 10rem;" (click)="hidePreview()">Stop
-                        Preview</a>
-                </div>
+    <div class="d-flex justify-content-between mb-4">
+      <div class="d-flex flex-column w-100 align-items-start">
+        <h3>Preview</h3>
+        <div
+          class="d-flex w-75 btn-group btn-shadow justify-content-between align-items-center"
+          style="max-width: 6rem"
+        >
+          <a
+            (click)="showPreview()"
+            class="d-flex align-items-center justify-content-center btn btn-info"
+          >
+            <mat-icon>play_circle_filled</mat-icon></a
+          >
+          <div style="height: 100%; border: 1px solid rgba(0, 0, 0, 0.4)"></div>
 
-            </div>
-            <div class="mb-5 d-flex flex-column align-items-center">
-                <h6>Recording options</h6>
-                <div class="d-flex flex-column gap-2">
-                    <a class="btn btn-info btn-shadow" style="max-width: 10rem;" (click)="startRecordingLive()">Start
-                        recording</a>
-                    <a class="btn btn-info btn-shadow" style="max-width: 10rem;" (click)="stopRecordingLive()">Stop
-                        recording</a>
-                </div>
-            </div>
+          <a
+            class="d-flex align-items-center justify-content-center btn btn-info"
+            (click)="hidePreview()"
+            ><mat-icon>stop</mat-icon></a
+          >
         </div>
-        <div class="d-flex flex-column  align-items-center justify-content-center mb-5">
-            <div class="d-flex justify-content-center align-items-center"  [style]="style">
-                <canvas #canvasScreen class="shadow" name="canvasScreen" id="canvasScreen" [width]="screenWidth"
-                    [height]="screenHeight" style="z-index: 10;" autoplay> </canvas>
-            </div>
-            <video #screenVideo hidden id="screenVideo" [width]="screenWidth" [height]="screenHeight" autoplay>
-                <source>
-            </video>
-            <video #webcamVideo hidden id="webcamVideo" [width]="screenWidth" [height]="screenHeight" autoplay>
-                <source>
-            </video>
-            <canvas controls #webcamCanvas hidden id="webcamCanvas" [width]="screenWidth" [height]="screenHeight"
-                autoplay></canvas>
+      </div>
+      <div class="d-flex flex-column align-items-end w-100">
+        <h3>Recording</h3>
+        <div
+          class="d-flex w-75 btn-group btn-shadow justify-content-between align-items-center"
+          style="max-width: 6rem"
+        >
+          <a
+            class="d-flex align-items-center btn btn-info justify-content-center"
+            (click)="startRecordingLive()"
+          >
+            <mat-icon>fiber_manual_record</mat-icon></a
+          >
+          <div style="height: 100%; border: 1px solid rgba(0, 0, 0, 0.4)"></div>
+          <a
+            class="d-flex align-items-center btn btn-info justify-content-center"
+            (click)="stopRecordingLive()"
+            ><mat-icon>stop</mat-icon></a
+          >
         </div>
+      </div>
     </div>
+    <div
+      class="d-flex flex-column align-items-center justify-content-center mb-5"
+    >
+      <div
+        class="d-flex justify-content-center align-items-center"
+        [style]="style"
+      >
+        <canvas
+          #canvasScreen
+          class="shadow"
+          name="canvasScreen"
+          id="canvasScreen"
+          [width]="screenWidth"
+          [height]="screenHeight"
+          style="z-index: 10"
+          autoplay
+        >
+        </canvas>
+      </div>
+      <video
+        #screenVideo
+        hidden
+        id="screenVideo"
+        [width]="screenWidth"
+        [height]="screenHeight"
+        autoplay
+      >
+        <source />
+      </video>
+      <video
+        #webcamVideo
+        hidden
+        id="webcamVideo"
+        [width]="screenWidth"
+        [height]="screenHeight"
+        autoplay
+      >
+        <source />
+      </video>
+      <canvas
+        controls
+        #webcamCanvas
+        hidden
+        id="webcamCanvas"
+        [width]="screenWidth"
+        [height]="screenHeight"
+        autoplay
+      ></canvas>
+    </div>
+  </div>
 </div>
