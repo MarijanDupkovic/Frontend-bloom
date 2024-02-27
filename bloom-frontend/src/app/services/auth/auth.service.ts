@@ -22,29 +22,25 @@ export class AuthService {
       "email": email,
       "password": password
     };
+
     return lastValueFrom(this.http.post(url, body)).then((resp: any) => { // Explicitly define the type of resp as any
       if (resp && resp['token']) {
         localStorage.setItem('token', resp['token']);
-
         this.changeSignInState(true);
       }
     }
     );
   }
+
   public changeSignInState(bool: boolean) {
     this.loggedIn.next(bool);
-    console.log('waaaas', this.loggedIn$)
-
   }
+
   public async logout() {
-    console.log('logout');
     const url = environment.baseUrl + '/logout/' + localStorage.getItem('token');
-    await lastValueFrom(this.http.get(url)).then((resp: any) => {
+    return await lastValueFrom(this.http.get(url)).then((resp: any) => {
       localStorage.removeItem('token');
       this.changeSignInState(false);
-
-      console.log('logged out', this.loggedIn$);
-
     });
 
   }
@@ -74,10 +70,4 @@ export class AuthService {
     return lastValueFrom(this.http.post(url, body));
   }
 
-
-
-
-  //  public get isLoggedIn() {
-  //   return this.loggedIn.asObservable();
-  // }
 }

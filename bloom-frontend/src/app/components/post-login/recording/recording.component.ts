@@ -32,14 +32,13 @@ export class RecordingComponent {
   webcam_running: boolean = false;
   ctx: any;
   userData: any;
-  @Input() screenwidth: any;
-  @Input() screenheight: any;
+  screenWidth = window.innerWidth / 1.25;
+  screenHeight = window.innerHeight / 1.25;
+  resizeListener: any;
   @Input() style: any;
 
   constructor(private video: VideoService, private user: UserService) {
     this.getUserData();
-    this.getScreenSize();
-    this.checkScreenSize();
 
   }
   @ViewChild('canvasScreen') canvasScreen?: ElementRef;
@@ -47,20 +46,29 @@ export class RecordingComponent {
   @ViewChild('webcamVideo') webcamVideo?: ElementRef;
   @ViewChild('webcamCanvas') webcamCanvas?: ElementRef;
 
-  checkScreenSize() {
-    fromEvent(window, 'resize').subscribe((event) => {
-      this.getScreenSize();
-    });
+  ngOnInit() {
+    this.setVideoSize();
 
+
+    this.resizeListener = window.addEventListener('resize', (event) => {
+      this.setVideoSize()
+    });
   }
 
-  getScreenSize() {
-    this.screenwidth = document.body.clientWidth;
-    this.screenheight = document.body.clientHeight;
-    this.style = 'height:' + this.screenheight*0.8 + 'px;width: ' + this.screenwidth *0.8 + 'px;background-color: rgba(0, 0, 0, 0.25);border-radius: 10px;z-index:-1;';
 
-    this.screenwidth = this.screenwidth * 0.75;
-    this.screenheight = this.screenheight *0.75 ;    
+
+  ngOnDestroy() {
+    window.removeEventListener('resize', this.resizeListener);
+  }
+
+  setVideoSize() {
+    if(window.innerWidth < 900) {
+      this.screenWidth = window.innerWidth / 1.25;
+      this.screenHeight = window.innerHeight / 1.25;
+    }else {
+      this.screenWidth = window.innerWidth / 2;
+      this.screenHeight = window.innerHeight / 2;
+    }
   }
 
   async loadScreenStream(screenStream: any) {
@@ -89,8 +97,8 @@ export class RecordingComponent {
   draw() {
     this.ctx = this.canvasScreen!.nativeElement.getContext('2d');
     if (this.webcamCanvas && this.webcamCanvas.nativeElement && this.ctx && this.screenVideo && this.screenVideo.nativeElement) {
-      this.ctx.drawImage(this.screenVideo.nativeElement, 0, 0, 1920, 1080);
-      this.ctx.drawImage(this.webcamCanvas.nativeElement, 0, 0, 100, 100);
+      this.ctx.drawImage(this.screenVideo.nativeElement, 0, 0, this.screenWidth, this.screenHeight);
+      this.ctx.drawImage(this.webcamCanvas.nativeElement, 0, 0, 150, 150);
       this.ctx.globalAlpha = 0.01;
       this.ctx.fillRect(0, 0, 1, 1);
       this.ctx.globalAlpha = 1.0;
@@ -258,8 +266,8 @@ export class RecordingComponent {
     await this.stopMediaDevices();
     this.screen_running = false;
     this.webcam_running = false;
-    this.screenwidth = 10;
-    this.screenheight = 10;
+    this.screenWidth = 10;
+    this.screenHeight = 10;
   }
 
   showPreview() {

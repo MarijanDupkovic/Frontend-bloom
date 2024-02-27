@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { UserService } from '../../../services/profile/user.service';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../../../services/auth/auth.service';
@@ -18,15 +18,16 @@ export class PostLoginComponent {
   profilePicture: string = '';
   private subscription: Subscription | undefined;
   dropdownMenuOpened = false;
-  constructor(private user: UserService,private auth:AuthService) { }
+  constructor(private user: UserService, private auth: AuthService, private route: Router) { }
+
   ngOnInit() {
     this.user.getUserData('/user').then((resp: any) => {
-      this.subscription = this.user.profilePicture$.subscribe((value: any) => { // Specify the type argument as boolean
+      this.subscription = this.user.profilePicture$.subscribe((value: any) => {
         this.profilePicture = value;
-
       });
     });
   }
+
   toggleMenu() {
     this.isOpen = !this.isOpen;
   }
@@ -39,7 +40,7 @@ export class PostLoginComponent {
     }
     return 'https://www.w3schools.com/howto/img_avatar.png';
 
-}
+  }
 
   ngOnDestroy() {
     if (this.subscription) {
@@ -47,7 +48,9 @@ export class PostLoginComponent {
     }
   }
 
-  logout(){
-    this.auth.logout();
+  logout() {
+    this.auth.logout().then((resp: any) => {
+      this.route.navigate(['/']);
+    });
   }
 }
