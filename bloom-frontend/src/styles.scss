@@ -61,3 +61,7 @@ label::after {
 }
 
 
+
+body::-webkit-scrollbar {
+  display: none !important;
+}

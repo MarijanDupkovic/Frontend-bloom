@@ -25,12 +25,12 @@ export class ResetPwComponent {
   fail_message: string = '';
   message = ``;
 
-  constructor(private route: ActivatedRoute, private http: HttpClient) { 
-    
+  constructor(private route: ActivatedRoute, private http: HttpClient) {
+
   }
 
   ngOnInit() {
-    
+
     this.addEnterListener();
   }
 
@@ -47,7 +47,7 @@ export class ResetPwComponent {
 
   addEnterListener() {
    addEventListener('keydown', (e: KeyboardEvent) => {
-   
+
       if(e.key === 'Enter') {
         e.preventDefault();
         e.stopPropagation();
@@ -55,7 +55,7 @@ export class ResetPwComponent {
            this.resetPassword();
         }else this.setErrorMessage('Passwort darf nicht leer sein', {error: 'Bitte fülle alle Felder aus!'}  );
       }
-    
+
   }
   );
   }
@@ -73,11 +73,11 @@ export class ResetPwComponent {
         } else {
           this.setErrorMessage('Passwort erfolgreich geändert! Du wirst zum Login weitergeleitet', response);
           setTimeout(() => {
-            window.location.href = '/login';
+            window.location.href = '/signin';
           }, 3000);
         }
       });
-    
+
   }
   setErrorMessage(message: string, error: any) {
     this.login_failed = true;
