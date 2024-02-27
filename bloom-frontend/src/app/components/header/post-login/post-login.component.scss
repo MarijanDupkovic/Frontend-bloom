@@ -73,22 +73,21 @@
         font-size: 1.5rem;
         position: relative;
         display: inline-block;
+        cursor: pointer;
+
     }
 
     a::after {
         content: '';
-        position: absolute;
-        width: 100%;
-        height: 5px;
-        left: 0;
-        bottom: -5px;
-        background-color: white;
         transform: scaleX(0);
-        transition: transform 0.3s ease-in-out;
     }
 
-    a:hover::after {
-        transform: scaleX(1);
+    a:hover{
+      color:rgba(13, 202, 240, 1);
+    }
+
+    img:hover {
+        transform: scale(1.1);
     }
 
     @media(min-width:1024px) {
@@ -128,4 +127,8 @@
 
 .dropdown-menu.show {
   display: block;
+}
+
+.droplink:hover{
+  background: rgba(0,0,0,0.1);
 }

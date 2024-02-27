@@ -19,8 +19,8 @@
         />
       </a>
       <div [class.show]="dropdownMenuOpened" class="dropdown-menu">
-        <a class="btn" routerLink="site/profile" (click)="dropdownMenuOpened = !dropdownMenuOpened" translate>Profile</a>
-        <a class="btn" (click)="logout()" translate>Logout</a>
+        <a class="btn w-100 droplink" routerLink="site/profile" (click)="dropdownMenuOpened = !dropdownMenuOpened" translate>Profile</a>
+        <a class="btn w-100 droplink" (click)="logout();dropdownMenuOpened = !dropdownMenuOpened" translate>Logout</a>
 
       </div>
     </div>

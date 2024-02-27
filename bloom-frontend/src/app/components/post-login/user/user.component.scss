@@ -52,6 +52,10 @@
   width: 34px !important;
   height: 34px !important;
 
+  &:hover{
+    color: #FFFFFF;
+  }
+
   @media(min-width: 900px){
     font-size: 40px !important;
     width: 40px !important;
