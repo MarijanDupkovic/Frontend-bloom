@@ -1,3 +1,4 @@
+import { MatIconModule } from '@angular/material/icon';
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { UserService } from '../../../services/profile/user.service';
 import { CommonModule } from '@angular/common';
@@ -6,13 +7,14 @@ import { RouterLink } from '@angular/router';
 @Component({
   selector: 'app-user',
   standalone: true,
-  imports: [CommonModule,RouterLink],
+  imports: [CommonModule,RouterLink,MatIconModule],
   templateUrl: './user.component.html',
   styleUrl: './user.component.scss'
 })
 export class UserComponent implements AfterViewInit {
   profileImg = 'https://www.w3schools.com/howto/img_avatar.png';
   public user: any;
+  hovering = false;
   @ViewChild('fileInput') fileInput: any;
   constructor(private userService: UserService) { }
 
@@ -28,7 +30,7 @@ export class UserComponent implements AfterViewInit {
         url = splitted[3] + '/' + splitted[4] + '/' + splitted[5] + '/';
         this.profileImg = 'https://be.recsync.app/' + url;
       }
-      this.user = data;      
+      this.user = data;
     });
 
   }
@@ -44,6 +46,10 @@ export class UserComponent implements AfterViewInit {
         this.getUserData();
       });
     }
+  }
+
+  isMobileDevice() {
+    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
   }
 
 }

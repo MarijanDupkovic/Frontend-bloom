@@ -7,12 +7,13 @@ import { VideoService } from '../../../services/Stream/video.service';
 import { UserService } from '../../../services/profile/user.service';
 import { eventListeners } from '@popperjs/core';
 import { Observable, fromEvent } from 'rxjs';
+import { MatIconModule } from '@angular/material/icon';
 
 
 @Component({
   selector: 'app-recording',
   standalone: true,
-  imports: [CommonModule, FormsModule,],
+  imports: [CommonModule, FormsModule, MatIconModule],
   providers: [FormData],
   templateUrl: './recording.component.html',
   styleUrl: './recording.component.scss'
