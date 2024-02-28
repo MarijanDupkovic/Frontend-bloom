@@ -6,7 +6,7 @@
       <a [href]="'#about'" translate>Home</a>
       <a routerLink="signin" translate>Sign in</a>
       <a routerLink="signup" translate>Sign up</a>
-      <a [href]="'#contact'" translate>Contact</a>
+      <a routerLink="/contact" translate>Contact</a>
     </div>
 
     <div (click)="toggleMenu()" class="container-header-b-menu">
@@ -28,7 +28,7 @@
         <a class="menu-item" routerLink="/signup" (click)="toggleMenu()" translate>Sign up</a>
       </div>
       <div class="container-menu-item">
-        <a class="menu-item" [href]="'#contact'" (click)="toggleMenu()" translate>Legal Notice</a>
+        <a class="menu-item" routerLink="/contact" (click)="toggleMenu()" translate>Legal Notice</a>
       </div>
     </div>
   </div>
