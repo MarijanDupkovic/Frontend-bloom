@@ -15,6 +15,7 @@ import { LibraryComponent } from './components/post-login/library/library.compon
 import { RecordingComponent } from './components/post-login/recording/recording.component';
 import { PublicVideoComponent } from './components/public-video/public-video.component';
 import { VideoDetailComponent } from './components/post-login/video-detail/video-detail.component';
+import { ContactComponent } from './components/content/contact/contact.component';
 
 export const routes: Routes = [
     { path: '', component: ContentComponent, pathMatch: 'full' },
@@ -23,6 +24,7 @@ export const routes: Routes = [
     { path: 'signup', component: SignUpComponent },
     { path: 'reset-mail', component: SendPwResetComponent },
     { path: 'reset-pw/:token', component: ResetPwComponent },
+    { path: 'contact', component: ContactComponent },
     { path: 'activate/:token', component: UserActivationComponent },
     { path: 'public-video/:str', component: PublicVideoComponent },
 
