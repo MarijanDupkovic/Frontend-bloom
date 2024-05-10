@@ -108,13 +108,13 @@
 
                         <div class="d-flex gap-2 align-self-center w-100 justify-content-center buttonContainer">
                             <button type="button" [disabled]="step1"
-                                class="w-100 btn btn-info btn-shadow align-self-center mt-3 rounded border-0"
+                                class="w-100 btn btn-primary btn-shadow align-self-center mt-3 rounded border-0"
                                 style="max-width:8rem;max-height:3rem;height:2.5rem;" (click)="back()">Back</button>
                             <button type="button" [disabled]="isDisabled()" *ngIf="!step4"
-                                class="w-100 btn btn-info btn-shadow align-self-center mt-3 rounded border-0"
+                                class="w-100 btn btn-primary btn-shadow align-self-center mt-3 rounded border-0"
                                 style="max-width:8rem;max-height:3rem;height:2.5rem;" (click)="forward()">Next</button>
                             <button type="submit" *ngIf="step4"
-                                class="w-100 btn btn-info btn-shadow align-self-center mt-3 rounded border-0"
+                                class="w-100 btn btn-primary btn-shadow align-self-center mt-3 rounded border-0"
                                 style="max-width:8rem;max-height:3rem;height:2.5rem;"
                                 [disabled]="send || isDisabled()">Signup</button>
                         </div>

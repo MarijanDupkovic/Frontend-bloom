@@ -5,8 +5,6 @@ import * as bodyPix from '@tensorflow-models/body-pix';
 import * as tf from '@tensorflow/tfjs';
 import { VideoService } from '../../../services/Stream/video.service';
 import { UserService } from '../../../services/profile/user.service';
-import { eventListeners } from '@popperjs/core';
-import { Observable, fromEvent } from 'rxjs';
 import { MatIconModule } from '@angular/material/icon';
 
 
@@ -49,14 +47,10 @@ export class RecordingComponent {
 
   ngOnInit() {
     this.setVideoSize();
-
-
     this.resizeListener = window.addEventListener('resize', (event) => {
       this.setVideoSize()
     });
   }
-
-
 
   ngOnDestroy() {
     window.removeEventListener('resize', this.resizeListener);
@@ -212,8 +206,6 @@ export class RecordingComponent {
   }
 
   async startRecordingLive() {
-
-
 
     await this.getMediaDevices();
     await this.getAudioStream().then((audioStream) => {
