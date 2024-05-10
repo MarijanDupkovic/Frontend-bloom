@@ -16,9 +16,11 @@ import { RecordingComponent } from './components/post-login/recording/recording.
 import { PublicVideoComponent } from './components/public-video/public-video.component';
 import { VideoDetailComponent } from './components/post-login/video-detail/video-detail.component';
 import { ContactComponent } from './components/content/contact/contact.component';
+import { AppComponent } from './app.component';
 
 export const routes: Routes = [
-    { path: '', component: ContentComponent, pathMatch: 'full' },
+    { path: '', redirectTo: 'home', pathMatch: 'full' },
+    { path: 'home', component: ContentComponent },
     { path: 'vorgaben', component: VorgabenComponent },
     { path: 'signin', component: LoginComponent },
     { path: 'signup', component: SignUpComponent },
