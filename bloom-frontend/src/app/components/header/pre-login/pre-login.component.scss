@@ -14,7 +14,7 @@
 
     .b-menu {
       width: 2rem;
-      border: 1px solid rgba($color: #FFFFFF, $alpha: 1.0);
+      border: 1px solid rgba($color: #5A5A5A, $alpha: 1.0);
     }
 
     @media(min-width:1024px) {
@@ -50,13 +50,13 @@
     font-size: 1.5rem;
 
     &:hover {
-      color: #e80055;
+      color: #00BEE8;
     }
   }
 }
 
 .active {
-  color: #e80055 !important;
+  color: #00BEE8 !important;
 }
 
 .container-header-desktop {
@@ -78,7 +78,7 @@
     position: relative;
     display: inline-block;
     &:hover {
-      color: #e80055;
+      color: #00BEE8;
     }
   }
 
