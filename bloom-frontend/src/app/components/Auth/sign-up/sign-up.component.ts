@@ -110,16 +110,19 @@ export class SignUpComponent {
     this.message = message;
     this.resetErrorMessage();
   }
+
   togglePWField(e: Event) {
     e.preventDefault();
     e.stopPropagation();
     this.hide = !this.hide;
   }
+
   togglePWField2(e: Event) {
     e.preventDefault();
     e.stopPropagation();
     this.hide2 = !this.hide2;
   }
+
   addEnterListener() {
     addEventListener('keydown', (e: KeyboardEvent) => {
 

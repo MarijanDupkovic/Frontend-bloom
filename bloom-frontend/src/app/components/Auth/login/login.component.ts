@@ -71,15 +71,12 @@ export class LoginComponent {
 
   async addEnterListener() {
     addEventListener('keydown', async (e: KeyboardEvent) => {
-
       if (e.key === 'Enter') {
         e.preventDefault();
         e.stopPropagation();
-        if (this.password !== '' && this.email !== '') {
-          this.login();
-        } else this.setErrorMessage('Bitte fülle alle Felder aus!', { error: 'Bitte fülle alle Felder aus!' });
+        if (this.password !== '' && this.email !== '') this.login();
+        else this.setErrorMessage('Bitte fülle alle Felder aus!', { error: 'Bitte fülle alle Felder aus!' });
       }
-
     }
     );
   }

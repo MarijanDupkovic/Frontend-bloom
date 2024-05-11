@@ -14,9 +14,7 @@ export class VideoService {
 
   uploadVideo(formData: FormData) {
     const url = environment.baseUrl + '/videos/';
-    // const body = {
-    //   "video_file": video
-    // };
+
     const headers = new HttpHeaders().set('Authorization', `token ${localStorage.getItem('token')}`);
 
     let upload = this.http.post(url, formData, { headers });

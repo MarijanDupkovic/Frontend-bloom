@@ -10,7 +10,7 @@
 
         .b-menu {
             width: 2rem;
-            border: 1px solid rgba($color: #FFFFFF, $alpha: 1.0);
+            border: 1px solid rgba($color: #5A5A5A, $alpha: 1.0);
         }
 
         @media(min-width:1024px) {
@@ -41,8 +41,8 @@
     }
 
     .menu-item {
-        color: #FFFFFF;
-        text-decoration: none;
+      color: #5A5A5A;
+      text-decoration: none;
         font-size: 1.5rem;
 
         &:hover {
@@ -68,8 +68,8 @@
     }
 
     a {
-        color: #FFFFFF;
-        text-decoration: none;
+      color: #5A5A5A;
+      text-decoration: none;
         font-size: 1.5rem;
         position: relative;
         display: inline-block;
