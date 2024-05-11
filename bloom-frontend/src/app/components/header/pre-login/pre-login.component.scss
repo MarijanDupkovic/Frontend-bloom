@@ -50,13 +50,14 @@
     font-size: 1.5rem;
 
     &:hover {
-      color: #00BEE8;
+      color: #0b5ed7;
     }
   }
 }
 
+
 .active {
-  color: #00BEE8 !important;
+  color: #0b5ed7 !important;
 }
 
 .container-header-desktop {
@@ -78,7 +79,7 @@
     position: relative;
     display: inline-block;
     &:hover {
-      color: #00BEE8;
+      color: #0b5ed7;
     }
   }
 
@@ -89,7 +90,7 @@
     height: 5px;
     left: 0;
     bottom: -5px;
-    background-color: white;
+    background-color: #0b5ed7;
     transform: scaleX(0);
     transition: transform 0.3s ease-in-out;
   }
