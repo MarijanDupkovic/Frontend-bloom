@@ -4,7 +4,10 @@ import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../../services/auth/auth.service';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-
+const STEP_1 = 'step1';
+const STEP_2 = 'step2';
+const STEP_3 = 'step3';
+const STEP_4 = 'step4';
 @Component({
   selector: 'app-sign-up',
   standalone: true,
@@ -36,7 +39,12 @@ export class SignUpComponent {
   step3: boolean = false;
   step4: boolean = false;
 
-
+  setStep(step: string) {
+    this.step1 = step === STEP_1;
+    this.step2 = step === STEP_2;
+    this.step3 = step === STEP_3;
+    this.step4 = step === STEP_4;
+  }
   isDisabled() {
     if(this.step1){
       if(!this.username && !this.email){
@@ -82,26 +90,18 @@ export class SignUpComponent {
 
       }).catch((e) => {
         let error: any = e;
-
-        if (error.status == 400) {
-          this.setErrorMessage('Email oder username bereits in Verwendung', error);
-        }
-        if (error.status == 405) {
+        if (error.status == 400 || error.status == 405 ) {
           this.setErrorMessage('Email oder username bereits in Verwendung', error);
         }
        });
   }
   resetErrorMessage() {
     setTimeout(() => {
-
       this.signup_failed = false;
       this.fail_message = '';
       this.message = '';
       this.send = false;
-
-
     }, 3000);
-
   }
 
   setErrorMessage(message: string, error: any) {
@@ -138,32 +138,15 @@ export class SignUpComponent {
     );
   }
 
-  next(step:string){
-    if(step === 'step1'){
-      this.step1 = true;
-      this.step2 = false;
-      this.step3 = false;
-      this.step4 = false;
-    }
-    if(step === 'step2' && this.username && this.email){
-
-      this.step2 = true;
-      this.step1 = false
-      this.step3 = false;
-      this.step4 = false;
-    }
-    if(step === 'step3' && this.firstName && this.lastName){
-      this.step3 = true;
-      this.step1 = false
-      this.step2 = false;
-      this.step4 = false;
-    }
-    if(step === 'step4' && this.password && this.password2){
-      this.step4 = true;
-      this.step1 = false
-      this.step2 = false;
-      this.step3 = false;
-
+  next(step: string) {
+    if (step === STEP_1) {
+      this.setStep(STEP_1);
+    } else if (step === STEP_2 && this.username && this.email) {
+      this.setStep(STEP_2);
+    } else if (step === STEP_3 && this.firstName && this.lastName) {
+      this.setStep(STEP_3);
+    } else if (step === STEP_4 && this.password && this.password2) {
+      this.setStep(STEP_4);
     }
   }
 
