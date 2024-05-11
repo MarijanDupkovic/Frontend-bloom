@@ -1,7 +1,7 @@
 <div class="d-flex align-items-center flex-column" style="min-height: calc(100vh - 100px - 210px);">
-    <div class="d-flex justify-content-center w-80 signupHead">
-        <div class="d-flex justify-content-center align-items-center flex-column signUpContainer w-100">
-            <div class="d-flex justify-content-between w-100 mt-3 steps">
+    <div class="d-flex justify-content-center w-80 signupHead" style="min-height: calc(100vh - 100px - 210px);">
+        <div class="d-flex justify-content-center align-items-center flex-column signUpContainer w-100 gap-3 h-100">
+            <div class="d-flex justify-content-between w-100 steps">
                 <span id="step1" [ngClass]="step1 ? 'active-link': ''" (click)="next('step1')">Step 1</span>
                 <span class="devider">-</span>
                 <span id="step2" [ngClass]="step2 ? 'active-link': ''" (click)="next('step2')">Step 2</span>
@@ -10,12 +10,10 @@
                 <span class="devider">-</span>
                 <span id="step4" [ngClass]="step4 ? 'active-link': ''" (click)="next('step4')">Step 4</span>
             </div>
-            <h1 class=" align-self-start mt-5">Sign up</h1>
-            <div class="d-flex flex-column w-100">
-
-
+            <h1 class=" align-self-start mb-3">Sign up</h1>
+            <div class="d-flex flex-column w-100 gap-3 mt-3">
                 <div>
-                    <form class="d-flex flex-column" (ngSubmit)="signup()">
+                    <form class="d-flex flex-column gap-3" (ngSubmit)="signup()">
                         <div *ngIf="step1" class="form-floating mb-3 w-100 align-self-center" style="max-width:20rem;">
                             <input type="text" class="form-control text-secondary border-0 shadow-none rounded-5"
                                 style="background: transparent;" placeholder="username" name="username"
