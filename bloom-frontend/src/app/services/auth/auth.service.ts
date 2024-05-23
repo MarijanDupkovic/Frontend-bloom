@@ -3,6 +3,7 @@ import { Injectable, NgZone, Signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, Subject, lastValueFrom } from 'rxjs';
 import { environment } from '../../../environtments/environtment';
+import {  FormGroup } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root',
@@ -53,21 +54,10 @@ export class AuthService {
     return true;
   }
 
-  public signUp(email: string, password: string, password2: string, username: string, firstName: string, lastName: string, street: string, zipCode: string, city: string, country: string) {
+  public signUp(signUpForm:FormGroup) {
     const url = environment.baseUrl + '/register/';
-    const body = {
-      "email": email,
-      "first_name": firstName,
-      "last_name": lastName,
-      "password": password,
-      "password2": password2,
-      "username": username,
-      "street": street,
-      "zip_code": zipCode,
-      "city": city,
-      "country": country
-    };
-    return lastValueFrom(this.http.post(url, body));
+
+    return lastValueFrom(this.http.post(url, signUpForm.value));
   }
 
 }
