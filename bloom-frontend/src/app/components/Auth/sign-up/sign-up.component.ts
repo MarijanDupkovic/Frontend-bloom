@@ -1,32 +1,22 @@
 import { CommonModule, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../../services/auth/auth.service';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
-const STEP_1 = 'step1';
-const STEP_2 = 'step2';
-const STEP_3 = 'step3';
-const STEP_4 = 'step4';
+import { HttpClientModule } from '@angular/common/http';
+import { StepService, STEP_1, STEP_2, STEP_3, STEP_4 } from '../../../services/Stepper/step.service';
+import { ChangeDetectorRef } from '@angular/core';
+import { sin } from '@tensorflow/tfjs';
 @Component({
   selector: 'app-sign-up',
   standalone: true,
-  imports: [FormsModule, CommonModule,HttpClientModule,RouterLink,RouterLinkActive,NgIf],
+  imports: [ReactiveFormsModule, CommonModule, HttpClientModule, RouterLink, RouterLinkActive, NgIf],
   providers: [],
   templateUrl: './sign-up.component.html',
   styleUrl: './sign-up.component.scss'
 })
 export class SignUpComponent {
-  email: string = '';
-  firstName: string = '';
-  lastName: string = '';
-  password: string = '';
-  password2: string = '';
-  username: string = '';
-  street: string = '';
-  zipCode: string = '';
-  city: string = '';
-  country: string = '';
+
   hide: boolean = true;
   hide2: boolean = true;
   send: boolean = false;
@@ -34,67 +24,54 @@ export class SignUpComponent {
   message = ``;
   success: boolean = false;
   signup_failed: boolean = false;
-  step1: boolean = true;
-  step2: boolean = false;
-  step3: boolean = false;
-  step4: boolean = false;
 
-  setStep(step: string) {
-    this.step1 = step === STEP_1;
-    this.step2 = step === STEP_2;
-    this.step3 = step === STEP_3;
-    this.step4 = step === STEP_4;
-  }
+  steps = this.stepper.getSteps();
+  signupForm = new FormGroup({
+    email: new FormControl('', [Validators.required, Validators.email]),
+    firstName: new FormControl('', Validators.required),
+    lastName: new FormControl('', Validators.required),
+    password: new FormControl('', Validators.required),
+    password2: new FormControl('', Validators.required),
+    username: new FormControl('', Validators.required),
+    street: new FormControl('', Validators.required),
+    zipCode: new FormControl('', Validators.required),
+    city: new FormControl('', Validators.required),
+    country: new FormControl('', Validators.required),
+  });
+
+  constructor(private cdRef: ChangeDetectorRef, private authService: AuthService, private router: Router, private stepper: StepService) { this.addEnterListener() }
+
   isDisabled() {
-    if(this.step1){
-      if(!this.username && !this.email){
-        return true;
-
-      }else{
-        return false;
-      }
+    this.steps = this.stepper.getSteps();
+    if (this.steps.step1) {
+      return !(this.signupForm.controls.username?.valid && this.signupForm.controls.email?.valid);
     }
-    if(this.step2){
-      if(!this.firstName && !this.lastName){
-        return true;
-      }else{
-        return false;
-      }
+    if (this.steps.step2) {
+      return !(this.signupForm.controls.firstName?.valid && this.signupForm.controls.lastName?.valid);
     }
-    if(this.step3){
-      if(!this.password && !this.password2){
-        return true;
-      }else{
-        return false;
-      }
+    if (this.steps.step3) {
+      return !(this.signupForm.controls.password?.valid && this.signupForm.controls.password2?.valid);
     }
-    if(this.step4){
-      if(!this.street && !this.zipCode && !this.city && !this.country){
-        return true;
-      }else{
-        return false;
-      }
-    }else{
-      return false;
+    if (this.steps.step4) {
+      return !(this.signupForm.controls.street?.valid && this.signupForm.controls.zipCode?.valid && this.signupForm.controls.city?.valid && this.signupForm.controls.country?.valid);
     }
-  };
-  constructor(private authService: AuthService, private router: Router) { this.addEnterListener() }
+    return false;
+  }
 
   async signup() {
     this.send = true;
-
-      await this.authService.signUp(this.email, this.password, this.password2, this.username, this.firstName, this.lastName, this.street, this.zipCode, this.city, this.country)
-      .then(()=>{
-        this.success = true;
-        setTimeout(() => this.router.navigateByUrl('/signin'), 5000);
-
-      }).catch((e) => {
-        let error: any = e;
-        if (error.status == 400 || error.status == 405 ) {
-          this.setErrorMessage('Email oder username bereits in Verwendung', error);
-        }
-       });
+    try {
+      await this.authService.signUp(this.signupForm);
+      this.success = true;
+      setTimeout(() => this.router.navigateByUrl('/signin'), 5000);
+    } catch (e) {
+      let error: any = e;
+      if (error.status == 400 || error.status == 405) {
+        this.setErrorMessage('Email oder username bereits in Verwendung', error);
+      }
+    }
   }
+
   resetErrorMessage() {
     setTimeout(() => {
       this.signup_failed = false;
@@ -129,66 +106,65 @@ export class SignUpComponent {
       if (e.key === 'Enter') {
         e.preventDefault();
         e.stopPropagation();
-        if (this.password !== '' && this.password2 !== '' && this.email !== '') {
+        if (this.signupForm.controls.password && this.signupForm.controls.password2 && this.signupForm.controls.email) {
           this.signup();
         } else this.setErrorMessage('Bitte fülle alle Felder aus!', { error: 'Bitte fülle alle Felder aus!' });
       }
-
     }
     );
   }
 
   next(step: string) {
-    if (step === STEP_1) {
-      this.setStep(STEP_1);
-    } else if (step === STEP_2 && this.username && this.email) {
-      this.setStep(STEP_2);
-    } else if (step === STEP_3 && this.firstName && this.lastName) {
-      this.setStep(STEP_3);
-    } else if (step === STEP_4 && this.password && this.password2) {
-      this.setStep(STEP_4);
-    }
+    setTimeout(() => {
+      if (step === STEP_1) {
+        this.stepper.setStep(STEP_1);
+      } else if (step === STEP_2 && this.signupForm.controls.username.valid && this.signupForm.controls.email.valid) {
+        this.stepper.setStep(STEP_2);
+      } else if (step === STEP_3 && this.signupForm.controls.firstName.valid && this.signupForm.controls.lastName.valid) {
+        this.stepper.setStep(STEP_3);
+      } else if (step === STEP_4 && this.signupForm.controls.password.valid && this.signupForm.controls.password2.valid) {
+        this.stepper.setStep(STEP_4);
+      }
+      this.cdRef.detectChanges();
+
+    });
   }
 
-  back(){
-    if(this.step2){
-      this.step1 = true;
-      this.step2 = false;
-      this.step3 = false;
-      this.step4 = false;
-    }
-    else if(this.step3){
-      this.step1 = false;
-      this.step2 = true;
-      this.step3 = false;
-      this.step4 = false;
-    }
-    else if(this.step4){
-      this.step1 = false;
-      this.step2 = false;
-      this.step3 = true;
-      this.step4 = false;
-    }
+  back() {
+    setTimeout(() => {
+
+      this.steps = this.stepper.getSteps();
+      if (this.steps.step2) {
+        this.stepper.setStep(STEP_1);
+      }
+      else if (this.steps.step3) {
+        this.stepper.setStep(STEP_2);
+      }
+      else if (this.steps.step4) {
+        this.stepper.setStep(STEP_3);
+      }
+      this.cdRef.detectChanges();
+
+    });
+
   }
 
-  forward(){
-    if(this.step1){
-      this.step1 = false;
-      this.step2 = true;
-      this.step3 = false;
-      this.step4 = false;
-    }
-    else if(this.step2){
-      this.step1 = false;
-      this.step2 = false;
-      this.step3 = true;
-      this.step4 = false;
-    }
-    else if(this.step3){
-      this.step1 = false;
-      this.step2 = false;
-      this.step3 = false;
-      this.step4 = true;
-    }
+  forward() {
+    setTimeout(() => {
+
+      this.steps = this.stepper.getSteps();
+      if (this.steps.step1) {
+        this.stepper.setStep(STEP_2);
+      }
+      else if (this.steps.step2) {
+        this.stepper.setStep(STEP_3);
+      }
+      else if (this.steps.step3) {
+        this.stepper.setStep(STEP_4);
+      }
+      this.cdRef.detectChanges();
+
+    });
+
   }
 }
