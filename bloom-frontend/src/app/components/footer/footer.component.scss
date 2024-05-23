@@ -4,7 +4,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 20px; 
+    justify-content: center;
+    gap: 20px;
     padding: 20px;
     height: 210px;
 
@@ -42,8 +43,8 @@
         text-decoration: underline;
         color: inherit;
     }
-    
+
     .icon-separator {
-        color: inherit; 
+        color: inherit;
     }
 }
