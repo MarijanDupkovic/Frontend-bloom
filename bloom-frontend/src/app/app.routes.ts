@@ -17,11 +17,12 @@ import { PublicVideoComponent } from './components/public-video/public-video.com
 import { VideoDetailComponent } from './components/post-login/video-detail/video-detail.component';
 import { ContactComponent } from './components/content/contact/contact.component';
 import { AppComponent } from './app.component';
+import { PrivacyComponent } from './components/privacy/privacy.component';
+import { LegalComponent } from './components/legal/legal.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
     { path: 'home', component: ContentComponent },
-    { path: 'vorgaben', component: VorgabenComponent },
     { path: 'signin', component: LoginComponent },
     { path: 'signup', component: SignUpComponent },
     { path: 'reset-mail', component: SendPwResetComponent },
@@ -29,6 +30,8 @@ export const routes: Routes = [
     { path: 'contact', component: ContactComponent },
     { path: 'activate/:token', component: UserActivationComponent },
     { path: 'public-video/:str', component: PublicVideoComponent },
+    { path: 'privacy', component:PrivacyComponent},
+    { path: 'legal', component:LegalComponent},
 
     {
         path: 'site', component: PostAppComponent, canActivate: [AuthguardService],
