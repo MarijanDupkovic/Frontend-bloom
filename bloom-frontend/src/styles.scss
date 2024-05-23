@@ -62,3 +62,36 @@ label::after {
 body::-webkit-scrollbar {
   display: none !important;
 }
+
+.container {
+  height: calc(100vh - 8.5rem - 13.85rem);
+}
+
+
+body {
+  --sb-track-color: #f3f6f7;
+  --sb-thumb-color: #a16baf;
+  --sb-size: 6px;
+}
+
+::-webkit-scrollbar {
+  width: var(--sb-size)
+}
+
+::-webkit-scrollbar-track {
+  background: var(--sb-track-color);
+  border-radius: 12px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--sb-thumb-color);
+  border-radius: 12px;
+
+}
+
+@supports not selector(::-webkit-scrollbar) {
+  body {
+    scrollbar-color: var(--sb-thumb-color)
+                     var(--sb-track-color);
+  }
+}
