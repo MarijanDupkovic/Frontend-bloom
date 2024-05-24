@@ -1,25 +1,21 @@
-<app-public-video></app-public-video>
-<div class="d-flex flex-column ">
-    <h6 class="m-0 p-0">Public link</h6>
-    <div class="w-100 mt-1 mb-3" style="background-color: rgba(0, 0, 0, 0.25);height: 2px;"></div>
-    <div class="form-floating mb-3 w-100 align-self-center d-flex " style="max-width:18rem;">
-        <input [type]="hide ? 'password' : 'text'" readonly
-            class="form-control text-secondary border-0 shadow-none w-100" style="background: transparent;"
-            name="password" id="passwordField" [(ngModel)]="link">
-        <label for="passwordField" style="background: transparent !important;" class="form-label">Show public
-            link</label>
+<div class="d-flex flex-column " style="height: calc(100vh - 100px - 124px);">
+  <app-public-video></app-public-video>
 
-        <button tabindex="-1" (click)="togglePWField($event)" class="border-0 text-dark rounded-2"
-            [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide"
-            style="color: white;background: transparent;">
-            <span class="material-icons">{{hide ? 'visibility_off' : 'visibility'}}</span>
-        </button>
-        <button tabindex="-1" (click)="copyLink()" class="border-0 text-dark rounded-2"
-            style="color: white;background: transparent;">
-            <span class="material-icons" alt="copy link" title="copy link">content_copy</span>
-        </button>
+  <h6 class="m-0 p-0">Public link</h6>
+  <div class="w-100 mt-1 mb-3" style="background-color: rgba(0, 0, 0, 0.25);height: 2px;"></div>
+  <div class="form-floating mb-3 w-100 align-self-center d-flex " style="max-width:18rem;">
+    <input [type]="hide ? 'password' : 'text'" readonly class="form-control text-secondary border-0 shadow-none w-100"
+      style="background: transparent;" name="password" id="passwordField" [(ngModel)]="link">
+    <label for="passwordField" style="background: transparent !important;" class="form-label">Show public
+      link</label>
 
-
-
-    </div>
+    <button tabindex="-1" (click)="togglePWField($event)" class="border-0 text-dark rounded-2"
+      [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide" style="color: white;background: transparent;">
+      <span class="material-icons">{{hide ? 'visibility_off' : 'visibility'}}</span>
+    </button>
+    <button tabindex="-1" (click)="copyLink()" class="border-0 text-dark rounded-2"
+      style="color: white;background: transparent;">
+      <span class="material-icons" alt="copy link" title="copy link">content_copy</span>
+    </button>
+  </div>
 </div>
