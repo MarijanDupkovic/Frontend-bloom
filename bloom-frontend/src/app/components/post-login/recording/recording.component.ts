@@ -57,10 +57,10 @@ export class RecordingComponent {
   }
 
   setVideoSize() {
-    if(window.innerWidth < 900) {
+    if (window.innerWidth < 900) {
       this.screenWidth = window.innerWidth / 1.25;
       this.screenHeight = window.innerHeight / 1.25;
-    }else {
+    } else {
       this.screenWidth = window.innerWidth / 2;
       this.screenHeight = window.innerHeight / 2;
     }
@@ -73,7 +73,6 @@ export class RecordingComponent {
         this.screenVideo!.nativeElement.play();
       };
       this.screen_running = true;
-
     }
   }
 
@@ -139,8 +138,8 @@ export class RecordingComponent {
     });
   }
 
-  getScreenStream() {
-    return navigator.mediaDevices.getDisplayMedia({
+  async getScreenStream() {
+    return await navigator.mediaDevices!.getDisplayMedia({
       video: {
         width: { ideal: 1920 },
         height: { ideal: 1080 },
@@ -148,14 +147,15 @@ export class RecordingComponent {
         aspectRatio: { ideal: 1.7777777778 }
       }
     });
+
   }
 
-  getAudioStream() {
-    return navigator.mediaDevices.getUserMedia({ audio: true });
+  async getAudioStream() {
+    return await navigator.mediaDevices.getUserMedia({ audio: true });
   }
 
   async getWebcamStream() {
-    return navigator.mediaDevices.getUserMedia({
+    return await navigator.mediaDevices.getUserMedia({
       video: {
         width: { ideal: 1920 },
         height: { ideal: 1080 },

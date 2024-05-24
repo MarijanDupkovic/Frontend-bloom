@@ -7,37 +7,31 @@ import { RouterLink } from '@angular/router';
 @Component({
   selector: 'app-library',
   standalone: true,
-  imports: [CommonModule,RouterLink],
+  imports: [CommonModule, RouterLink],
   templateUrl: './library.component.html',
   styleUrl: './library.component.scss'
 })
 export class LibraryComponent {
   @Input() videos = [] as any;
-  all:boolean = false;
+  all: boolean = false;
 
+  constructor(private video: VideoService) { }
 
+  async ngOnInit() {
+    this.videos = await this.getVideos();
+  }
 
-  constructor(private video:VideoService) {
-   }
+  async getVideos() {
+    return await this.video.getUserVideos();
+  }
 
-   async ngOnInit() {
-      this.videos = await this.getVideos();
+  toggleCategory(value: boolean) {
+    this.all = value;
+  }
 
-
-    }
-
-   async getVideos() {
-     return await this.video.getUserVideos();
-   }
-
-   toggleCategory(value: boolean) {
-      this.all = value;
-
-    }
-
-   convertLink(link: string) {
+  convertLink(link: string) {
     let splitted_link = link.split('/');
     let url = environment.baseUrl + '/' + splitted_link[3] + '/' + splitted_link[4] + '/' + splitted_link[5];
     return url;
-   }
+  }
 }

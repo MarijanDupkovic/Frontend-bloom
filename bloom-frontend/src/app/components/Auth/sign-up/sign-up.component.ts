@@ -151,7 +151,6 @@ export class SignUpComponent {
 
   forward() {
     setTimeout(() => {
-
       this.steps = this.stepper.getSteps();
       if (this.steps.step1) {
         this.stepper.setStep(STEP_2);
@@ -163,8 +162,6 @@ export class SignUpComponent {
         this.stepper.setStep(STEP_4);
       }
       this.cdRef.detectChanges();
-
     });
-
   }
 }

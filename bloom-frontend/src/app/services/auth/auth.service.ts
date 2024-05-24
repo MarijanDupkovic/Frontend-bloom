@@ -1,14 +1,12 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, NgZone, Signal } from '@angular/core';
-import { Router } from '@angular/router';
-import { BehaviorSubject, Observable, Subject, lastValueFrom } from 'rxjs';
+import { Injectable } from '@angular/core';
+import { BehaviorSubject, lastValueFrom } from 'rxjs';
 import { environment } from '../../../environtments/environtment';
-import {  FormGroup } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root',
 })
-
 
 export class AuthService {
   private loggedIn = new BehaviorSubject<boolean>(false);
@@ -24,7 +22,7 @@ export class AuthService {
       "password": password
     };
 
-    return lastValueFrom(this.http.post(url, body)).then((resp: any) => { // Explicitly define the type of resp as any
+    return lastValueFrom(this.http.post(url, body)).then((resp: any) => {
       if (resp && resp['token']) {
         localStorage.setItem('token', resp['token']);
         this.changeSignInState(true);
@@ -43,7 +41,6 @@ export class AuthService {
       localStorage.removeItem('token');
       this.changeSignInState(false);
     });
-
   }
 
   public isAuthenticated(): boolean {
@@ -54,10 +51,20 @@ export class AuthService {
     return true;
   }
 
-  public signUp(signUpForm:FormGroup) {
+  public signUp(signUpForm: FormGroup) {
     const url = environment.baseUrl + '/register/';
-
-    return lastValueFrom(this.http.post(url, signUpForm.value));
+    const body = {
+      "email": signUpForm.value.email,
+      "password": signUpForm.value.password,
+      "password2": signUpForm.value.password2,
+      "username": signUpForm.value.username,
+      "first_name": signUpForm.value.firstName,
+      "last_name": signUpForm.value.lastName,
+      "street": signUpForm.value.street,
+      "zip_code": signUpForm.value.zipCode,
+      "city": signUpForm.value.city,
+      "country": signUpForm.value.country
+    };
+    return lastValueFrom(this.http.post(url, body));
   }
-
 }

@@ -11,28 +11,28 @@
 
     </ul>
 
-    <div class="detailsContainer" >
+    <div class="detailsContainer">
       <ng-template [ngIf]="!all" [ngIfElse]="allContainer">
-      <div class="d-flex flex-wrap mb-5 gap-3 " *ngIf="!all; else allContainer">
-        <div *ngFor="
+        <div class="d-flex flex-wrap mb-5 gap-3 ">
+          <div *ngFor="
             let video of videos.slice(videos.length - 8).reverse();
-            let i = index
+            let i = index;
           ">
-          <div *ngIf="video" style="
+            <div *ngIf="video" style="
               width: 150px;
               height: 180px;
               background-color: rgba(0, 0, 0, 0.25);
               border-radius: 10px;
             ">
-            <a [routerLink]="'/site/video-details/' + video.title"
-              class="d-flex flex-column align-items-center justify-content-center m-2">
-              <video [src]="convertLink(video.video_file)" alt="video" style="width: 130px; height: 130px"
-                preload></video>
-              <span class="m-0 p-0 mt-2">{{ video.created_at }}</span>
-            </a>
+              <a [routerLink]="'/site/video-details/' + video.title"
+                class="d-flex flex-column align-items-center justify-content-center m-2">
+                <video [src]="convertLink(video.video_file)" alt="video" style="width: 130px; height: 130px"
+                  preload></video>
+                <span class="m-0 p-0 mt-2">{{ video.created_at }}</span>
+              </a>
+            </div>
           </div>
         </div>
-      </div>
       </ng-template>
       <ng-template #allContainer>
         <div class="d-flex flex-wrap mb-5 gap-3">
