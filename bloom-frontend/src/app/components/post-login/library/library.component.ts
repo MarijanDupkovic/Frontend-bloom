@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { VideoService } from '../../../services/Stream/video.service';
 import { CommonModule } from '@angular/common';
 import { environment } from '../../../../environtments/environtment';
@@ -13,17 +13,27 @@ import { RouterLink } from '@angular/router';
 })
 export class LibraryComponent {
   @Input() videos = [] as any;
+  all:boolean = false;
+
+
 
   constructor(private video:VideoService) {
    }
 
    async ngOnInit() {
       this.videos = await this.getVideos();
+
+
     }
 
    async getVideos() {
      return await this.video.getUserVideos();
    }
+
+   toggleCategory(value: boolean) {
+      this.all = value;
+
+    }
 
    convertLink(link: string) {
     let splitted_link = link.split('/');
