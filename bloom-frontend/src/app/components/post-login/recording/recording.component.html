@@ -3,7 +3,7 @@
   style="min-height: calc(100vh - 100px - 124px)"
 >
   <div class="w-80">
-    <h1 class="m-0 p-0 mt-3 mb-3">Recording</h1>
+    <h1 class="m-0 p-0 mt-3 mb-3 prevent-select">Recording</h1>
 
     <div class="d-flex justify-content-between mb-4">
       <div class="d-flex flex-column w-100 align-items-start">
@@ -14,36 +14,36 @@
         >
           <a
             (click)="showPreview()"
-            class="d-flex align-items-center justify-content-center btn btn-info"
+            class="d-flex align-items-center justify-content-center btn btn-info prevent-select"
           >
-            <mat-icon>play_circle_filled</mat-icon></a
+            <mat-icon class="prevent-select">play_circle_filled</mat-icon></a
           >
           <div style="height: 100%; border: 1px solid rgba(0, 0, 0, 0.4)"></div>
 
           <a
-            class="d-flex align-items-center justify-content-center btn btn-info"
+            class="d-flex align-items-center justify-content-center btn btn-info prevent-select"
             (click)="hidePreview()"
-            ><mat-icon>stop</mat-icon></a
+            ><mat-icon class="prevent-select">stop</mat-icon></a
           >
         </div>
       </div>
       <div class="d-flex flex-column align-items-end w-100">
-        <h3>Recording</h3>
+        <h3 class="prevent-select">Recording</h3>
         <div
           class="d-flex w-75 btn-group btn-shadow justify-content-between align-items-center"
           style="max-width: 6rem"
         >
           <a
-            class="d-flex align-items-center btn btn-info justify-content-center"
+            class="d-flex align-items-center btn btn-info justify-content-center prevent-select"
             (click)="startRecordingLive()"
           >
-            <mat-icon>fiber_manual_record</mat-icon></a
+            <mat-icon class="prevent-select">fiber_manual_record</mat-icon></a
           >
           <div style="height: 100%; border: 1px solid rgba(0, 0, 0, 0.4)"></div>
           <a
-            class="d-flex align-items-center btn btn-info justify-content-center"
+            class="d-flex align-items-center btn btn-info justify-content-center prevent-select"
             (click)="stopRecordingLive()"
-            ><mat-icon>stop</mat-icon></a
+            ><mat-icon class="prevent-select">stop</mat-icon></a
           >
         </div>
       </div>
