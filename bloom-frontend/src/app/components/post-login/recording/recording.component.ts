@@ -138,8 +138,8 @@ export class RecordingComponent {
     });
   }
 
-  async getScreenStream() {
-    return await navigator.mediaDevices!.getDisplayMedia({
+  getScreenStream() {
+    return navigator.mediaDevices!.getDisplayMedia({
       video: {
         width: { ideal: 1920 },
         height: { ideal: 1080 },
@@ -150,12 +150,12 @@ export class RecordingComponent {
 
   }
 
-  async getAudioStream() {
-    return await navigator.mediaDevices.getUserMedia({ audio: true });
+  getAudioStream() {
+    return navigator.mediaDevices.getUserMedia({ audio: true });
   }
 
-  async getWebcamStream() {
-    return await navigator.mediaDevices.getUserMedia({
+  getWebcamStream() {
+    return navigator.mediaDevices.getUserMedia({
       video: {
         width: { ideal: 1920 },
         height: { ideal: 1080 },
@@ -165,7 +165,7 @@ export class RecordingComponent {
     });
   }
 
-  async stopMediaDevices() {
+  stopMediaDevices() {
     this.blur = false;
 
     if (this.screenVideo!.nativeElement.srcObject) {
