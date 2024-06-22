@@ -1,12 +1,12 @@
 <div class="container-header">
   <div class="d-flex justify-content-between align-items-center w-80" >
-    <a routerLink="/">RECSYNC</a>
+    <a class="prevent-select" routerLink="/">RECSYNC</a>
     <div class="container-header-desktop">
 
-      <a routerLink="/home" [routerLinkActive]="'active'" translate>Home</a>
-      <a routerLink="signin" [routerLinkActive]="'active'" translate>Sign in</a>
-      <a routerLink="signup" [routerLinkActive]="'active'" translate>Sign up</a>
-      <a routerLink="/contact" [routerLinkActive]="'active'" translate>Contact</a>
+      <a routerLink="/home" [routerLinkActive]="'active'" class="prevent-select" translate>Home</a>
+      <a routerLink="signin" [routerLinkActive]="'active'" class="prevent-select" translate>Sign in</a>
+      <a routerLink="signup" [routerLinkActive]="'active'" class="prevent-select" translate>Sign up</a>
+      <a routerLink="/contact" [routerLinkActive]="'active'" class="prevent-select" translate>Contact</a>
     </div>
 
     <div (click)="toggleMenu()" class="container-header-b-menu">
@@ -19,16 +19,16 @@
 
     <div class="container-items">
       <div class="container-menu-item">
-        <a class="menu-item" routerLink="/home" [routerLinkActive]="'active'" (click)="toggleMenu()" translate>Home</a>
+        <a class="menu-item prevent-select" routerLink="/home" [routerLinkActive]="'active'" (click)="toggleMenu()" translate>Home</a>
       </div>
       <div class="container-menu-item">
-        <a class="menu-item" routerLink="/signin" [routerLinkActive]="'active'" (click)="toggleMenu()" translate>Sign in</a>
+        <a class="menu-item prevent-select" routerLink="/signin" [routerLinkActive]="'active'" (click)="toggleMenu()" translate>Sign in</a>
       </div>
       <div class="container-menu-item">
-        <a class="menu-item" routerLink="/signup" [routerLinkActive]="'active'" (click)="toggleMenu()" translate>Sign up</a>
+        <a class="menu-item prevent-select" routerLink="/signup" [routerLinkActive]="'active'" (click)="toggleMenu()" translate>Sign up</a>
       </div>
       <div class="container-menu-item">
-        <a class="menu-item" routerLink="/contact" [routerLinkActive]="'active'" (click)="toggleMenu()" translate>Contact</a>
+        <a class="menu-item prevent-select" routerLink="/contact" [routerLinkActive]="'active'" (click)="toggleMenu()" translate>Contact</a>
       </div>
     </div>
   </div>

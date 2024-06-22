@@ -2,15 +2,19 @@
   <div class="d-flex justify-content-center w-80 signupHead" style="min-height: calc(100vh - 100px - 124px);">
     <div class="d-flex justify-content-center align-items-center flex-column signUpContainer w-100 gap-3 h-100">
       <div class="d-flex justify-content-between w-100 steps">
-        <span id="step1" [ngClass]="steps.step1 ? 'active-link': ''" (click)="next('step1')">Step 1</span>
-        <span class="devider">-</span>
-        <span id="step2" [ngClass]="steps.step2 ? 'active-link': ''" (click)="next('step2')">Step 2</span>
-        <span class="devider">-</span>
-        <span id="step3" [ngClass]="steps.step3 ? 'active-link': ''" (click)="next('step3')">Step 3</span>
-        <span class="devider">-</span>
-        <span id="step4" [ngClass]="steps.step4 ? 'active-link': ''" (click)="next('step4')">Step 4</span>
+        <span id="step1" [ngClass]="steps.step1 ? 'active-link': ''" class="prevent-select" (click)="next('step1')">Step
+          1</span>
+        <span class="devider prevent-select">-</span>
+        <span id="step2" [ngClass]="steps.step2 ? 'active-link': ''" class="prevent-select" (click)="next('step2')">Step
+          2</span>
+        <span class="devider prevent-select">-</span>
+        <span id="step3" [ngClass]="steps.step3 ? 'active-link': ''" class="prevent-select" (click)="next('step3')">Step
+          3</span>
+        <span class="devider prevent-select">-</span>
+        <span id="step4" [ngClass]="steps.step4 ? 'active-link': ''" class="prevent-select" (click)="next('step4')">Step
+          4</span>
       </div>
-      <h1 class=" align-self-start mb-3">Sign up</h1>
+      <h1 class=" align-self-start mb-3 prevent-select">Sign up</h1>
       <div class="d-flex flex-column w-100 gap-3 mt-3">
         <div>
           <form class="d-flex flex-column " [formGroup]="signupForm" (ngSubmit)="signup()">
@@ -106,7 +110,8 @@
 
 
             <div class="mt-3 align-self-center redirectLogin ">
-              <span>Bereits registriert?<a routerLink="/signin">Jetzt einloggen</a></span>
+              <span class="prevent-select">Bereits registriert?<a routerLink="/signin" class="prevent-select"> Jetzt
+                  einloggen</a></span>
             </div>
 
           </form>

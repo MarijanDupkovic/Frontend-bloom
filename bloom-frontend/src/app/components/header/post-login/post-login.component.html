@@ -1,24 +1,24 @@
 <div class="container-header w-100 d-flex align-items-center justify-content-center">
   <div class="d-flex justify-content-between align-items-center w-80">
-    <a [href]="'/'">RECSYNC</a>
+    <a [href]="'/'" class="prevent-select">RECSYNC</a>
     <div class="container-header-desktop">
-      <a routerLink="site/recording" translate>Record</a>
-      <a routerLink="site/library" translate>Library</a>
+      <a routerLink="site/recording" class="prevent-select" translate>Record</a>
+      <a routerLink="site/library" class="prevent-select" translate>Library</a>
       <div class="dropdown">
         <a class="dropdown-toggle" (click)="dropdownMenuOpened = !dropdownMenuOpened">
           <img class="rounded-circle shadow-lg border border-2 border-info" style="object-fit: cover"
             [src]="convertLink(profilePicture)" alt="user" width="70" height="70" />
         </a>
         <div [class.show]="dropdownMenuOpened" class="dropdown-menu">
-          <a class="btn w-100 droplink" routerLink="site/profile" (click)="dropdownMenuOpened = !dropdownMenuOpened"
+          <a class="btn w-100 droplink prevent-select" routerLink="site/profile" (click)="dropdownMenuOpened = !dropdownMenuOpened"
             translate>Profile</a>
-          <a class="btn w-100 droplink" (click)="logout();dropdownMenuOpened = !dropdownMenuOpened" translate>Logout</a>
+          <a class="btn w-100 droplink prevent-select" (click)="logout();dropdownMenuOpened = !dropdownMenuOpened" translate>Logout</a>
 
         </div>
       </div>
     </div>
 
-    <div (click)="toggleMenu()" class="container-header-b-menu">
+    <div (click)="toggleMenu()" class="container-header-b-menu prevent-select">
       <div class="b-menu"></div>
       <div class="b-menu"></div>
       <div class="b-menu"></div>
@@ -27,16 +27,16 @@
   <div *ngIf="isOpen" class="container-menu">
     <div class="container-items">
       <div class="container-menu-item">
-        <a class="menu-item" routerLink="site/recording" (click)="toggleMenu()" translate>Record</a>
+        <a class="menu-item prevent-select" routerLink="site/recording" (click)="toggleMenu()" translate>Record</a>
       </div>
       <div class="container-menu-item">
-        <a class="menu-item" routerLink="site/library" (click)="toggleMenu()" translate>Library</a>
+        <a class="menu-item prevent-select" routerLink="site/library" (click)="toggleMenu()" translate>Library</a>
       </div>
       <div class="container-menu-item">
-        <a class="menu-item" routerLink="site/profile" (click)="toggleMenu()" translate>Profile</a>
+        <a class="menu-item prevent-select" routerLink="site/profile" (click)="toggleMenu()" translate>Profile</a>
       </div>
       <div class="container-menu-item">
-        <a class="menu-item" [href]="'#contact'" (click)="toggleMenu()" translate>Logout</a>
+        <a class="menu-item prevent-select" [href]="'#contact'" (click)="toggleMenu()" translate>Logout</a>
       </div>
     </div>
   </div>
