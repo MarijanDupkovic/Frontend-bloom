@@ -33,7 +33,7 @@ export class LoginComponent {
     this.send = true;
     try {
       await this.authService.loginWithEmailandPassword(this.email, this.password).then(() => {
-        this.router.navigateByUrl('/site/dashboard');
+        this.router.navigateByUrl('/site/library');
       });
     } catch (error:any){
       if (error.status == 403) this.setErrorMessage(' Bitte bestätige zuerst deine Emailadresse.', error);
