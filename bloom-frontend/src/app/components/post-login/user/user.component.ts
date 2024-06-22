@@ -15,6 +15,7 @@ export class UserComponent implements AfterViewInit {
   profileImg = 'https://www.w3schools.com/howto/img_avatar.png';
   public user: any;
   hovering = false;
+  active = 'userData';
   @ViewChild('fileInput') fileInput: any;
   constructor(private userService: UserService) { }
 
