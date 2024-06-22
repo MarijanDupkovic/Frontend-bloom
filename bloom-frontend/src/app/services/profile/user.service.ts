@@ -22,10 +22,10 @@ export class UserService {
     });
   }
 
-  changeUserData(path: string, username: string, email: string,uid: string){
+  changeUserData(path: string, bodyData:any,uid: string){
     const url = environment.baseUrl + path + '/' + uid + '/';
     const headers = new HttpHeaders().set('Authorization', `token ${localStorage.getItem('token')}`);
-    const body = { "username":username,"email": email};
+    const body = bodyData;
     return lastValueFrom(this.http.put(url, body, { headers }));
   }
 
