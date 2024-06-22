@@ -2,7 +2,9 @@ import { Component } from '@angular/core';
 import { UserService } from '../../../services/profile/user.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 
+interface body { "username": '', "email": '', "first_name": '', "last_name": '', "street": '', "zip_code": '', "city": '', "country": '' };
 @Component({
   selector: 'app-edit-user',
   standalone: true,
@@ -25,10 +27,15 @@ export class EditUserComponent {
   fail_message: string = '';
   message = ``;
   location: any;
-  constructor(private userService: UserService) { }
+  infoType: string = 'userData';
+  success: boolean = false;
+  constructor(private userService: UserService,private route: ActivatedRoute) { }
 
   async ngOnInit() {
     this.getData();
+    this.route.queryParams.subscribe(params => {
+      this.infoType = params['info'];
+    });
   }
 
   async getData() {
@@ -43,10 +50,23 @@ export class EditUserComponent {
     this.country = this.user[0].country;
   }
 
+
+
   async changeData() {
     this.send = true;
     let resp: any;
-    resp = await this.userService.changeUserData('/user', this.username, this.email, this.user[0].id).then((data: any) => {
+    let body = {
+      "username": this.username,
+      "email": this.email,
+      "first_name": this.firstName,
+      "last_name": this.lastName,
+      "street": this.street,
+      "zip_code": this.zipCode,
+      "city": this.city,
+      "country": this.country
+    }
+    resp = await this.userService.changeUserData('/user', body, this.user[0].id).then((data: any) => {
+      this.success = true;
       this.setErrorMessage('Daten erfolgreich geändert', 'Daten erfolgreich geändert');
 
     }).catch((err) => {

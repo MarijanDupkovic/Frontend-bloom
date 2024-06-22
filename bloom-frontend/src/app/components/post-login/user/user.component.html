@@ -25,15 +25,15 @@
 
       <div class="d-flex justify-content-between w-100">
         <div class="d-flex gap-2 align-self-start">
-          <button (click)="active = 'userData'" style="outline: none;border: none;background-color: white;"
+          <button (click)="active = 'userData'" style="outline: none;border: none;background-color: white;padding: 0.25rem;"
             [class.active]="active === 'userData'">Userdata</button>
-          <button (click)="active = 'personal'" style="outline: none;border: none;background-color: white;"
+          <button (click)="active = 'personal'" style="outline: none;border: none;background-color: white;padding: 0.25rem;"
             [class.active]="active === 'personal'">Personal</button>
-          <button (click)="active = 'address'" style="outline: none;border: none;background-color: white;"
+          <button (click)="active = 'address'" style="outline: none;border: none;background-color: white;padding: 0.25rem;"
             [class.active]="active === 'address'">Address</button>
         </div>
         <div class="d-flex justify-content-end align-items-end w-100 mb-3">
-          <a id="editDetails" routerLink="/site/edit-profile">
+          <a id="editDetails" routerLink="/site/edit-profile" [queryParams]="{info: active}">
             <mat-icon class="editDetailsIcon">edit</mat-icon>
           </a>
         </div>

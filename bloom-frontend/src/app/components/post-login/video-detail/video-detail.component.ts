@@ -3,7 +3,6 @@ import { PublicVideoComponent } from '../../public-video/public-video.component'
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { environment } from '../../../../environtments/environtment';
 import { Clipboard } from '@angular/cdk/clipboard';
 @Component({
   selector: 'app-video-detail',
