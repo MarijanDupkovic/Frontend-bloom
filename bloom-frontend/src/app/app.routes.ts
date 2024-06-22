@@ -16,7 +16,6 @@ import { RecordingComponent } from './components/post-login/recording/recording.
 import { PublicVideoComponent } from './components/public-video/public-video.component';
 import { VideoDetailComponent } from './components/post-login/video-detail/video-detail.component';
 import { ContactComponent } from './components/content/contact/contact.component';
-import { AppComponent } from './app.component';
 import { PrivacyComponent } from './components/privacy/privacy.component';
 import { LegalComponent } from './components/legal/legal.component';
 
@@ -36,15 +35,12 @@ export const routes: Routes = [
     {
         path: 'site', component: PostAppComponent, canActivate: [AuthguardService],
         children: [
-            { path: 'dashboard', component: DashboardComponent },
             { path: 'profile' , component:UserComponent },
             { path: 'edit-profile' , component:EditUserComponent },
             { path: 'library' , component:LibraryComponent },
             { path: 'recording' , component:RecordingComponent },
             { path: 'video-details/:str', component: VideoDetailComponent },
         ]
-
-
     },
 
 ];
