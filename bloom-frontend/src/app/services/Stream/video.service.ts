@@ -12,14 +12,14 @@ export class VideoService {
   userData: any;
   constructor(private http: HttpClient, private user: UserService) { }
 
-  uploadVideo(formData: FormData) {
+  async uploadVideo(formData: FormData) {
     const url = environment.baseUrl + '/videos/';
-
+    console.log(localStorage.getItem('token'));
     const headers = new HttpHeaders().set('Authorization', `token ${localStorage.getItem('token')}`);
 
     let upload = this.http.post(url, formData, { headers });
 
-    return lastValueFrom(upload);
+    return await lastValueFrom(upload);
 
   }
 

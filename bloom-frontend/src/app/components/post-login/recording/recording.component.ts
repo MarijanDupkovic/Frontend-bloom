@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostListener, Input, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import * as bodyPix from '@tensorflow-models/body-pix';
 import * as tf from '@tensorflow/tfjs';
@@ -34,37 +34,40 @@ export class RecordingComponent {
   screenWidth = window.innerWidth / 1.25;
   screenHeight = window.innerHeight / 1.25;
   resizeListener: any;
+  canvasWidth: number = 1280;
+  canvasHeight: number = 720;
   @Input() style: any;
-
-  constructor(private video: VideoService, private user: UserService) {
-    this.getUserData();
-
-  }
   @ViewChild('canvasScreen') canvasScreen?: ElementRef;
   @ViewChild('screenVideo') screenVideo?: ElementRef;
   @ViewChild('webcamVideo') webcamVideo?: ElementRef;
   @ViewChild('webcamCanvas') webcamCanvas?: ElementRef;
+  private readonly aspectRatio: number = 16 / 9;
+  private readonly referenceResolution: number = 1920;
+  private readonly targetWidth: number = 1280;
+  private readonly widthRatio: number = this.targetWidth / this.referenceResolution;
+  constructor(private video: VideoService, private user: UserService) {
+    this.adjustCanvasSize();
+  }
+  @HostListener('window:resize', ['$event'])
+  onResize(event:any) {
+    this.adjustCanvasSize();
+  }
+
+  adjustCanvasSize() {
+    const screenWidth = window.innerWidth;
+    this.canvasWidth = screenWidth * this.widthRatio;
+    this.canvasHeight = this.canvasWidth / this.aspectRatio;
+
+  }
 
   ngOnInit() {
-    this.setVideoSize();
-    this.resizeListener = window.addEventListener('resize', (event) => {
-      this.setVideoSize()
-    });
+
   }
 
   ngOnDestroy() {
     window.removeEventListener('resize', this.resizeListener);
   }
 
-  setVideoSize() {
-    if (window.innerWidth < 900) {
-      this.screenWidth = window.innerWidth / 1.25;
-      this.screenHeight = window.innerHeight / 1.25;
-    } else {
-      this.screenWidth = window.innerWidth / 2;
-      this.screenHeight = window.innerHeight / 2;
-    }
-  }
 
   async loadScreenStream(screenStream: any) {
     if (this.screenVideo) {
@@ -91,7 +94,7 @@ export class RecordingComponent {
   draw() {
     this.ctx = this.canvasScreen!.nativeElement.getContext('2d');
     if (this.webcamCanvas && this.webcamCanvas.nativeElement && this.ctx && this.screenVideo && this.screenVideo.nativeElement) {
-      this.ctx.drawImage(this.screenVideo.nativeElement, 0, 0, this.screenWidth, this.screenHeight);
+      this.ctx.drawImage(this.screenVideo.nativeElement, 0, 0, this.canvasWidth, this.canvasHeight);
       this.ctx.drawImage(this.webcamCanvas.nativeElement, 0, 0, 150, 150);
       this.ctx.globalAlpha = 0.01;
       this.ctx.fillRect(0, 0, 1, 1);
@@ -139,11 +142,11 @@ export class RecordingComponent {
   }
 
   getScreenStream() {
-    return navigator.mediaDevices!.getDisplayMedia({
+    return navigator.mediaDevices.getDisplayMedia({
       video: {
-        width: { ideal: 1920 },
-        height: { ideal: 1080 },
-        frameRate: { ideal: 60, max: 60 },
+        width: { ideal: this.canvasWidth * 1.25},
+        height: { ideal: this.canvasHeight * 1.25},
+        frameRate: { ideal: 100, max: 120 },
         aspectRatio: { ideal: 1.7777777778 }
       }
     });
@@ -194,39 +197,51 @@ export class RecordingComponent {
   }
 
   async getMediaDevices() {
-    await this.getScreenStream()
-      .then((screenStream) => {
-        this.getWebcamStream()
-          .then(webcamStream => {
-            this.loadScreenStream(screenStream);
-            this.loadWebcamStream(webcamStream);
-            this.draw();
-          }).catch(error => console.log("Error getting webcam:", error));
-      }).catch(error => console.log("Error getting screen:", error));
+    try {
+
+      let webcamStream = await this.getWebcamStream();
+      this.loadWebcamStream(webcamStream);
+      let screenStream = await this.getScreenStream();
+      this.loadScreenStream(screenStream);
+      this.draw();
+
+    } catch (error) {
+      console.log("Error getting screen:", error);
+    }
   }
 
   async startRecordingLive() {
 
     await this.getMediaDevices();
-    await this.getAudioStream().then((audioStream) => {
-      let stream = this.canvasScreen!.nativeElement.captureStream();
-      if (this.screen_running && this.webcam_running) { this.startRecording(stream, audioStream); }
-    });
 
+    this.startRecording();
   }
 
 
-  startRecording(stream: any, audioStream: any) {
-    let tracks = [
-      ...stream.getTracks(),
-      ...audioStream.getTracks()
-    ];
-    let combinedStream = new MediaStream(tracks);
-    this.mediaRecorder = new MediaRecorder(combinedStream);
-    this.mediaRecorder.ondataavailable = (e: BlobEvent) => {
-      if (e.data.size > 0) this.recordedChunks.push(e.data);
-    };
-    this.mediaRecorder.start();
+  async startRecording() {
+    try {
+      let audioStream = await this.getAudioStream();
+      let stream = this.canvasScreen!.nativeElement.captureStream();
+
+      let tracks = [
+        ...stream.getTracks(),
+        ...audioStream.getTracks()
+      ];
+      let combinedStream = new MediaStream(tracks);
+
+      this.mediaRecorder = new MediaRecorder(combinedStream);
+      this.mediaRecorder.ondataavailable = (e: BlobEvent) => {
+        if (e.data.size > 0) this.recordedChunks.push(e.data);
+      };
+      this.mediaRecorder.start();
+    } catch (error: any) {
+      console.error("Error accessing media devices: ", error);
+      if (error.name === "NotAllowedError" || error.name === "PermissionDeniedError") {
+        alert("Permission to access media devices was denied. Please allow access to use this feature.");
+      } else {
+        alert("An error occurred while accessing media devices. Please check your device and browser settings.");
+      }
+    }
   }
 
   async getUserData() {
@@ -238,25 +253,23 @@ export class RecordingComponent {
   }
 
   async stopRecordingLive() {
+    await this.getUserData();
+
     this.blur = false;
-    this.mediaRecorder.onstop = () => {
-      let blob = new Blob(this.recordedChunks, { type: "video/mp4" });
-      // let url = URL.createObjectURL(blob);
-      // let link = document.createElement("a");
-      // link.download = "video.mp4";
-      // link.href = url;
-      // link.click();
+    if (this.mediaRecorder && this.mediaRecorder.state !== 'inactive') {
+      this.mediaRecorder.onstop = () => {
+        let blob = new Blob(this.recordedChunks, { type: "video/mp4" });
+        let formData = new FormData();
+        formData.append('video_file', blob, 'video.mp4');
+        formData.append('author', this.userData.id);
 
-      let formData = new FormData();
-      formData.append('video_file', blob, 'video.mp4');
-      formData.append('author', this.userData.id);
-      this.video.uploadVideo(formData);
+        this.video.uploadVideo(formData);
+      }
+      this.mediaRecorder.stop();
+      this.mediaRecorder.stream.getTracks().forEach((track: any) => track.stop());
     }
-
-    this.mediaRecorder.stop();
-    this.mediaRecorder.stream.getTracks().forEach((track: any) => track.stop());
+    this.stopMediaDevices();
     this.recordedChunks = [];
-    await this.stopMediaDevices();
     this.screen_running = false;
     this.webcam_running = false;
     this.screenWidth = 10;
