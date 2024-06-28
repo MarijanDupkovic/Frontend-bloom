@@ -20,11 +20,13 @@ export class RecordingComponent {
   blur: boolean = false;
   recorder: any;
   mediaRecorder: any;
+  mediaRecorderMP4: any;
   mediaStream: any;
   audioStream: any;
   audioContext: any;
   gainNode: any;
   recordedChunks: Blob[] = [];
+  recordedChunks_apple: Blob[] = [];
   bodyPixID: any;
   audio_running: boolean = false;
   screen_running: boolean = false;
@@ -49,7 +51,7 @@ export class RecordingComponent {
     this.adjustCanvasSize();
   }
   @HostListener('window:resize', ['$event'])
-  onResize(event:any) {
+  onResize(event: any) {
     this.adjustCanvasSize();
   }
 
@@ -229,6 +231,15 @@ export class RecordingComponent {
       ];
       let combinedStream = new MediaStream(tracks);
       const options = { mimeType: 'video/webm; codecs="vp8, opus"', videoBitsPerSecond: 1000000, audioBitsPerSecond: 128000 };
+      const mp4Options = { mimeType: 'video/mp4; codecs="avc1.42E01E, mp4a.40.2"', videoBitsPerSecond: 1000000, audioBitsPerSecond: 128000 };
+      this.mediaRecorderMP4 = new MediaRecorder(combinedStream, mp4Options);
+      this.mediaRecorderMP4.ondataavailable = (e: BlobEvent) => {
+        if (e.data.size > 0) {
+          if (e.data.size > 0) this.recordedChunks_apple.push(e.data);
+        }
+      };
+      this.mediaRecorderMP4.start();
+
       this.mediaRecorder = new MediaRecorder(combinedStream, options);
       this.mediaRecorder.ondataavailable = (e: BlobEvent) => {
         if (e.data.size > 0) this.recordedChunks.push(e.data);
@@ -254,20 +265,40 @@ export class RecordingComponent {
 
   async stopRecordingLive() {
     await this.getUserData();
+    let formData = new FormData();
 
     this.blur = false;
-    if (this.mediaRecorder && this.mediaRecorder.state !== 'inactive') {
-      this.mediaRecorder.onstop = () => {
-        let blob = new Blob(this.recordedChunks, { type: "video/mp4"}, );
-        let formData = new FormData();
-        formData.append('video_file', blob, 'video.mp4');
-        formData.append('author', this.userData.id);
+    if (this.mediaRecorder && this.mediaRecorder.state !== 'inactive' && this.mediaRecorderMP4 && this.mediaRecorderMP4.state !== 'inactive') {
+      const stopPromises = [];
 
-        this.video.uploadVideo(formData);
-      }
-      this.mediaRecorder.stop();
-      this.mediaRecorder.stream.getTracks().forEach((track: any) => track.stop());
+      const mediaRecorderStopPromise = new Promise<void>((resolve) => {
+        this.mediaRecorder.onstop = async () => {
+          let blob = new Blob(this.recordedChunks, { type: "video/mp4" });
+          formData.append('video_file', blob, 'video.mp4');
+          formData.append('author', this.userData.id);
+          resolve();
+        };
+        this.mediaRecorder.stop();
+        this.mediaRecorder.stream.getTracks().forEach((track: any) => track.stop());
+      });
+      stopPromises.push(mediaRecorderStopPromise);
+
+      const mediaRecorderMP4StopPromise = new Promise<void>((resolve) => {
+        this.mediaRecorderMP4.onstop = async () => {
+          let blob_apple = new Blob(this.recordedChunks_apple, { type: "video/mp4" });
+          formData.append('video_file_apple', blob_apple, 'video_apple.mp4');
+          resolve();
+        };
+        this.mediaRecorderMP4.stop();
+        this.mediaRecorderMP4.stream.getTracks().forEach((track: any) => track.stop());
+      });
+      stopPromises.push(mediaRecorderMP4StopPromise);
+
+      await Promise.all(stopPromises);
+
+      await this.video.uploadVideo(formData);
     }
+
     this.stopMediaDevices();
     this.recordedChunks = [];
     this.screen_running = false;
