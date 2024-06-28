@@ -228,8 +228,8 @@ export class RecordingComponent {
         ...audioStream.getTracks()
       ];
       let combinedStream = new MediaStream(tracks);
-
-      this.mediaRecorder = new MediaRecorder(combinedStream);
+      const options = { mimeType: 'video/webm; codecs="vp8, opus"', videoBitsPerSecond: 1000000, audioBitsPerSecond: 128000 };
+      this.mediaRecorder = new MediaRecorder(combinedStream, options);
       this.mediaRecorder.ondataavailable = (e: BlobEvent) => {
         if (e.data.size > 0) this.recordedChunks.push(e.data);
       };
@@ -258,7 +258,7 @@ export class RecordingComponent {
     this.blur = false;
     if (this.mediaRecorder && this.mediaRecorder.state !== 'inactive') {
       this.mediaRecorder.onstop = () => {
-        let blob = new Blob(this.recordedChunks, { type: "video/mp4" });
+        let blob = new Blob(this.recordedChunks, { type: "video/mp4"}, );
         let formData = new FormData();
         formData.append('video_file', blob, 'video.mp4');
         formData.append('author', this.userData.id);
