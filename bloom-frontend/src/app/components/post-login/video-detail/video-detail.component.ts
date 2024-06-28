@@ -23,8 +23,7 @@ export class VideoDetailComponent implements OnInit{
   async ngOnInit() {
     this.route.params.subscribe((params: any) => {
       this.id = params['str'];
-      //#TODO: url anpassen
-      this.link = 'http://localhost:4200/public-video/' + this.id;
+      this.link = 'https://test.marijandupkovic.com/public-video/' + this.id;
     });
 
   }

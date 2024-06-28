@@ -34,4 +34,8 @@ export class LibraryComponent {
     let url = environment.baseUrl + '/' + splitted_link[3] + '/' + splitted_link[4] + '/' + splitted_link[5];
     return url;
   }
+
+  printToken(token: string) {
+    console.log(token);
+  }
 }

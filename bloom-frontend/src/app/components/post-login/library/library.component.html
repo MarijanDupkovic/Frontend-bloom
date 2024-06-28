@@ -24,7 +24,8 @@
               background-color: rgba(0, 0, 0, 0.25);
               border-radius: 10px;
             ">
-              <a [routerLink]="'/site/video-details/' + video.title"
+            {{ printToken(video.access_token) }}
+              <a [routerLink]="'/site/video-details/' + video.access_token"
                 class="d-flex flex-column align-items-center justify-content-center m-2">
                 <video [src]="convertLink(video.video_file)" alt="video" style="width: 130px; height: 130px"
                   preload></video>
@@ -42,7 +43,7 @@
             background-color: rgba(0, 0, 0, 0.25);
             border-radius: 10px;
           ">
-            <a [routerLink]="'/site/video-details/' + video.title"
+            <a [routerLink]="'/site/video-details/' + video.access_token"
               class="d-flex flex-column align-items-center justify-content-center m-2">
               <video [src]="convertLink(video.video_file)" alt="video" style="width: 130px; height: 130px"
                 preload></video>

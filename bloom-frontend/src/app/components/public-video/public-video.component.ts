@@ -20,16 +20,14 @@ export class PublicVideoComponent implements OnInit {
   }
 
   async ngOnInit() {
-    this.route.params.subscribe((params: any) => {
-      this.id = params['str'];
-    });
-    this.video = await this.videos.getUserVideos();
-    this.video = this.video.filter((video: any) => video.title === this.id);
-    this.video = this.video[0];
+    const token = this.route.snapshot.paramMap.get('str');
+    if(token){
+      this.video = this.videos.getVideoStreamURL(token);
+
+    }
   }
 
-  async getVideo() {
-  }
+
 
   convertLink(link: string) {
     let splitted_link = link.split('/');

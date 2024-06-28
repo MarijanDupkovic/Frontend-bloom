@@ -144,8 +144,8 @@ export class RecordingComponent {
   getScreenStream() {
     return navigator.mediaDevices.getDisplayMedia({
       video: {
-        width: { ideal: this.canvasWidth * 1.25},
-        height: { ideal: this.canvasHeight * 1.25},
+        width: { ideal: this.canvasWidth },
+        height: { ideal: this.canvasHeight },
         frameRate: { ideal: 100, max: 120 },
         aspectRatio: { ideal: 1.7777777778 }
       }
