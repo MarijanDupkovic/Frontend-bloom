@@ -20,13 +20,13 @@ export class RecordingComponent {
   blur: boolean = false;
   recorder: any;
   mediaRecorder: any;
-  mediaRecorderMP4: any;
+  // mediaRecorderMP4: any;
   mediaStream: any;
   audioStream: any;
   audioContext: any;
   gainNode: any;
   recordedChunks: Blob[] = [];
-  recordedChunks_apple: Blob[] = [];
+  // recordedChunks_apple: Blob[] = [];
   bodyPixID: any;
   audio_running: boolean = false;
   screen_running: boolean = false;
@@ -156,7 +156,7 @@ export class RecordingComponent {
   }
 
   getAudioStream() {
-    return navigator.mediaDevices.getUserMedia({ audio: true });
+    return navigator.mediaDevices.getUserMedia({ audio: true   });
   }
 
   getWebcamStream() {
@@ -192,6 +192,7 @@ export class RecordingComponent {
       ctx.clearRect(0, 0, this.webcamCanvas.nativeElement.width, this.webcamCanvas.nativeElement.height);
 
     }
+
 
 
     this.ctx = null;
@@ -231,14 +232,14 @@ export class RecordingComponent {
       ];
       let combinedStream = new MediaStream(tracks);
       const options = { mimeType: 'video/webm; codecs="vp8, opus"', videoBitsPerSecond: 1000000, audioBitsPerSecond: 128000 };
-      const mp4Options = { mimeType: 'video/mp4; codecs="avc1.42E01E, mp4a.40.2"', videoBitsPerSecond: 1000000, audioBitsPerSecond: 128000 };
-      this.mediaRecorderMP4 = new MediaRecorder(combinedStream, mp4Options);
-      this.mediaRecorderMP4.ondataavailable = (e: BlobEvent) => {
-        if (e.data.size > 0) {
-          if (e.data.size > 0) this.recordedChunks_apple.push(e.data);
-        }
-      };
-      this.mediaRecorderMP4.start();
+      // const mp4Options = { mimeType: 'video/mp4; codecs="avc1.42E01E, mp4a.40.2"', videoBitsPerSecond: 1000000, audioBitsPerSecond: 128000 };
+      // this.mediaRecorderMP4 = new MediaRecorder(combinedStream, mp4Options);
+      // this.mediaRecorderMP4.ondataavailable = (e: BlobEvent) => {
+      //   if (e.data.size > 0) {
+      //     if (e.data.size > 0) this.recordedChunks_apple.push(e.data);
+      //   }
+      // };
+      // this.mediaRecorderMP4.start();
 
       this.mediaRecorder = new MediaRecorder(combinedStream, options);
       this.mediaRecorder.ondataavailable = (e: BlobEvent) => {
@@ -268,7 +269,7 @@ export class RecordingComponent {
     let formData = new FormData();
 
     this.blur = false;
-    if (this.mediaRecorder && this.mediaRecorder.state !== 'inactive' && this.mediaRecorderMP4 && this.mediaRecorderMP4.state !== 'inactive') {
+    if (this.mediaRecorder && this.mediaRecorder.state !== 'inactive' ) {
       const stopPromises = [];
 
       const mediaRecorderStopPromise = new Promise<void>((resolve) => {
@@ -283,16 +284,16 @@ export class RecordingComponent {
       });
       stopPromises.push(mediaRecorderStopPromise);
 
-      const mediaRecorderMP4StopPromise = new Promise<void>((resolve) => {
-        this.mediaRecorderMP4.onstop = async () => {
-          let blob_apple = new Blob(this.recordedChunks_apple, { type: "video/mp4" });
-          formData.append('video_file_apple', blob_apple, 'video_apple.mp4');
-          resolve();
-        };
-        this.mediaRecorderMP4.stop();
-        this.mediaRecorderMP4.stream.getTracks().forEach((track: any) => track.stop());
-      });
-      stopPromises.push(mediaRecorderMP4StopPromise);
+      // const mediaRecorderMP4StopPromise = new Promise<void>((resolve) => {
+      //   this.mediaRecorderMP4.onstop = async () => {
+      //     let blob_apple = new Blob(this.recordedChunks_apple, { type: "video/mp4" });
+      //     formData.append('video_file_apple', blob_apple, 'video_apple.mp4');
+      //     resolve();
+      //   };
+      //   this.mediaRecorderMP4.stop();
+      //   this.mediaRecorderMP4.stream.getTracks().forEach((track: any) => track.stop());
+      // });
+      // stopPromises.push(mediaRecorderMP4StopPromise);
 
       await Promise.all(stopPromises);
 
