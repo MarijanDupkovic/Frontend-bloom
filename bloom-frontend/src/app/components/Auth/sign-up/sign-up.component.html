@@ -7,12 +7,7 @@
         <span class="devider prevent-select">-</span>
         <span id="step2" [ngClass]="steps.step2 ? 'active-link': ''" class="prevent-select" (click)="next('step2')">Step
           2</span>
-        <span class="devider prevent-select">-</span>
-        <span id="step3" [ngClass]="steps.step3 ? 'active-link': ''" class="prevent-select" (click)="next('step3')">Step
-          3</span>
-        <span class="devider prevent-select">-</span>
-        <span id="step4" [ngClass]="steps.step4 ? 'active-link': ''" class="prevent-select" (click)="next('step4')">Step
-          4</span>
+
       </div>
       <h1 class=" align-self-start mb-3 prevent-select">Sign up</h1>
       <div class="d-flex flex-column w-100 gap-3 mt-3">
@@ -31,19 +26,8 @@
                 formControlName="email" required autocomplete="off">
               <label for="emailField" class="m-0 p-0 pt-2">Enter your email</label>
             </div>
+
             <div *ngIf="steps.step2" class="form-floating mb-3 w-100 align-self-center" style="max-width:20rem;">
-              <input type="email" style="background: transparent;"
-                class="form-control text-secondary border-0 shadow-none rounded-5" placeholder="name@example.com"
-                name="firstName" id="firstNameField" formControlName="firstName" required autocomplete="off">
-              <label for="firstNameField" class="m-0 p-0 pt-2">Enter your first name</label>
-            </div>
-            <div *ngIf="steps.step2" class="form-floating mb-3 w-100 align-self-center" style="max-width:20rem;">
-              <input type="email" style="background: transparent;"
-                class="form-control text-secondary border-0 shadow-none rounded-5" placeholder="name@example.com"
-                name="lastName" id="lastNameField" formControlName="lastName" required autocomplete="off">
-              <label for="lastNameField" class="m-0 p-0 pt-2">Enter your last name</label>
-            </div>
-            <div *ngIf="steps.step3" class="form-floating mb-3 w-100 align-self-center" style="max-width:20rem;">
               <input [type]="hide ? 'password' : 'text'"
                 class="form-control text-secondary border-0 shadow-none rounded-5" style="background: transparent;"
                 name="password" id="passwordField" formControlName="password" placeholder="Enter your password"
@@ -57,7 +41,7 @@
               </button>
               <label for="passwordField" class="m-0 p-0 pt-2">Enter your password</label>
             </div>
-            <div *ngIf="steps.step3" class="form-floating mb-3 w-100 align-self-center" style="max-width:20rem;">
+            <div *ngIf="steps.step2" class="form-floating mb-3 w-100 align-self-center" style="max-width:20rem;">
               <input [type]="hide2 ? 'password' : 'text'"
                 class="form-control text-secondary border-0 shadow-none rounded-5" style="background: transparent;"
                 name="password2" id="passwordField2" formControlName="password2" placeholder="Bestätige dein Password"
@@ -69,41 +53,16 @@
               </button>
               <label for="passwordField2" class="m-0 p-0 pt-2">Reenter your password</label>
             </div>
-            <div *ngIf="steps.step4" class="form-floating mb-3 w-100 align-self-center" style="max-width:20rem;">
-              <input type="text" style="background: transparent;"
-                class="form-control text-secondary border-0 shadow-none rounded-5" autocomplete="off"
-                placeholder="name@example.com" name="street" id="streetField" formControlName="street" required>
-              <label for="streetField" class="m-0 p-0 pt-2">Street + number</label>
 
-              <div class="form-floating mb-3 align-self-center p-0" style="max-width:20rem;">
-                <input type="number" style="background: transparent;"
-                  class="form-control text-secondary border-0 shadow-none rounded-5" placeholder="name@example.com"
-                  name="zipCode" id="zipCodeField" formControlName="zipCode" required autocomplete="off">
-                <label for="zipCodeField" class="m-0 p-0 pt-2">Zip-code</label>
-              </div>
-              <div class="form-floating mb-3 align-self-center" style="max-width:20rem;">
-                <input type="text" style="background: transparent;"
-                  class="form-control text-secondary border-0 shadow-none rounded-5" autocomplete="off"
-                  placeholder="name@example.com" name="city" id="cityField" formControlName="city" required>
-                <label for="cityField" class="m-0 p-0 pt-2">City</label>
-              </div>
-
-              <div class="form-floating mb-3 align-self-center w-100" style="max-width:20rem;">
-                <input type="text" style="background: transparent;"
-                  class="form-control text-secondary border-0 shadow-none rounded-5" placeholder="name@example.com"
-                  name="country" id="countryField" formControlName="country" required autocomplete="off">
-                <label for="countryField" class="m-0 p-0 pt-2">Country</label>
-              </div>
-            </div>
 
             <div class="d-flex gap-2 align-self-center w-100 justify-content-center buttonContainer">
               <button type="button" [disabled]="steps.step1"
                 class="w-100 btn btn-primary btn-shadow align-self-center mt-3 rounded border-0"
                 style="max-width:8rem;max-height:3rem;height:2.5rem;" (click)="back()">Back</button>
-              <button type="button" [disabled]="isDisabled()" *ngIf="!steps.step4"
+              <button type="button" [disabled]="isDisabled()" *ngIf="!steps.step2"
                 class="w-100 btn btn-primary btn-shadow align-self-center mt-3 rounded border-0"
                 style="max-width:8rem;max-height:3rem;height:2.5rem;" (click)="forward()">Next</button>
-              <button type="submit" *ngIf="steps.step4"
+              <button type="submit" *ngIf="steps.step2"
                 class="w-100 btn btn-primary btn-shadow align-self-center mt-3 rounded border-0"
                 style="max-width:8rem;max-height:3rem;height:2.5rem;" [disabled]="send || isDisabled()">Signup</button>
             </div>
