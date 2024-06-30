@@ -20,13 +20,11 @@ export class RecordingComponent {
   blur: boolean = false;
   recorder: any;
   mediaRecorder: any;
-  // mediaRecorderMP4: any;
   mediaStream: any;
   audioStream: any;
   audioContext: any;
   gainNode: any;
   recordedChunks: Blob[] = [];
-  // recordedChunks_apple: Blob[] = [];
   bodyPixID: any;
   audio_running: boolean = false;
   screen_running: boolean = false;
@@ -59,7 +57,6 @@ export class RecordingComponent {
     const screenWidth = window.innerWidth;
     this.canvasWidth = screenWidth * this.widthRatio;
     this.canvasHeight = this.canvasWidth / this.aspectRatio;
-
   }
 
   ngOnInit() {
@@ -69,7 +66,6 @@ export class RecordingComponent {
   ngOnDestroy() {
     window.removeEventListener('resize', this.resizeListener);
   }
-
 
   async loadScreenStream(screenStream: any) {
     if (this.screenVideo) {
@@ -148,7 +144,7 @@ export class RecordingComponent {
       video: {
         width: { ideal: this.canvasWidth },
         height: { ideal: this.canvasHeight },
-        frameRate: { ideal: 100, max: 120 },
+        frameRate: { ideal: 30, max: 60 },
         aspectRatio: { ideal: 1.7777777778 }
       }
     });
@@ -156,7 +152,7 @@ export class RecordingComponent {
   }
 
   getAudioStream() {
-    return navigator.mediaDevices.getUserMedia({ audio: true   });
+    return navigator.mediaDevices.getUserMedia({ audio: true });
   }
 
   getWebcamStream() {
@@ -187,13 +183,11 @@ export class RecordingComponent {
       let ctx = this.canvasScreen.nativeElement.getContext('2d');
       ctx.clearRect(0, 0, this.canvasScreen.nativeElement.width, this.canvasScreen.nativeElement.height);
     }
+
     if (this.webcamCanvas && this.webcamCanvas.nativeElement) {
       let ctx = this.webcamCanvas.nativeElement.getContext('2d');
       ctx.clearRect(0, 0, this.webcamCanvas.nativeElement.width, this.webcamCanvas.nativeElement.height);
-
     }
-
-
 
     this.ctx = null;
     this.bodyPixID = null;
@@ -220,7 +214,6 @@ export class RecordingComponent {
     this.startRecording();
   }
 
-
   async startRecording() {
     try {
       let audioStream = await this.getAudioStream();
@@ -231,16 +224,7 @@ export class RecordingComponent {
         ...audioStream.getTracks()
       ];
       let combinedStream = new MediaStream(tracks);
-      const options = { mimeType: 'video/webm; codecs="vp8, opus"', videoBitsPerSecond: 1000000, audioBitsPerSecond: 128000 };
-      // const mp4Options = { mimeType: 'video/mp4; codecs="avc1.42E01E, mp4a.40.2"', videoBitsPerSecond: 1000000, audioBitsPerSecond: 128000 };
-      // this.mediaRecorderMP4 = new MediaRecorder(combinedStream, mp4Options);
-      // this.mediaRecorderMP4.ondataavailable = (e: BlobEvent) => {
-      //   if (e.data.size > 0) {
-      //     if (e.data.size > 0) this.recordedChunks_apple.push(e.data);
-      //   }
-      // };
-      // this.mediaRecorderMP4.start();
-
+      const options = { mimeType: 'video/webm; codecs="vp8, opus"', videoBitsPerSecond: 5000000, audioBitsPerSecond: 256000 };
       this.mediaRecorder = new MediaRecorder(combinedStream, options);
       this.mediaRecorder.ondataavailable = (e: BlobEvent) => {
         if (e.data.size > 0) this.recordedChunks.push(e.data);
@@ -264,7 +248,7 @@ export class RecordingComponent {
     });
   }
 
-  async stopRecordingLive() {
+  async stopRecordingLive(preview: boolean) {
     await this.getUserData();
     let formData = new FormData();
 
@@ -283,21 +267,9 @@ export class RecordingComponent {
         this.mediaRecorder.stream.getTracks().forEach((track: any) => track.stop());
       });
       stopPromises.push(mediaRecorderStopPromise);
-
-      // const mediaRecorderMP4StopPromise = new Promise<void>((resolve) => {
-      //   this.mediaRecorderMP4.onstop = async () => {
-      //     let blob_apple = new Blob(this.recordedChunks_apple, { type: "video/mp4" });
-      //     formData.append('video_file_apple', blob_apple, 'video_apple.mp4');
-      //     resolve();
-      //   };
-      //   this.mediaRecorderMP4.stop();
-      //   this.mediaRecorderMP4.stream.getTracks().forEach((track: any) => track.stop());
-      // });
-      // stopPromises.push(mediaRecorderMP4StopPromise);
-
       await Promise.all(stopPromises);
 
-      await this.video.uploadVideo(formData);
+      if(!preview){await this.video.uploadVideo(formData);}
     }
 
     this.stopMediaDevices();
@@ -312,7 +284,4 @@ export class RecordingComponent {
     this.startRecordingLive();
   }
 
-  hidePreview() {
-    this.stopMediaDevices();
-  }
 }

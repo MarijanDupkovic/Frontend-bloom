@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, HostListener, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { VideoService } from '../../services/Stream/video.service';
 import { CommonModule } from '@angular/common';
@@ -13,10 +13,17 @@ import { environment } from '../../../environtments/environtment';
   styleUrl: './public-video.component.scss'
 })
 export class PublicVideoComponent implements OnInit {
-
+  private readonly aspectRatio: number = 16 / 9;
+  private readonly referenceResolution: number = 1920;
+  private readonly targetWidth: number = 1280;
+  private readonly widthRatio: number = this.targetWidth / this.referenceResolution;
   id: string = '';
   @Input() video: any;
+
+  canvasWidth: number = 1280;
+  canvasHeight: number = 720;
   constructor(private route: ActivatedRoute, private videos: VideoService) {
+    this.adjustCanvasSize();
   }
 
   async ngOnInit() {
@@ -27,7 +34,16 @@ export class PublicVideoComponent implements OnInit {
     }
   }
 
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    this.adjustCanvasSize();
+  }
 
+  adjustCanvasSize() {
+    const screenWidth = window.innerWidth;
+    this.canvasWidth = screenWidth * this.widthRatio;
+    this.canvasHeight = this.canvasWidth / this.aspectRatio;
+  }
 
   convertLink(link: string) {
     let splitted_link = link.split('/');

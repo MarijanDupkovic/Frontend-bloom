@@ -1,8 +1,6 @@
-<div class="d-flex flex-column justify-content-center align-items-center" >
+<div class="d-flex flex-column justify-content-start align-items-center" style="min-height: calc(100vh - 100px - 124px);" >
     @if (video){
 
-    <video [attr.src]="video" controls preload></video>
+    <video class="mt-5" [attr.src]="video" controls preload [width]="canvasWidth" [height]="canvasHeight"></video>
     }
-
-
 </div>
