@@ -27,15 +27,9 @@ export class SignUpComponent {
   steps = this.stepper.getSteps();
   signupForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
-    firstName: new FormControl('', Validators.required),
-    lastName: new FormControl('', Validators.required),
     password: new FormControl('', Validators.required),
     password2: new FormControl('', Validators.required),
     username: new FormControl('', Validators.required),
-    street: new FormControl('', Validators.required),
-    zipCode: new FormControl('', Validators.required),
-    city: new FormControl('', Validators.required),
-    country: new FormControl('', Validators.required),
   });
 
   constructor(private cdRef: ChangeDetectorRef, private authService: AuthService, private router: Router, private stepper: StepService) { this.addEnterListener() }
@@ -46,14 +40,14 @@ export class SignUpComponent {
       return !(this.signupForm.controls.username?.valid && this.signupForm.controls.email?.valid);
     }
     if (this.steps.step2) {
-      return !(this.signupForm.controls.firstName?.valid && this.signupForm.controls.lastName?.valid);
-    }
-    if (this.steps.step3) {
       return !(this.signupForm.controls.password?.valid && this.signupForm.controls.password2?.valid);
     }
-    if (this.steps.step4) {
-      return !(this.signupForm.controls.street?.valid && this.signupForm.controls.zipCode?.valid && this.signupForm.controls.city?.valid && this.signupForm.controls.country?.valid);
-    }
+    // if (this.steps.step3) {
+    //   return !(this.signupForm.controls.password?.valid && this.signupForm.controls.password2?.valid);
+    // }
+    // if (this.steps.step4) {
+    //   return !(this.signupForm.controls.street?.valid && this.signupForm.controls.zipCode?.valid && this.signupForm.controls.city?.valid && this.signupForm.controls.country?.valid);
+    // }
     return false;
   }
 
@@ -117,12 +111,8 @@ export class SignUpComponent {
     setTimeout(() => {
       if (step === STEP_1) {
         this.stepper.setStep(STEP_1);
-      } else if (step === STEP_2 && this.signupForm.controls.username.valid && this.signupForm.controls.email.valid) {
+      } else if (step === STEP_2 && this.signupForm.controls.password.valid && this.signupForm.controls.password2.valid) {
         this.stepper.setStep(STEP_2);
-      } else if (step === STEP_3 && this.signupForm.controls.firstName.valid && this.signupForm.controls.lastName.valid) {
-        this.stepper.setStep(STEP_3);
-      } else if (step === STEP_4 && this.signupForm.controls.password.valid && this.signupForm.controls.password2.valid) {
-        this.stepper.setStep(STEP_4);
       }
       this.cdRef.detectChanges();
 

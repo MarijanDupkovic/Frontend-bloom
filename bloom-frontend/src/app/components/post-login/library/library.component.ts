@@ -14,11 +14,14 @@ import { RouterLink } from '@angular/router';
 export class LibraryComponent {
   @Input() videos = [] as any;
   all: boolean = false;
+  displayVideos: any = [];
 
   constructor(private video: VideoService) { }
 
   async ngOnInit() {
     this.videos = await this.getVideos();
+    this.videos = this.videos.reverse();
+    this.displayVideos = this.videos;
   }
 
   async getVideos() {
