@@ -23,7 +23,6 @@ export class SignUpComponent {
   message = ``;
   success: boolean = false;
   signup_failed: boolean = false;
-
   steps = this.stepper.getSteps();
   signupForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
@@ -42,12 +41,7 @@ export class SignUpComponent {
     if (this.steps.step2) {
       return !(this.signupForm.controls.password?.valid && this.signupForm.controls.password2?.valid);
     }
-    // if (this.steps.step3) {
-    //   return !(this.signupForm.controls.password?.valid && this.signupForm.controls.password2?.valid);
-    // }
-    // if (this.steps.step4) {
-    //   return !(this.signupForm.controls.street?.valid && this.signupForm.controls.zipCode?.valid && this.signupForm.controls.city?.valid && this.signupForm.controls.country?.valid);
-    // }
+
     return false;
   }
 
@@ -56,7 +50,7 @@ export class SignUpComponent {
     try {
       await this.authService.signUp(this.signupForm);
       this.success = true;
-      setTimeout(() => this.router.navigateByUrl('/signin'), 5000);
+      setTimeout(() => this.router.navigateByUrl('/signin'), 3000);
     } catch (e) {
       let error: any = e;
       if (error.status == 400 || error.status == 405) {
@@ -115,13 +109,11 @@ export class SignUpComponent {
         this.stepper.setStep(STEP_2);
       }
       this.cdRef.detectChanges();
-
     });
   }
 
   back() {
     setTimeout(() => {
-
       this.steps = this.stepper.getSteps();
       if (this.steps.step2) {
         this.stepper.setStep(STEP_1);
@@ -133,9 +125,7 @@ export class SignUpComponent {
         this.stepper.setStep(STEP_3);
       }
       this.cdRef.detectChanges();
-
     });
-
   }
 
   forward() {

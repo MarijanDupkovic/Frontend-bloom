@@ -1,6 +1,8 @@
 @import "bootstrap/scss/bootstrap";
 @import "material-icons/iconfont/material-icons.css";
-
+html {
+  scroll-behavior: smooth;
+}
 a {
   color: #000000;
   text-decoration: none;

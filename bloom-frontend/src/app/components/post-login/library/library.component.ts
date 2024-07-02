@@ -20,8 +20,9 @@ export class LibraryComponent {
 
   async ngOnInit() {
     this.videos = await this.getVideos();
+    this.displayVideos = this.videos.slice(this.videos.length - 8);
     this.videos = this.videos.reverse();
-    this.displayVideos = this.videos;
+    this.displayVideos = this.displayVideos.reverse();
   }
 
   async getVideos() {
@@ -38,7 +39,4 @@ export class LibraryComponent {
     return url;
   }
 
-  printToken(token: string) {
-    console.log(token);
-  }
 }
