@@ -10,16 +10,14 @@ import { UserService } from '../profile/user.service';
 export class VideoService {
   userVideos: any;
   userData: any;
-  constructor(private http: HttpClient, private user: UserService) { }
+  constructor(private http: HttpClient, private user: UserService) {
+  }
 
   async uploadVideo(formData: FormData) {
     const url = environment.baseUrl + '/videos/';
     const headers = new HttpHeaders().set('Authorization', `token ${localStorage.getItem('token')}`);
-
     let upload = this.http.post(url, formData, { headers });
-
     return await lastValueFrom(upload);
-
   }
 
   async getUserVideos() {

@@ -5,3 +5,32 @@
   }
 
 }
+
+.rec-options{
+  position: absolute;
+
+  top: 100px;
+  background-color: #0dcaf0;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  display: flex;
+
+  max-width: 220px;
+  box-shadow: 2px 4px 4px  rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}
+
+.recording-btn{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height:30px;
+}
+
+
+h6{
+  padding: 0;
+  margin: 0;
+  line-height: 0;
+}

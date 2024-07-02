@@ -41,6 +41,7 @@ export class RecordingComponent {
   @ViewChild('screenVideo') screenVideo?: ElementRef;
   @ViewChild('webcamVideo') webcamVideo?: ElementRef;
   @ViewChild('webcamCanvas') webcamCanvas?: ElementRef;
+  isMenuOpen: boolean = true;
   private readonly aspectRatio: number = 16 / 9;
   private readonly referenceResolution: number = 1920;
   private readonly targetWidth: number = 1280;
@@ -151,19 +152,27 @@ export class RecordingComponent {
 
   }
 
-  getAudioStream() {
-    return navigator.mediaDevices.getUserMedia({ audio: true });
+  async getAudioStream() {
+    try {
+      return await navigator.mediaDevices.getUserMedia({ audio: true });
+    } catch (error) {
+      return new MediaStream();
+    }
   }
 
-  getWebcamStream() {
-    return navigator.mediaDevices.getUserMedia({
-      video: {
-        width: { ideal: 1920 },
-        height: { ideal: 1080 },
-        frameRate: { ideal: 30, max: 60 },
-        aspectRatio: { ideal: 1.7777777778 },
-      }
-    });
+  async getWebcamStream() {
+    try {
+      return await navigator.mediaDevices.getUserMedia({
+        video: {
+          width: { ideal: 1920 },
+          height: { ideal: 1080 },
+          frameRate: { ideal: 30, max: 60 },
+          aspectRatio: { ideal: 1.7777777778 },
+        }
+      });
+    } catch (error) {
+      return new MediaStream();
+    }
   }
 
   stopMediaDevices() {
@@ -210,7 +219,6 @@ export class RecordingComponent {
   async startRecordingLive() {
 
     await this.getMediaDevices();
-
     this.startRecording();
   }
 
@@ -234,6 +242,8 @@ export class RecordingComponent {
       console.error("Error accessing media devices: ", error);
       if (error.name === "NotAllowedError" || error.name === "PermissionDeniedError") {
         alert("Permission to access media devices was denied. Please allow access to use this feature.");
+      } else if (error.name === "NotFoundError") {
+        alert("No media devices found. Please connect a camera or microphone.");
       } else {
         alert("An error occurred while accessing media devices. Please check your device and browser settings.");
       }
@@ -253,7 +263,7 @@ export class RecordingComponent {
     let formData = new FormData();
 
     this.blur = false;
-    if (this.mediaRecorder && this.mediaRecorder.state !== 'inactive' ) {
+    if (this.mediaRecorder && this.mediaRecorder.state !== 'inactive') {
       const stopPromises = [];
 
       const mediaRecorderStopPromise = new Promise<void>((resolve) => {
@@ -269,7 +279,7 @@ export class RecordingComponent {
       stopPromises.push(mediaRecorderStopPromise);
       await Promise.all(stopPromises);
 
-      if(!preview){await this.video.uploadVideo(formData);}
+      await this.video.uploadVideo(formData);
     }
 
     this.stopMediaDevices();
@@ -282,6 +292,10 @@ export class RecordingComponent {
 
   showPreview() {
     this.startRecordingLive();
+  }
+
+  toggleOptionsMenu() {
+    this.isMenuOpen = !this.isMenuOpen;
   }
 
 }

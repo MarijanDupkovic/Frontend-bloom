@@ -15,7 +15,7 @@
       <ng-template [ngIf]="!all" [ngIfElse]="allContainer">
         <div class="d-flex flex-wrap mb-5 gap-3 prevent-select">
           <div *ngFor="
-            let video of displayVideos.slice(videos.length - 8);
+            let video of displayVideos;
             let i = index;
           ">
             <div *ngIf="video" style="
@@ -24,7 +24,6 @@
               background-color: rgba(0, 0, 0, 0.25);
               border-radius: 10px;
             ">
-              {{ printToken(video.access_token) }}
               <a [routerLink]="'/site/video-details/' + video.access_token"
                 class="d-flex flex-column align-items-center justify-content-center m-2">
                 <video [src]="convertLink(video.video_file)" alt="video" style="width: 130px; height: 130px"
