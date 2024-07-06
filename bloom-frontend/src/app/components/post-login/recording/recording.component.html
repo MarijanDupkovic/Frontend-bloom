@@ -1,76 +1,70 @@
 <div class="d-flex flex-column align-items-center w-100" style="min-height: calc(100vh - 100px - 124px);">
   <div class="w-80">
-    <!-- <h1 class="m-0 p-0 mt-3 mb-3 prevent-select">Recording</h1> -->
 
-    <!-- <div class="d-flex justify-content-between mb-4">
-      <div class="d-flex flex-column w-100 align-items-start">
-        <h3>Preview</h3>
-        <div class="d-flex w-75 btn-group btn-shadow justify-content-between align-items-center"
-          style="max-width: 6rem">
-          <a (click)="showPreview()"
-            class="d-flex align-items-center justify-content-center btn btn-info prevent-select">
-            <mat-icon class="prevent-select">play_circle_filled</mat-icon></a>
-          <div style="height: 100%; border: 1px solid rgba(0, 0, 0, 0.4)"></div>
+    <div class="d-flex justify-content-center w-100 flex-column align-items-center">
+      <div class="rec-options w-100" style="position: relative;" title="Toggle recording options">
+        <div class="d-flex align-items-center justify-content-center align-self-center ">
+          <div class="d-flex justify-content-start flex-column align-items-start">
+            <div class="d-flex gap-2 mt-2">
+              <h6>
+                Recording options
+              </h6>
 
-          <a class="d-flex align-items-center justify-content-center btn btn-info prevent-select"
-            (click)="stopRecordingLive(true)"><mat-icon class="prevent-select">stop</mat-icon></a>
+            </div>
+
+            <button *ngIf="isMenuOpen" class="btn d-flex recording-btn gap-2" (click)="startRecordingLive()"
+              title="Start recording"> <mat-icon class="prevent-select"
+                style="color: rgb(240,0,75);">fiber_manual_record</mat-icon> Start Recording</button>
+            <button *ngIf="isMenuOpen" class="btn d-flex recording-btn gap-2" (click)="stopRecordingLive(false)"
+              title="Stop recording"><mat-icon class="prevent-select">stop</mat-icon> Stop Recording</button>
+
+
+
+            <div *ngIf="isMenuOpen" class="d-flex gap-1 align-items-center" style="padding-left: 10px;">
+              <label class="switch" title="Activate/Deactivate Blur-Effekt on Camera">
+                <input type="checkbox" (change)="setBlur()">
+                <span class="slider round"></span>
+              </label>
+              <span>Enable/Disable Blur</span>
+            </div>
+          </div>
+          <div *ngIf="!isMenuOpen" (click)="toggleOptionsMenu()"
+            class="d-flex align-items-center justify-content-center" style="width: 40px;height: 40px;">
+
+          </div>
         </div>
+        <svg xmlns="http://www.w3.org/2000/svg" [class.rotate-up]="isMenuOpen" [class.rotate-down]="!isMenuOpen"
+          height="24px" viewBox="0 -960 960 960" width="24px" style="position: absolute;right: 10px;top:10px"
+          fill="#000000" (click)="toggleOptionsMenu()">
+          <path
+            d="M660-320v-320L500-480l160 160ZM200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm120-80v-560H200v560h120Zm80 0h360v-560H400v560Zm-80 0H200h120Z" />
+        </svg>
       </div>
-      <div class="d-flex flex-column align-items-end w-100">
-        <h3 class="prevent-select">Recording</h3>
-        <div class="d-flex w-75 btn-group btn-shadow justify-content-between align-items-center"
-          style="max-width: 6rem">
-          <a class="d-flex align-items-center btn btn-info justify-content-center prevent-select"
-            (click)="startRecordingLive()">
-            <mat-icon class="prevent-select">fiber_manual_record</mat-icon></a>
-          <div style="height: 100%; border: 1px solid rgba(0, 0, 0, 0.4)"></div>
-          <a class="d-flex align-items-center btn btn-info justify-content-center prevent-select"
-            (click)="stopRecordingLive(false)"><mat-icon class="prevent-select">stop</mat-icon></a>
-        </div>
-      </div>
-    </div> -->
-    <div class="d-flex flex-column align-items-center justify-content-center mb-5">
-      <div class="d-flex justify-content-center align-items-center" [style]="style">
+      <div class="d-flex flex-column align-items-center justify-content-center mb-5">
+        <div class="d-flex justify-content-center align-items-center" [style]="style">
 
-        <canvas #canvasScreen class="shadow mt-5 rounded" name="canvasScreen" id="canvasScreen" [width]="canvasWidth"
-          [height]="canvasHeight" style="z-index: 10" [style.background-color]="'#000000'" [style.border]="'3px solid rgb(13, 202, 240)'">
-        </canvas>
-        <mat-icon style="position: absolute; font-size: 60px;height: 60px;width: 60px;">play_circle_filled</mat-icon>
+          <canvas #canvasScreen class="shadow mt-5 rounded" name="canvasScreen" id="canvasScreen" [width]="canvasWidth"
+            [height]="canvasHeight" style="z-index: 10" [style.background-color]="'#000000'"
+            [style.border]="'3px solid rgb(13, 202, 240)'">
+          </canvas>
+          <mat-icon style="position: absolute; font-size: 60px;height: 60px;width: 60px;">play_circle_filled</mat-icon>
+        </div>
+        <video #screenVideo hidden id="screenVideo" [width]="1280" [height]="720" autoplay>
+          <source />
+        </video>
+        <video #webcamVideo hidden id="webcamVideo" [width]="screenWidth" [height]="screenHeight" autoplay>
+          <source />
+        </video>
+        <canvas controls #webcamCanvas hidden id="webcamCanvas" [width]="screenWidth" [height]="screenHeight"
+          autoplay></canvas>
       </div>
-      <video #screenVideo hidden id="screenVideo" [width]="1280" [height]="720" autoplay>
-        <source />
-      </video>
-      <video #webcamVideo hidden id="webcamVideo" [width]="screenWidth" [height]="screenHeight" autoplay>
-        <source />
-      </video>
-      <canvas controls #webcamCanvas hidden id="webcamCanvas" [width]="screenWidth" [height]="screenHeight"
-        autoplay></canvas>
     </div>
   </div>
 
-  <div class="rec-options" title="Toggle recording options" >
-    <div class="d-flex w-100 align-items-center justify-content-center">
-      <div *ngIf="isMenuOpen" class="d-flex justify-content-center flex-column align-items-center">
-        <div class="d-flex justify-content-center align-items-center gap-2 mt-1" >
-          <h6>
-            Recording options
-          </h6>
-          <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000" (click)="toggleOptionsMenu()">
-            <path
-              d="M660-320v-320L500-480l160 160ZM200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm120-80v-560H200v560h120Zm80 0h360v-560H400v560Zm-80 0H200h120Z" />
-          </svg>
-        </div>
 
-        <button class="btn d-flex recording-btn"  (click)="startRecordingLive()" title="Start recording"> <mat-icon
-            class="prevent-select">fiber_manual_record</mat-icon>Start Recording</button>
-        <button class="btn d-flex recording-btn" (click)="stopRecordingLive(false)" title="Stop recording"><mat-icon
-            class="prevent-select">stop</mat-icon>Stop Recording</button>
-      </div>
-      <div *ngIf="!isMenuOpen" (click)="toggleOptionsMenu()" class="d-flex align-items-center justify-content-center" style="width: 40px;height: 40px;">
-        <svg xmlns="http://www.w3.org/2000/svg" height="30px" viewBox="0 -960 960 960" width="30px" fill="#000000"><path d="M500-640v320l160-160-160-160ZM200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm120-80v-560H200v560h120Zm80 0h360v-560H400v560Zm-80 0H200h120Z"/></svg>
-      </div>
-    </div>
-
-
-  </div>
 </div>
+
+<!-- <svg xmlns="http://www.w3.org/2000/svg" height="30px" viewBox="0 -960 960 960" width="30px" fill="#000000">
+            <path
+              d="M500-640v320l160-160-160-160ZM200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm120-80v-560H200v560h120Zm80 0h360v-560H400v560Zm-80 0H200h120Z" />
+          </svg> -->
