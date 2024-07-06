@@ -88,13 +88,23 @@ export class RecordingComponent {
 
     }
     this.loadBodyPixAll();
+    this.draw();
   }
+
+  setBlur() {
+    this.blur = !this.blur;
+  }
+
+
 
   draw() {
     this.ctx = this.canvasScreen!.nativeElement.getContext('2d');
-    if (this.webcamCanvas && this.webcamCanvas.nativeElement && this.ctx && this.screenVideo && this.screenVideo.nativeElement) {
+    if (this.webcamCanvas && this.webcamCanvas.nativeElement && this.ctx && this.screenVideo && this.screenVideo.nativeElement && this.webcamVideo && this.webcamVideo.nativeElement) {
       this.ctx.drawImage(this.screenVideo.nativeElement, 0, 0, this.canvasWidth, this.canvasHeight);
-      this.ctx.drawImage(this.webcamCanvas.nativeElement, 0, 0, 150, 150);
+
+        this.ctx.drawImage(this.webcamCanvas.nativeElement, 0, 0, 150, 150);
+
+
       this.ctx.globalAlpha = 0.01;
       this.ctx.fillRect(0, 0, 1, 1);
       this.ctx.globalAlpha = 1.0;
@@ -104,12 +114,21 @@ export class RecordingComponent {
   }
 
   async performAllInputs(net: any) {
-    while (this.blur) {
+    let backgroundBlurAmount = 0;
+    let edgeBlurAmount = 0;
+    while (true) {
+
       if (this.webcamCanvas && this.webcamVideo) {
         const segmentation = await net.segmentPerson(this.webcamVideo.nativeElement);
-        const backgroundBlurAmount = 12;
-        const edgeBlurAmount = 6;
+          if(this.blur) {
+            backgroundBlurAmount = 12;
+          } else if(!this.blur) {
+            backgroundBlurAmount = 0;
+          }
+          edgeBlurAmount = 0;
+
         const flipHorizontal = false;
+
         bodyPix.drawBokehEffect(
           this.webcamCanvas.nativeElement, this.webcamVideo.nativeElement, segmentation, backgroundBlurAmount,
           edgeBlurAmount, flipHorizontal);
@@ -118,7 +137,6 @@ export class RecordingComponent {
   }
 
   loadBodyPixAll() {
-    this.blur = true;
     tf.setBackend('webgl').then(() => {
       const options: any = {
         multiplier: 0.75,
@@ -262,7 +280,6 @@ export class RecordingComponent {
     await this.getUserData();
     let formData = new FormData();
 
-    this.blur = false;
     if (this.mediaRecorder && this.mediaRecorder.state !== 'inactive') {
       const stopPromises = [];
 
