@@ -33,7 +33,6 @@ export class RecordingComponent {
   canvasWidth: number = 1280;
   canvasHeight: number = 720;
   isRecording: boolean = false;
-  isRecordingLive: boolean = false;
   @Input() style: any;
   @ViewChild('canvasScreen') canvasScreen?: ElementRef;
   @ViewChild('screenVideo') screenVideo?: ElementRef;
@@ -142,7 +141,6 @@ export class RecordingComponent {
   }
 
   stopMediaDevices() {
-    this.blur = false;
     this.clearCanvas(this.canvasScreen as ElementRef);
     this.clearCanvas(this.webcamCanvas as ElementRef);
     this.stopVideoStream(this.screenVideo);
@@ -197,7 +195,6 @@ export class RecordingComponent {
 
   startMediaRecording() {
     this.mediaRecorder.start();
-    this.isRecordingLive = true;
   }
 
   setupMediaRecorder(stream: MediaStream) {
@@ -281,9 +278,7 @@ export class RecordingComponent {
   }
 
   resetRecordingState() {
-    this.isRecordingLive = false;
     this.isRecording = false;
-    this.blur = false;
     this.recordedChunks = [];
     this.screen_running = false;
     this.webcam_running = false;
