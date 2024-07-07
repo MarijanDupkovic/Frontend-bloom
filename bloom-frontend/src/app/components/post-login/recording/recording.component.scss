@@ -25,6 +25,11 @@
   display: flex;
   align-items: center;
   height:30px;
+
+  &:hover{
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.25);
+  }
 }
 
 

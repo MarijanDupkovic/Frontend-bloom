@@ -5,23 +5,16 @@
       <div class="rec-options w-100" style="position: relative;" title="Toggle recording options">
         <div class="d-flex align-items-center justify-content-center align-self-center ">
           <div class="d-flex justify-content-start flex-column align-items-start">
-            <div class="d-flex gap-2 mt-2">
-              <h6>
-                Recording options
-              </h6>
-
+            <div class="d-flex gap-2">
+              <h6>Recording options</h6>
             </div>
-
             <button *ngIf="isMenuOpen" class="btn d-flex recording-btn gap-2" (click)="startRecordingLive()"
               title="Start recording"> <mat-icon class="prevent-select"
                 style="color: rgb(240,0,75);">fiber_manual_record</mat-icon> Start Recording</button>
             <button *ngIf="isMenuOpen" class="btn d-flex recording-btn gap-2" (click)="stopRecordingLive(false)"
               title="Stop recording"><mat-icon class="prevent-select">stop</mat-icon> Stop Recording</button>
-
-
-
             <div *ngIf="isMenuOpen" class="d-flex gap-1 align-items-center" style="padding-left: 10px;">
-              <label class="switch" title="Activate/Deactivate Blur-Effekt on Camera">
+              <label class="switch" title="Enable/Disable Blur">
                 <input type="checkbox" (change)="setBlur()">
                 <span class="slider round"></span>
               </label>
@@ -30,7 +23,6 @@
           </div>
           <div *ngIf="!isMenuOpen" (click)="toggleOptionsMenu()"
             class="d-flex align-items-center justify-content-center" style="width: 40px;height: 40px;">
-
           </div>
         </div>
         <svg xmlns="http://www.w3.org/2000/svg" [class.rotate-up]="isMenuOpen" [class.rotate-down]="!isMenuOpen"
@@ -42,7 +34,6 @@
       </div>
       <div class="d-flex flex-column align-items-center justify-content-center mb-5">
         <div class="d-flex justify-content-center align-items-center" [style]="style">
-
           <canvas #canvasScreen class="shadow mt-5 rounded" name="canvasScreen" id="canvasScreen" [width]="canvasWidth"
             [height]="canvasHeight" style="z-index: 10" [style.background-color]="'#000000'"
             [style.border]="'3px solid rgb(13, 202, 240)'">
