@@ -7,6 +7,7 @@ import * as tf from '@tensorflow/tfjs';
 import { VideoService } from '../../../services/Stream/video.service';
 import { UserService } from '../../../services/profile/user.service';
 import { MatIconModule } from '@angular/material/icon';
+import { M } from 'vite/dist/node/types.d-aGj9QkWt';
 @Component({
   selector: 'app-recording',
   standalone: true,
@@ -179,13 +180,15 @@ export class RecordingComponent {
   async startRecordingLive() {
     this.isRecording = true;
     await this.getMediaDevices();
-    this.startRecording();
+    let audioStream = await this.mediaStreamService.getAudioStream();
+    this.startRecording(audioStream);
 
   }
 
-  async startRecording() {
+  async startRecording(audioStream:MediaStream) {
     try {
-      const combinedStream = await this.getCombinedAudioVideoStream();
+
+      const combinedStream = await this.getCombinedAudioVideoStream(audioStream);
       this.setupMediaRecorder(combinedStream);
       this.startMediaRecording();
     } catch (error: any) {
@@ -207,8 +210,8 @@ export class RecordingComponent {
     this.mediaRecorder.ondataavailable = this.handleDataAvailable;
   }
 
-  async getCombinedAudioVideoStream() {
-    const audioStream = await this.mediaStreamService.getAudioStream();
+  async getCombinedAudioVideoStream(audioStream: MediaStream) {
+
     const videoStream = this.canvasScreen!.nativeElement.captureStream();
     const tracks = [...videoStream.getTracks(), ...audioStream.getTracks()];
     return new MediaStream(tracks);
