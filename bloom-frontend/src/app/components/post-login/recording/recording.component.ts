@@ -7,8 +7,6 @@ import * as tf from '@tensorflow/tfjs';
 import { VideoService } from '../../../services/Stream/video.service';
 import { UserService } from '../../../services/profile/user.service';
 import { MatIconModule } from '@angular/material/icon';
-
-
 @Component({
   selector: 'app-recording',
   standalone: true,
@@ -23,10 +21,7 @@ export class RecordingComponent {
   mediaRecorder: any;
   mediaStream: any;
   audioStream: any;
-  audioContext: any;
-  gainNode: any;
   recordedChunks: Blob[] = [];
-  bodyPixID: any;
   audio_running: boolean = false;
   screen_running: boolean = false;
   webcam_running: boolean = false;
@@ -154,7 +149,6 @@ export class RecordingComponent {
     this.stopVideoStream(this.webcamVideo);
     this.isRecording = false;
     this.ctx = null;
-    this.bodyPixID = null;
   }
 
   stopVideoStream(videoElement: any) {
@@ -175,6 +169,7 @@ export class RecordingComponent {
     try {
       let webcamStream = await this.mediaStreamService.getWebcamStream();
       this.loadWebcamStream(webcamStream);
+
       let screenStream = await this.mediaStreamService.getScreenStream(this.canvasWidth, this.canvasHeight);
       this.loadScreenStream(screenStream);
       this.draw();
@@ -184,11 +179,10 @@ export class RecordingComponent {
   }
 
   async startRecordingLive() {
-    if (!this.isRecordingLive) {
-      this.isRecording = true;
-      await this.getMediaDevices();
-      this.startRecording();
-    }
+    this.isRecording = true;
+    await this.getMediaDevices();
+    this.startRecording();
+
   }
 
   async startRecording() {
@@ -255,7 +249,6 @@ export class RecordingComponent {
     await this.stopMediaRecorder();
     this.stopMediaDevices();
     this.resetRecordingState();
-
   }
 
   async stopMediaRecorder() {
@@ -288,11 +281,13 @@ export class RecordingComponent {
   }
 
   resetRecordingState() {
+    this.isRecordingLive = false;
+    this.isRecording = false;
+    this.blur = false;
     this.recordedChunks = [];
     this.screen_running = false;
     this.webcam_running = false;
-    this.screenWidth = 10;
-    this.screenHeight = 10;
+    this.ctx = null;
   }
 
   showPreview() {
