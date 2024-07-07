@@ -1,8 +1,10 @@
 @import "bootstrap/scss/bootstrap";
 @import "material-icons/iconfont/material-icons.css";
+
 html {
   scroll-behavior: smooth;
 }
+
 a {
   color: #000000;
   text-decoration: none;
@@ -18,6 +20,7 @@ a {
   border-radius: 0 !important;
   color: #000 !important;
   font-size: 18px !important;
+
   @media (min-width: 900px) {
     font-size: 1.2rem !important;
     padding-bottom: 0rem !important;
@@ -38,6 +41,7 @@ label::after {
   color: #000 !important;
   font-size: 18px !important;
   font-weight: 500 !important;
+
   @media (min-width: 900px) {
     font-size: 1.5rem !important;
   }
@@ -45,6 +49,7 @@ label::after {
 
 .w-80 {
   width: 80%;
+
   @media (min-width: 900px) {
     max-width: 1248px;
   }
@@ -82,13 +87,12 @@ body {
 
 @supports not selector(::-webkit-scrollbar) {
   body {
-    scrollbar-color: var(--sb-thumb-color)
-                     var(--sb-track-color);
+    scrollbar-color: var(--sb-thumb-color) var(--sb-track-color);
   }
 }
 
 .prevent-select {
-  -webkit-user-select: none; /* Safari */
-  -ms-user-select: none; /* IE 10 and IE 11 */
-  user-select: none; /* Standard syntax */
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }

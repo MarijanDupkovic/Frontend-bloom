@@ -1,4 +1,5 @@
-<div class="d-flex flex-column w-100 align-items-center justify-content-center gap-5" style="min-height: calc(100vh - 100px - 124px);">
+<div class="d-flex flex-column w-100 align-items-center justify-content-center gap-5"
+  style="min-height: calc(100vh - 100px - 124px);">
 
   <app-public-video class=""></app-public-video>
 
@@ -9,7 +10,8 @@
     <div class="form-floating mb-3 w-100 align-self-center d-flex " style="max-width:18rem;">
       <input [type]="hide ? 'password' : 'text'" readonly class="form-control text-secondary border-0 shadow-none w-100"
         style="background: transparent;" name="password" id="passwordField" [(ngModel)]="link">
-      <label for="passwordField" style="background: transparent !important;" class="form-label prevent-select">Show public
+      <label for="passwordField" style="background: transparent !important;" class="form-label prevent-select">Show
+        public
         link</label>
 
       <button tabindex="-1" (click)="togglePWField($event)" class="border-0 text-dark rounded-2"

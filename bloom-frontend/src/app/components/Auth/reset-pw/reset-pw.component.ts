@@ -9,13 +9,11 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-reset-pw',
   standalone: true,
-  imports: [FormsModule, CommonModule,HttpClientModule,RouterLink],
-  providers: [HttpClient, ActivatedRoute],
-
+  imports: [FormsModule, CommonModule, HttpClientModule, RouterLink],
   templateUrl: './reset-pw.component.html',
   styleUrl: './reset-pw.component.scss'
 })
-export class ResetPwComponent {
+export class ResetPwComponent implements OnInit{
   password: string = '';
   password2: string = '';
   hide: boolean = true;
@@ -31,7 +29,7 @@ export class ResetPwComponent {
 
   ngOnInit() {
 
-    this.addEnterListener();
+    // this.addEnterListener();
   }
 
   togglePWField(e: Event) {
@@ -39,46 +37,45 @@ export class ResetPwComponent {
     e.stopPropagation();
     this.hide = !this.hide;
   }
-  togglePWField2(e: Event){
+  togglePWField2(e: Event) {
     e.preventDefault();
     e.stopPropagation();
     this.hide2 = !this.hide2;
   }
 
   addEnterListener() {
-   addEventListener('keydown', (e: KeyboardEvent) => {
+    addEventListener('keydown', (e: KeyboardEvent) => {
 
-      if(e.key === 'Enter') {
+      if (e.key === 'Enter') {
         e.preventDefault();
         e.stopPropagation();
-        if(this.password !== '' && this.password2 !== '') {
-           this.resetPassword();
-        }else this.setErrorMessage('Passwort darf nicht leer sein', {error: 'Bitte fülle alle Felder aus!'}  );
+        if (this.password !== '' && this.password2 !== '') {
+          this.resetPassword();
+        } else this.setErrorMessage('Passwort darf nicht leer sein', { error: 'Bitte fülle alle Felder aus!' });
       }
-
-  }
-  );
+    }
+    );
   }
 
   async resetPassword() {
-      this.route.params.subscribe(async params => {
-        const url = environment.baseUrl + '/resetPassword/' + params['token'] + '/';
-        const data = {
-          pw1: this.password,
-          pw2: this.password2
-        };
-        let response = await lastValueFrom(this.http.post(url, data));
-        if((response as any).message === 'Passwort stimmt nicht mit Passwort2 überein!') {
-          this.setErrorMessage('Passwort stimmt nicht mit Passwort2 überein!', response);
-        } else {
-          this.setErrorMessage('Passwort erfolgreich geändert! Du wirst zum Login weitergeleitet', response);
-          setTimeout(() => {
-            window.location.href = '/signin';
-          }, 3000);
-        }
-      });
-
+    this.route.params.subscribe(async params => {
+      const url = environment.baseUrl + '/resetPassword/' + params['token'] + '/';
+      const data = {
+        pw1: this.password,
+        pw2: this.password2
+      };
+      let response = await lastValueFrom(this.http.post(url, data));
+      if ((response as any).message === 'Passwort stimmt nicht mit Passwort2 überein!') {
+        this.setErrorMessage('Passwort stimmt nicht mit Passwort2 überein!', response);
+      } else {
+        this.setErrorMessage('Passwort erfolgreich geändert! Du wirst zum Login weitergeleitet', response);
+        setTimeout(() => {
+          window.location.href = '/signin';
+        }, 3000);
+      }
+    });
   }
+
   setErrorMessage(message: string, error: any) {
     this.login_failed = true;
     this.fail_message = error.error;

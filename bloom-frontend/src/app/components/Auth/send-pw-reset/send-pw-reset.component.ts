@@ -26,7 +26,7 @@ export class SendPwResetComponent {
 
   addEnterListener() {
     addEventListener('keydown', (e: KeyboardEvent) => {
-    
+
        if(e.key === 'Enter') {
         e.preventDefault();
         e.stopPropagation();
@@ -34,7 +34,7 @@ export class SendPwResetComponent {
            this.getResetPasswordMail();
          }else this.setErrorMessage('Bitte fülle alle Felder aus!', {error: 'Bitte fülle alle Felder aus!'}  );
        }
-     
+
    }
    );
    }
@@ -49,7 +49,7 @@ export class SendPwResetComponent {
       response = await lastValueFrom(this.http.post(url, body));
       this.setErrorMessage('Email wurde versendet!', response.message);
       setTimeout(() => {
-        this.router.navigateByUrl('/login');
+        this.router.navigateByUrl('/signin');
       }, 3000);
     } catch (e) {
       let error: any = e;
@@ -63,7 +63,7 @@ export class SendPwResetComponent {
       } else {
         this.setErrorMessage('Email wurde versendet!', error);
         setTimeout(() => {
-          this.router.navigateByUrl('/login');
+          this.router.navigateByUrl('/signin');
         }, 3000);
       }
     }

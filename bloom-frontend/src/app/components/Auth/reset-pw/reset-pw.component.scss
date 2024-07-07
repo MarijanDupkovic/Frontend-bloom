@@ -1,0 +1,30 @@
+.form-floating .form-control {
+  border: none !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.25) !important;
+  border-radius: 0 !important;
+  color: #000 !important;
+  font-size: 18px !important;
+
+  @media (min-width: 900px) {
+    padding-bottom: 0rem !important;
+  }
+}
+
+.form-floating .form-control:focus {
+  border-color: #000;
+  box-shadow: none !important;
+  color: #000 !important;
+}
+
+label::after {
+  display: none;
+}
+
+.form-floating label {
+  color: #000 !important;
+  font-size: 18px !important;
+  font-weight: 500 !important;
+
+
+}
+

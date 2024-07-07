@@ -22,8 +22,6 @@
               <label for="emailField" class="m-0 p-0 pt-2 prevent-select">Email</label>
             </div>
           </div>
-
-
           <div class="d-flex w-100 justify-content-between align-self-start gap-2" *ngIf="infoType === 'personal'">
             <div class="form-floating mb-3 " style="max-width:20rem;">
 
@@ -90,7 +88,7 @@
       </form>
     </div>
   </div>
-  <div class="card rounded-3" *ngIf="failed"
+  <div class="card bg-info rounded-3" *ngIf="failed"
     style="position:absolute;z-index:100;max-width:25rem;min-width:20rem;min-height:15rem;">
     <div class="card-title text-danger d-flex text-align-center justify-content-center align-items-center w-100"
       style="font-weight:900; font-size:4rem;">RECSYNC</div>

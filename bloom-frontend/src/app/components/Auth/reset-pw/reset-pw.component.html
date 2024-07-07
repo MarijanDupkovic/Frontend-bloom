@@ -1,46 +1,55 @@
-<div class="w-100 d-flex justify-content-center align-items-center flex-column" style="height:calc(100vh - 100px - 124px);">
-    <h1 class="text-danger mb-4 prevent-select">RECSYNC</h1>
-    <h2 class="mb-3 prevent-select">Neues Passwort setzen</h2>
+<div class="w-100 d-flex justify-content-center align-items-center flex-column"
+  style="height:calc(100vh - 100px - 124px);">
+  <h1 class="text-danger mb-4 prevent-select">RECSYNC</h1>
+  <h2 class="mb-3 prevent-select">Choose new Password</h2>
 
-    <div style="width: 80%;">
-        <form class="d-flex flex-column form-floating" (ngSubmit)="resetPassword()">
+  <div style="width: 80%;">
+    <form class="d-flex flex-column form-floating" (ngSubmit)="resetPassword()">
 
-            <div class="form-floating mb-3 w-100 align-self-center d-flex " style="height:calc(100vh - 100px - 124px);">
+      <div class="form-floating mb-3 w-100 align-self-center d-flex " style="max-width:20rem;">
 
-                <input [type]="hide ? 'password' : 'text'" class="form-control text-bg-secondary border-0 shadow-none w-100"
-                    name="password" id="passwordField" [(ngModel)]="password" placeholder="Enter your password" style="background: transparent;">
-                <button tabindex="-1" (click)="togglePWField($event)" class="border-0 text-bg-secondary rounded-2"  [attr.aria-label]="'Hide password'"
-                    [attr.aria-pressed]="hide" style="color: white;position:absolute;right:0;bottom:0;top:0;background: transparent;">
-                    <span class="material-icons">{{hide ? 'visibility_off' : 'visibility'}}</span>
-                </button>
-                <label for="passwordField" class="m-0 p-0 pt-2 prevent-select">Enter your new password</label>
+        <input [type]="hide ? 'password' : 'text'" class="form-control text-secondary border-0 shadow-none w-100"
+          name="password" id="passwordField" [(ngModel)]="password" placeholder="Enter your password"
+          style="background: transparent;">
+        <button tabindex="-1" (click)="togglePWField($event)" class="border-0 text-secondary bg-none rounded-2"
+          [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide"
+          style="color: white;position:absolute;right:0;bottom:0;top:0;background: transparent;">
+          <span class="material-icons">{{hide ? 'visibility_off' : 'visibility'}}</span>
+        </button>
+        <label for="passwordField" class="m-0 p-0 pt-2 prevent-select">Enter new password</label>
 
-            </div>
-            <div class="form-floating mb-3 w-100 align-self-center d-flex " style="max-width:20rem;">
-
-                <input [type]="hide2 ? 'password' : 'text'" class="form-control text-bg-secondary border-0 shadow-none w-100"
-                    name="password2" id="passwordField2" [(ngModel)]="password2" placeholder="Reenter your password" style="background: transparent;">
-                <button tabindex="-1" (click)="togglePWField2($event)" class="border-0 text-bg-secondary rounded-2"  [attr.aria-label]="'Hide password'"
-                    [attr.aria-pressed]="hide2" style="color: white;position:absolute;right:0;bottom:0;top:0;background: transparent;">
-                    <span class="material-icons">{{hide2 ? 'visibility_off' : 'visibility'}}</span>
-                </button>
-                <label for="passwordField2" class="m-0 p-0 pt-2 prevent-select">Reenter your new password</label>
-
-            </div>
-            <button class="w-100 btn btn-primary align-self-center bg-danger mt-3 rounded border-0 prevent-select"
-                style="max-width:18rem;max-height:3rem;height:2.5rem;" [disabled]="send">Passwort ändern!</button>
-
-            <div class="mt-3 align-self-center ">
-                <span class="prevent-select">Neu bei RECSYNC?<a routerLink="/signup" class="prevent-select">Jetzt registrieren</a></span>
-            </div>
-        </form>
-
-    </div>
-    <div class="card text-bg-dark rounded-3" *ngIf="login_failed" style="position:absolute;z-index:100;max-width:25rem;min-width:20rem;min-height:15rem;">
-        <div class="card-title text-danger d-flex text-align-center justify-content-center align-items-center w-100" style="font-weight:900; font-size:4rem;">RECSYNC</div>
-        <div class="card-body d-flex justify-content-center align-items-center flex-column">
-          <p class="text-danger" style="text-align:center">{{fail_message}}</p>
-          <span class="text-danger">{{message}}</span>
-        </div>
       </div>
+      <div class="form-floating mb-3 w-100 align-self-center d-flex " style="max-width:20rem;">
+
+        <input [type]="hide2 ? 'password' : 'text'" class="form-control  border-0 shadow-none w-100" name="password2"
+          id="passwordField2" [(ngModel)]="password2" placeholder="Reenter your password"
+          style="background: transparent;">
+        <button tabindex="-1" (click)="togglePWField2($event)" class="border-0 text-secondary rounded-2 bg-none"
+          [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide2"
+          style="color: white;position:absolute;right:0;bottom:0;top:0;background: transparent;">
+          <span class="material-icons rounded-5">{{hide2 ? 'visibility_off' : 'visibility'}}</span>
+        </button>
+        <label for="passwordField2" class="m-0 p-0 pt-2 prevent-select fl-label">Confirm new password</label>
+
+      </div>
+      <button [disabled]="!password || !password2 || send || password !== password2"
+        class="w-100 btn btn-info align-self-center bg-info mt-3 rounded border-0 prevent-select"
+        style="max-width:18rem;max-height:3rem;height:2.5rem;">Passwort ändern!</button>
+
+      <div class="mt-3 align-self-center ">
+        <span class="prevent-select">Neu bei RECSYNC?<a routerLink="/signup" class="prevent-select">Jetzt
+            registrieren</a></span>
+      </div>
+    </form>
+
+  </div>
+  <div class="card bg-info rounded-3" *ngIf="login_failed"
+    style="position:absolute;top:30%;z-index:100;max-width:25rem;min-width:20rem;min-height:15rem;">
+    <div class="card-title text-danger d-flex text-align-center justify-content-center align-items-center w-100"
+      style="font-weight:900; font-size:4rem;">RECSYNC</div>
+    <div class="card-body d-flex justify-content-center align-items-center flex-column">
+      <p class="text-danger" style="text-align:center">{{fail_message}}</p>
+      <span class="text-danger">{{message}}</span>
+    </div>
+  </div>
 </div>
