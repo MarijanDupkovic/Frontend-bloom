@@ -6,19 +6,21 @@
         <div class="d-flex align-items-center justify-content-center align-self-center ">
           <div class="d-flex justify-content-start flex-column align-items-start">
             <div class="d-flex gap-2">
-              <h6>Recording options</h6>
+              <h6 class="prevent-select">Recording options</h6>
             </div>
-            <button *ngIf="isMenuOpen" class="btn d-flex recording-btn gap-2" (click)="startRecordingLive()"
+            <button [disabled]="isRecording" *ngIf="isMenuOpen" class="btn d-flex recording-btn gap-2" (click)="startRecordingLive()"
               title="Start recording"> <mat-icon class="prevent-select"
-                style="color: rgb(240,0,75);">fiber_manual_record</mat-icon> Start Recording</button>
+                style="color: rgb(240,0,75);">fiber_manual_record</mat-icon> <span class="prevent-select">Start
+                Recording</span></button>
             <button *ngIf="isMenuOpen" class="btn d-flex recording-btn gap-2" (click)="stopRecordingLive(false)"
-              title="Stop recording"><mat-icon class="prevent-select">stop</mat-icon> Stop Recording</button>
+              title="Stop recording"><mat-icon class="prevent-select">stop</mat-icon><span class="prevent-select">Stop
+                Recording</span></button>
             <div *ngIf="isMenuOpen" class="d-flex gap-1 align-items-center" style="padding-left: 10px;">
               <label class="switch" title="Enable/Disable Blur">
                 <input type="checkbox" (change)="setBlur()">
                 <span class="slider round"></span>
               </label>
-              <span>Enable/Disable Blur</span>
+              <span class="prevent-select">Enable/Disable Blur</span>
             </div>
           </div>
           <div *ngIf="!isMenuOpen" (click)="toggleOptionsMenu()"
@@ -51,11 +53,4 @@
       </div>
     </div>
   </div>
-
-
 </div>
-
-<!-- <svg xmlns="http://www.w3.org/2000/svg" height="30px" viewBox="0 -960 960 960" width="30px" fill="#000000">
-            <path
-              d="M500-640v320l160-160-160-160ZM200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm120-80v-560H200v560h120Zm80 0h360v-560H400v560Zm-80 0H200h120Z" />
-          </svg> -->
