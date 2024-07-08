@@ -1,26 +1,25 @@
 <div class="d-flex flex-column align-items-center w-100" style="min-height: calc(100vh - 100px - 124px);">
   <div class="w-80">
-
     <div class="d-flex justify-content-center w-100 flex-column align-items-center">
       <div class="rec-options w-100" style="position: relative;" title="Toggle recording options">
         <div class="d-flex align-items-center justify-content-center align-self-center ">
           <div class="d-flex justify-content-start flex-column align-items-start">
             <div class="d-flex gap-2">
-              <h6 class="prevent-select">Recording options</h6>
+              <h6 class="prevent-select">Aufnahme optionen</h6>
             </div>
-            <button [disabled]="isRecording" *ngIf="isMenuOpen" class="btn d-flex recording-btn gap-2" (click)="startRecordingLive()"
-              title="Start recording"> <mat-icon class="prevent-select"
-                style="color: rgb(240,0,75);">fiber_manual_record</mat-icon> <span class="prevent-select">Start
-                Recording</span></button>
+            <button [disabled]="isRecording" *ngIf="isMenuOpen" class="btn d-flex recording-btn gap-2"
+              (click)="startRecordingLive()" title="Start recording"> <mat-icon class="prevent-select"
+                style="color: rgb(240,0,75);">fiber_manual_record</mat-icon> <span class="prevent-select">Aufnahme
+                starten</span></button>
             <button *ngIf="isMenuOpen" class="btn d-flex recording-btn gap-2" (click)="stopRecordingLive(false)"
-              title="Stop recording"><mat-icon class="prevent-select">stop</mat-icon><span class="prevent-select">Stop
-                Recording</span></button>
+              title="Stop recording"><mat-icon class="prevent-select">stop</mat-icon><span
+                class="prevent-select">Aufnahme beenden</span></button>
             <div *ngIf="isMenuOpen" class="d-flex gap-1 align-items-center" style="padding-left: 10px;">
               <label class="switch" title="Enable/Disable Blur">
                 <input type="checkbox" (change)="setBlur()">
                 <span class="slider round"></span>
               </label>
-              <span class="prevent-select">Enable/Disable Blur</span>
+              <span class="prevent-select">Blur {{ blur ? 'deaktivieren':'aktivieren' }}</span>
             </div>
           </div>
           <div *ngIf="!isMenuOpen" (click)="toggleOptionsMenu()"
@@ -52,10 +51,5 @@
           autoplay></canvas>
       </div>
     </div>
-
-
   </div>
 </div>
-
-
-

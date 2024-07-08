@@ -1,7 +1,7 @@
 <div class="d-flex align-items-center flex-column w-100" style="min-height: calc(100vh - 100px - 124px)">
   <div class="w-80 ">
     <div class="d-flex w-100 mb-2">
-      <h1 class="m-0 p-0 mb-3 mt-5 prevent-select" style="font-weight: 700">Profile</h1>
+      <h1 class="m-0 p-0 mb-3 mt-5 prevent-select" style="font-weight: 700">Profil</h1>
 
     </div>
     <div class="d-flex justify-content-center flex-column align-items-center w-100">
@@ -16,7 +16,7 @@
         </label>
         <label *ngIf="isMobileDevice()"
           class="d-flex align-items-center w-100 h-100 justify-content-center prevent-select" for="choose-image">
-          Change profile picture
+          Profilbild ändern
         </label>
         <input class="d-none prevent-select" type="file" id="choose-image" name="img" (change)="handleFileInput()"
           #fileInput accept=".jpg,.jpeg,.png" />
@@ -26,13 +26,13 @@
         <div class="d-flex gap-2 align-self-start">
           <button class="prevent-select" (click)="active = 'userData'"
             style="outline: none;border: none;background-color: white;padding: 0.25rem;"
-            [class.active]="active === 'userData'">Userdata</button>
+            [class.active]="active === 'userData'">Benutzerdaten</button>
           <button class="prevent-select" (click)="active = 'personal'"
             style="outline: none;border: none;background-color: white;padding: 0.25rem;"
-            [class.active]="active === 'personal'">Personal</button>
+            [class.active]="active === 'personal'">Persönliches</button>
           <button class="prevent-select" (click)="active = 'address'"
             style="outline: none;border: none;background-color: white;padding: 0.25rem;"
-            [class.active]="active === 'address'">Address</button>
+            [class.active]="active === 'address'">Adresse</button>
         </div>
         <div class="d-flex justify-content-end align-items-end w-100 mb-3">
           <a id="editDetails" routerLink="/site/edit-profile" [queryParams]="{info: active}">
@@ -44,7 +44,7 @@
       <div class="d-flex flex-column align-items-start mt-3 w-100 detailsContainer">
         <div *ngIf="active === 'userData'" class="d-flex justify-content-between w-100">
           <div class="d-flex justify-content-center flex-column mb-2">
-            <h5 style="font-weight: 500" class="prevent-select">Username:</h5>
+            <h5 style="font-weight: 500" class="prevent-select">Benutzername:</h5>
             <span id="username" *ngIf="user" class="prevent-select">{{ user[0].username }}</span>
           </div>
           <div class="d-flex justify-content-center flex-column mb-2">
@@ -56,12 +56,12 @@
 
         <div class="d-flex justify-content-between w-100" *ngIf="active === 'personal'">
           <div class="d-flex justify-content-center flex-column mb-2">
-            <h5 style="font-weight: 500" class="prevent-select">First name:</h5>
+            <h5 style="font-weight: 500" class="prevent-select">Vorname:</h5>
 
             <span id="firstName" *ngIf="user" class="prevent-select">{{ user[0].first_name }}</span>
           </div>
           <div class="d-flex justify-content-center flex-column mb-2">
-            <h5 style="font-weight: 500" class="prevent-select">Last name:</h5>
+            <h5 style="font-weight: 500" class="prevent-select">Nachname:</h5>
 
             <span id="lastName" *ngIf="user" class="prevent-select">{{ user[0].last_name }}</span>
           </div>
@@ -70,24 +70,24 @@
         <div class="d-flex flex-column justify-content-between w-100" *ngIf="active === 'address'">
           <div class="d-flex justify-content-between w-100">
             <div class="d-flex justify-content-center flex-column mb-2">
-              <h5 style="font-weight: 500" class="prevent-select">Street:</h5>
+              <h5 style="font-weight: 500" class="prevent-select">Straße:</h5>
 
               <span id="lastName" *ngIf="user" class="prevent-select">{{ user[0].street }}</span>
             </div>
             <div class="d-flex justify-content-center flex-column mb-2">
-              <h5 style="font-weight: 500" class="prevent-select">City:</h5>
+              <h5 style="font-weight: 500" class="prevent-select">Stadt:</h5>
 
               <span id="lastName" *ngIf="user">{{ user[0].city }}</span>
             </div>
           </div>
           <div class="d-flex justify-content-between w-100">
             <div class="d-flex justify-content-center flex-column mb-2">
-              <h5 style="font-weight: 500" class="prevent-select">Zip Code:</h5>
+              <h5 style="font-weight: 500" class="prevent-select">Postleitzahl:</h5>
 
               <span id="lastName" *ngIf="user" class="prevent-select">{{ user[0].zip_code }}</span>
             </div>
             <div class="d-flex justify-content-center flex-column mb-2">
-              <h5 style="font-weight: 500" class="prevent-select">Country:</h5>
+              <h5 style="font-weight: 500" class="prevent-select">Land:</h5>
 
               <span id="lastName" *ngIf="user" class="prevent-select">{{ user[0].country }}</span>
             </div>

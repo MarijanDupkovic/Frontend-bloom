@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Clipboard } from '@angular/cdk/clipboard';
+import { environment } from '../../../../environtments/environtment';
 @Component({
   selector: 'app-video-detail',
   standalone: true,
@@ -23,7 +24,7 @@ export class VideoDetailComponent implements OnInit{
   async ngOnInit() {
     this.route.params.subscribe((params: any) => {
       this.id = params['str'];
-      this.link = 'https://test.marijandupkovic.com/public-video/' + this.id;
+      this.link = environment.baseUrl + '/public-video/' + this.id;
     });
 
   }

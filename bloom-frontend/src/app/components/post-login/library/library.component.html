@@ -1,14 +1,13 @@
 <div class="d-flex align-items-center flex-column w-100" style="min-height: calc(100vh - 100px - 124px)">
   <div class="w-80">
-    <h1 class="p-0 m-0 mt-3 mb-3 prevent-select">Library</h1>
+    <h1 class="p-0 m-0 mt-3 mb-3 prevent-select">Videos</h1>
     <ul class="nav nav-tabs mb-2" id="myTab" role="tablist">
       <li class="nav-link " [class.active]="!all" #latestTab role="presentation">
-        <a (click)="toggleCategory(false)" class="prevent-select" type="button">Latest...</a>
+        <a (click)="toggleCategory(false)" class="prevent-select" type="button">Letzte</a>
       </li>
       <li class="nav-link" [class.active]="all" #allTab role="presentation">
-        <a type="button" class="prevent-select" (click)="toggleCategory(true)">All...</a>
+        <a type="button" class="prevent-select" (click)="toggleCategory(true)">Alle</a>
       </li>
-
     </ul>
 
     <div class="detailsContainer">

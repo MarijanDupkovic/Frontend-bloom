@@ -2,14 +2,13 @@
   <div class="d-flex justify-content-center w-80 signupHead" style="min-height: calc(100vh - 100px - 124px);">
     <div class="d-flex justify-content-center align-items-center flex-column signUpContainer w-100 gap-3 h-100">
       <div class="d-flex justify-content-between w-100 steps">
-        <span id="step1" [ngClass]="steps.step1 ? 'active-link': ''" class="prevent-select" (click)="next('step1')">Step
+        <span id="step1" [ngClass]="steps.step1 ? 'active-link': ''" class="prevent-select" (click)="next('step1')">Schritt
           1</span>
         <span class="devider prevent-select">-</span>
-        <span id="step2" [ngClass]="steps.step2 ? 'active-link': ''" class="prevent-select" (click)="next('step2')">Step
+        <span id="step2" [ngClass]="steps.step2 ? 'active-link': ''" class="prevent-select" (click)="next('step2')">Schritt
           2</span>
-
       </div>
-      <h1 class=" align-self-start mb-3 prevent-select">Sign up</h1>
+      <h1 class=" align-self-start mb-3 prevent-select">Registrierung</h1>
       <div class="d-flex flex-column w-100 gap-3 mt-3">
         <div>
           <form class="d-flex flex-column " [formGroup]="signupForm" (ngSubmit)="signup()">
@@ -17,16 +16,14 @@
               <input type="text" class="form-control text-secondary border-0 shadow-none rounded-5"
                 style="background: transparent;" placeholder="username" name="username" id="usernameField"
                 formControlName="username" required autocomplete="off">
-              <label for="usernameField" class="m-0 p-0 pt-2">Enter your username</label>
-
+              <label for="usernameField" class="m-0 p-0 pt-2">Benutzername</label>
             </div>
             <div *ngIf="steps.step1" class="form-floating mb-3 w-100 align-self-center" style="max-width:20rem;">
               <input type="email" class="form-control text-secondary border-0 shadow-none rounded-5"
                 placeholder="name@example.com" style="background: transparent;" name="email" id="emailField"
                 formControlName="email" required autocomplete="off">
-              <label for="emailField" class="m-0 p-0 pt-2">Enter your email</label>
+              <label for="emailField" class="m-0 p-0 pt-2">Email</label>
             </div>
-
             <div *ngIf="steps.step2" class="form-floating mb-3 w-100 align-self-center" style="max-width:20rem;">
               <input [type]="hide ? 'password' : 'text'"
                 class="form-control text-secondary border-0 shadow-none rounded-5" style="background: transparent;"
@@ -39,7 +36,7 @@
                   'visibility_off'
                   : 'visibility'}}</span>
               </button>
-              <label for="passwordField" class="m-0 p-0 pt-2">Enter your password</label>
+              <label for="passwordField" class="m-0 p-0 pt-2">Passwort</label>
             </div>
             <div *ngIf="steps.step2" class="form-floating mb-3 w-100 align-self-center" style="max-width:20rem;">
               <input [type]="hide2 ? 'password' : 'text'"
@@ -51,29 +48,25 @@
                 style="color: white;position:absolute;right:0;bottom:0;top:0;background: transparent;">
                 <span class="material-icons">{{hide2 ? 'visibility_off' : 'visibility'}}</span>
               </button>
-              <label for="passwordField2" class="m-0 p-0 pt-2">Reenter your password</label>
+              <label for="passwordField2" class="m-0 p-0 pt-2">Passwort bestätigen</label>
             </div>
-
-
             <div class="d-flex gap-2 align-self-center w-100 justify-content-center buttonContainer">
               <button type="button" [disabled]="steps.step1"
                 class="w-100 btn btn-info btn-shadow align-self-center mt-3 rounded border-0"
-                style="max-width:8rem;max-height:3rem;height:2.5rem;" (click)="back()">Back</button>
+                style="max-width:8rem;max-height:3rem;height:2.5rem;" (click)="back()">Zurück</button>
               <button type="button" [disabled]="isDisabled()" *ngIf="!steps.step2"
                 class="w-100 btn btn-info btn-shadow align-self-center mt-3 rounded border-0"
-                style="max-width:8rem;max-height:3rem;height:2.5rem;" (click)="forward()">Next</button>
+                style="max-width:8rem;max-height:3rem;height:2.5rem;" (click)="forward()">Weiter</button>
               <button type="submit" *ngIf="steps.step2"
                 class="w-100 btn btn-info btn-shadow align-self-center mt-3 rounded border-0"
-                style="max-width:8rem;max-height:3rem;height:2.5rem;" [disabled]="send || isDisabled()">Signup</button>
+                style="max-width:8rem;max-height:3rem;height:2.5rem;"
+                [disabled]="send || isDisabled()">Registrieren</button>
             </div>
-
-
             <div class="mt-3 align-self-center redirectLogin ">
               <span class="prevent-select">Bereits registriert?<a routerLink="/signin" class="return-to-signin"
                   style="font-style: italic;"> Jetzt
                   einloggen</a></span>
             </div>
-
           </form>
         </div>
       </div>

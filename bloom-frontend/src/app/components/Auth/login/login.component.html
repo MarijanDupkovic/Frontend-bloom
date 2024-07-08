@@ -2,7 +2,7 @@
   <div class="d-flex justify-content-center w-80 h-100">
     <div class="d-flex justify-content-center align-items-center flex-column w-100 signInContainer gap-5 h-100"
       style="min-height: calc(100vh - 100px - 124px);">
-      <h1 class="align-self-start prevent-select">Sign in</h1>
+      <h1 class="align-self-start prevent-select">Einloggen</h1>
 
       <form class="d-flex flex-column form-floating w-100 h-100" (ngSubmit)="login()">
 
@@ -10,7 +10,7 @@
           <input type="email" style="background: transparent;"
             class="form-control text-secondary border-0 rounded-5 w-100" placeholder="name@example.com" name="email"
             id="emailField" [(ngModel)]="username" required>
-          <label for="emailField" class="m-0 p-0 pt-2">Enter username</label>
+          <label for="emailField" class="m-0 p-0 pt-2">Benutzername</label>
 
         </div>
         <div class="form-floating w-100 align-self-center d-flex rounded-5" style="max-width:20rem;">
@@ -23,11 +23,12 @@
             style="color: white;position:absolute;right:0;bottom:0;top:0;background: transparent;">
             <span class="material-icons rounded-5">{{hide ? 'visibility_off' : 'visibility'}}</span>
           </button>
-          <label for="passwordField" class="m-0 p-0 pt-2">Enter password</label>
+          <label for="passwordField" class="m-0 p-0 pt-2">Passwort</label>
 
         </div>
         <button class="w-100 btn btn-info btn-shadow align-self-center mt-4 rounded border-0 buttonContainer"
-          style="max-width:8rem;max-height:3rem;height:2.5rem;" [disabled]="send || !username || !password">Login</button>
+          style="max-width:8rem;max-height:3rem;height:2.5rem;"
+          [disabled]="send || !username || !password">Login</button>
         <div class="mt-3 align-self-center redirectSignUp">
           <a routerLink="/reset-mail"> <span class="prevent-select">Passwort vergessen?</span></a>
         </div>

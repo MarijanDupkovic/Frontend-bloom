@@ -1,7 +1,7 @@
 <div class="w-100 d-flex justify-content-center align-items-center flex-column"
   style="height:calc(100vh - 100px - 124px);">
   <h1 class="text-danger mb-4 prevent-select">captureVue</h1>
-  <h2 class="mb-3 prevent-select">Choose new Password</h2>
+  <h2 class="mb-3 prevent-select">Wähle ein neues Passwort</h2>
 
   <div style="width: 80%;">
     <form class="d-flex flex-column form-floating" (ngSubmit)="resetPassword()">
@@ -16,7 +16,7 @@
           style="color: white;position:absolute;right:0;bottom:0;top:0;background: transparent;">
           <span class="material-icons">{{hide ? 'visibility_off' : 'visibility'}}</span>
         </button>
-        <label for="passwordField" class="m-0 p-0 pt-2 prevent-select">Enter new password</label>
+        <label for="passwordField" class="m-0 p-0 pt-2 prevent-select">Passwort</label>
 
       </div>
       <div class="form-floating mb-3 w-100 align-self-center d-flex " style="max-width:20rem;">
@@ -29,7 +29,7 @@
           style="color: white;position:absolute;right:0;bottom:0;top:0;background: transparent;">
           <span class="material-icons rounded-5">{{hide2 ? 'visibility_off' : 'visibility'}}</span>
         </button>
-        <label for="passwordField2" class="m-0 p-0 pt-2 prevent-select fl-label">Confirm new password</label>
+        <label for="passwordField2" class="m-0 p-0 pt-2 prevent-select fl-label">Passwort bestätigen</label>
 
       </div>
       <button [disabled]="!password || !password2 || send || password !== password2"

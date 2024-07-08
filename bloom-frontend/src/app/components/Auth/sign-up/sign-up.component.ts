@@ -54,7 +54,7 @@ export class SignUpComponent {
     } catch (e) {
       let error: any = e;
       if (error.status == 400 || error.status == 405) {
-        this.setErrorMessage('Email or username already in use!', error);
+        this.setErrorMessage('E-Mail-Adresse oder Benutzername bereits in Verwendung!', error);
       }
     }
   }
@@ -70,7 +70,6 @@ export class SignUpComponent {
 
   setErrorMessage(message: string, error: any) {
     this.signup_failed = true;
-    console.log(error);
     this.message = message;
     this.resetErrorMessage();
   }

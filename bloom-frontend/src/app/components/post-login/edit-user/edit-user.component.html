@@ -1,21 +1,17 @@
 <div class="w-100 d-flex flex-column align-items-center" style="min-height: calc(100vh - 100px - 124px);">
   <div class="w-80 mt-5 ">
-    <h1 class="mb-5 prevent-select">Edit Pfofile</h1>
+    <h1 class="mb-5 prevent-select">Profil bearbeiten</h1>
     <div class="d-flex justify-content-center flex-column align-items-center w-100 ">
-
       <form class="d-flex flex-column w-100 detailsContainer" (ngSubmit)="changeData()">
-
         <div class="w-100 d-flex flex-column align-items-center justify-content-center gap-2 mt-4">
           <div class="d-flex w-100 justify-content-between" *ngIf="infoType === 'userData'">
             <div class="form-floating mb-3 align-self-start" style="max-width:20rem;">
-
               <input type="text" class="form-control text-secondary border-0 rounded-5" placeholder="username"
                 name="username" id="username" style="background: transparent;" [(ngModel)]="username" required
                 autocomplete="off">
-              <label for="username" class="m-0 p-0 pt-2 prevent-select">Username</label>
+              <label for="username" class="m-0 p-0 pt-2 prevent-select">Benutzername</label>
             </div>
             <div class="form-floating mb-3 align-self-start" style="max-width:20rem;">
-
               <input type="email" class="form-control text-secondary border-0 " placeholder="name@example.com"
                 style="background: transparent;" name="email" id="emailField" [(ngModel)]="email" required
                 autocomplete="off">
@@ -24,70 +20,58 @@
           </div>
           <div class="d-flex w-100 justify-content-between align-self-start gap-2" *ngIf="infoType === 'personal'">
             <div class="form-floating mb-3 " style="max-width:20rem;">
-
               <input type="text" class="form-control text-secondary border-0 rounded-5" placeholder="First name"
                 name="firstName" id="firstName" style="background: transparent;" [(ngModel)]="firstName" required
                 autocomplete="off">
-              <label for="firstName" class="m-0 p-0 pt-2 prevent-select">First name</label>
+              <label for="firstName" class="m-0 p-0 pt-2 prevent-select">Vorname</label>
             </div>
-
             <div class="form-floating mb-3 " style="max-width:20rem;">
-
               <input type="text" class="form-control text-secondary border-0 rounded-5" placeholder="Last name"
                 name="lastName" id="lastName" style="background: transparent;" [(ngModel)]="lastName" required
                 autocomplete="off">
-              <label for="lastName" class="m-0 p-0 pt-2 prevent-select">Last name</label>
+              <label for="lastName" class="m-0 p-0 pt-2 prevent-select">Nachname</label>
             </div>
           </div>
-
           <div class="d-flex flex-column w-100 justify-content-between" *ngIf="infoType == 'address'">
             <div class="d-flex justify-content-between w-100 gap-2 align-self-start">
               <div class="form-floating mb-3 align-self-start" style="max-width:20rem;">
                 <input type="text" class="form-control text-secondary border-0 rounded-5" placeholder="Street"
                   name="street" id="street" style="background: transparent;" [(ngModel)]="street" required
                   autocomplete="off">
-                <label for="street" class="m-0 p-0 pt-2 prevent-select">Street</label>
+                <label for="street" class="m-0 p-0 pt-2 prevent-select">Straße</label>
               </div>
               <div class="form-floating mb-3 align-self-start" style="max-width:20rem;">
                 <input type="text" class="form-control text-secondary border-0 rounded-5" placeholder="Country"
                   name="country" id="country" style="background: transparent;" [(ngModel)]="country" required
                   autocomplete="off">
-                <label for="country" class="m-0 p-0 pt-2 prevent-select">Country</label>
+                <label for="country" class="m-0 p-0 pt-2 prevent-select">Land</label>
               </div>
             </div>
-
             <div class="d-flex justify-content-between w-100 gap-2 align-self-start">
               <div class="form-floating mb-3" style="max-width:20rem;">
                 <input type="text" class="form-control text-secondary border-0 rounded-5" placeholder="Zipcode"
                   name="zipCode" id="zipCode" style="background: transparent;" [(ngModel)]="zipCode" required
                   autocomplete="off">
-                <label for="zipCode" class="m-0 p-0 pt-2 prevent-select">Zipcode</label>
+                <label for="zipCode" class="m-0 p-0 pt-2 prevent-select">Postleitzahl</label>
               </div>
               <div class="form-floating mb-3 " style="max-width:20rem;">
                 <input type="text" class="form-control text-secondary border-0 rounded-5" placeholder="City" name="city"
                   id="city" style="background: transparent;" [(ngModel)]="city" required autocomplete="off">
-                <label for="city" class="m-0 p-0 pt-2 prevent-select">City</label>
+                <label for="city" class="m-0 p-0 pt-2 prevent-select">Stadt</label>
               </div>
             </div>
-
-
           </div>
-
-
-
-
           <div class="d-flex gap-2 mt-5">
             <button type="button" class="w-100 btn btn-info btn-shadow align-self-center mt-3 rounded border-0"
-              style="max-width:8rem;max-height:3rem;height:2.5rem;" (click)="back()">Abort</button>
+              style="max-width:8rem;max-height:3rem;height:2.5rem;" (click)="back()">Abbrechen</button>
             <button type="submit" class="w-100 btn btn-info btn-shadow align-self-center mt-3 rounded border-0"
-              style="max-width:8rem;max-height:3rem;height:2.5rem;" [disabled]="send">Change</button>
-
+              style="max-width:8rem;max-height:3rem;height:2.5rem;" [disabled]="send">Ändern!</button>
           </div>
         </div>
-
       </form>
     </div>
   </div>
+
   <div class="card bg-info rounded-3" *ngIf="failed"
     style="position:absolute;z-index:100;max-width:25rem;min-width:20rem;min-height:15rem;">
     <div class="card-title text-danger d-flex text-align-center justify-content-center align-items-center w-100"
