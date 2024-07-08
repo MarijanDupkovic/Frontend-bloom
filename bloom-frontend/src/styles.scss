@@ -11,10 +11,10 @@ a {
 }
 
 .btn-shadow {
-  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.75);
 }
 
-.logo-full{
+.logo-full {
   width: 200px;
   height: 120px;
   object-fit: contain;
@@ -101,4 +101,33 @@ body {
   -webkit-user-select: none;
   -ms-user-select: none;
   user-select: none;
+}
+
+.callToBtn {
+  padding: 20px 20px;
+  font-size: 1.2rem;
+  font-weight: 500;
+  display: inline-block;
+  text-align: center;
+  border-radius: 10px;
+  background-color: #0dcaf0;
+
+  &:hover {
+    background-color: #4159e6;
+    transform: scale(1.1);
+    color: #ffffff;
+
+  }
+
+  @media (min-width: 900px) {
+    font-size: 1.5rem;
+  }
+}
+.return-to-signin{
+  font-style: italic;
+
+  &:hover {
+    color: #0dcaf0;
+    text-decoration: underline;
+  }
 }

@@ -11,7 +11,7 @@
             [(ngModel)]="email" required>
           <label for="emailField" class="m-0 p-0 pt-2">Email</label>
         </div>
-        <button class="w-100 btn btn-info btn-shadow align-self-center mt-3 rounded border-0"
+        <button [disabled]="send || !email" class="w-100 btn btn-info btn-shadow align-self-center mt-3 rounded border-0"
           style="max-width:8rem;max-height:3rem;height:2.5rem;" >Senden</button>
       </form>
     </div>
