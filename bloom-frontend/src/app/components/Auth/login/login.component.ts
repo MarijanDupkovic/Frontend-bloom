@@ -14,7 +14,7 @@ import { HttpClientModule } from '@angular/common/http';
   styleUrl: './login.component.scss'
 })
 export class LoginComponent {
-  email: string = '';
+  username: string = '';
   password: string = '';
   hide: boolean = true;
   send: boolean = false;
@@ -31,7 +31,7 @@ export class LoginComponent {
   async login() {
     this.send = true;
     try {
-      await this.authService.loginWithEmailandPassword(this.email, this.password).then(() => {
+      await this.authService.loginWithUsernameAndPassword(this.username, this.password).then(() => {
         this.router.navigateByUrl('/site/library');
       });
     } catch (error:any){
@@ -73,7 +73,7 @@ export class LoginComponent {
       if (e.key === 'Enter') {
         e.preventDefault();
         e.stopPropagation();
-        if (this.password !== '' && this.email !== '') this.login();
+        if (this.password !== '' && this.username !== '') this.login();
         else this.setErrorMessage('Bitte fülle alle Felder aus!', { error: 'Bitte fülle alle Felder aus!' });
       }
     }

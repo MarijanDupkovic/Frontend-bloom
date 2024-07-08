@@ -3,6 +3,7 @@ import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { UserService } from '../../../services/profile/user.service';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { environment } from '../../../../environtments/environtment';
 
 @Component({
   selector: 'app-user',
@@ -29,7 +30,7 @@ export class UserComponent implements AfterViewInit {
       if (data[0].profile_picture) {
         let splitted = data[0].profile_picture.split('/');
         url = splitted[3] + '/' + splitted[4] + '/' + splitted[5] + '/';
-        this.profileImg = 'https://be.recsync.app/' + url;
+        this.profileImg = environment.baseUrl + '/' + url;
       }
       this.user = data;
     });

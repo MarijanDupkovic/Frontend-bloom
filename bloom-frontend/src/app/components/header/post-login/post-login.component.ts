@@ -4,6 +4,7 @@ import { Router, RouterLink } from '@angular/router';
 import { UserService } from '../../../services/profile/user.service';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../../../services/auth/auth.service';
+import { environment } from '../../../../environtments/environtment';
 
 @Component({
   selector: 'app-post-login',
@@ -36,21 +37,23 @@ export class PostLoginComponent {
     if (profilePicture) {
       let splitted = profilePicture.split('/');
       let url = splitted[3] + '/' + splitted[4] + '/' + splitted[5] + '/';
-      return 'https://be.recsync.app/' + url;
+      return environment.baseUrl + '/' + url;
     }
     return 'https://www.w3schools.com/howto/img_avatar.png';
-
   }
 
   ngOnDestroy() {
-    if (this.subscription) {
-      this.subscription.unsubscribe();
-    }
+    if (this.subscription) this.subscription.unsubscribe();
   }
 
-  logout() {
-    this.auth.logout().then((resp: any) => {
-      this.route.navigate(['/']);
-    });
+  async logout() {
+    try {
+      await this.auth.logout();
+      this.route.navigate(['/']).then(() => {
+        window.location.reload();
+      });
+    } catch (error) {
+      console.log(error);
+    }
   }
 }

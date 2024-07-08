@@ -15,10 +15,10 @@ export class AuthService {
     this.loggedIn.next(this.isAuthenticated());
   }
 
-  public async loginWithEmailandPassword(email: string, password: string) {
+  public async loginWithUsernameAndPassword(username: string, password: string) {
     const url = environment.baseUrl + '/login/';
     const body = {
-      "email": email,
+      "username": username,
       "password": password
     };
 
@@ -36,10 +36,11 @@ export class AuthService {
   }
 
   public async logout() {
-    const url = environment.baseUrl + '/logout/' + localStorage.getItem('token');
+    const url = environment.baseUrl + '/logout/' + localStorage.getItem('token') + '/';
     return await lastValueFrom(this.http.get(url)).then((resp: any) => {
       localStorage.removeItem('token');
       this.changeSignInState(false);
+
     });
   }
 
