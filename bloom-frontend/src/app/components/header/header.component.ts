@@ -26,12 +26,8 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
     this.subscription = this.authService.loggedIn$.subscribe((value: boolean) => { // Specify the type argument as boolean
-      if (!value) {
-        this.signedIn = value;
-      } else {
-        this.signedIn = value;
-
-      }
+      if (!value) this.signedIn = value;
+      else this.signedIn = value;
     });
   }
 

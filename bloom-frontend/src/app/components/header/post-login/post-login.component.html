@@ -7,7 +7,7 @@
       <a routerLink="site/library" routerLinkActive="active" class="prevent-select" translate>Videos</a>
       <div class="dropdown">
         <a class="dropdown-toggle" #dropdownMenu (click)="dropdownMenuOpened = !dropdownMenuOpened">
-          <img class="rounded-circle shadow-lg border border-2 border-info" style="object-fit: cover"
+          <img class="rounded-circle shadow-lg border border-2 border-info" style="object-fit: cover;"
             [src]="convertLink(profilePicture)" alt="user" width="70" height="70" />
         </a>
         <div [class.show]="dropdownMenuOpened" class="dropdown-menu">

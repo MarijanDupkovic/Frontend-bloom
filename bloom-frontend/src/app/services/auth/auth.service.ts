@@ -40,7 +40,6 @@ export class AuthService {
     return await lastValueFrom(this.http.get(url)).then((resp: any) => {
       localStorage.removeItem('token');
       this.changeSignInState(false);
-
     });
   }
 
