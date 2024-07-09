@@ -1,0 +1,8 @@
+<div *ngIf="isVisible" class="overlay">
+  <div class="overlay-content">
+    <h2 class="text-start">Account löschen</h2>
+    <p class="text-start">Möchtest du deien Account wirklich unwiderruflich löschen?</p>
+    <button class="btn" (click)="confirmDelete()">Löschen</button>
+    <button class="btn" (click)="cancelDelete()">Abbrechen</button>
+  </div>
+</div>

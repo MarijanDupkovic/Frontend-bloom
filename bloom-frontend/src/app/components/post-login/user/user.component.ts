@@ -4,11 +4,12 @@ import { UserService } from '../../../services/profile/user.service';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { environment } from '../../../../environtments/environtment';
+import { ConfirmoverlayComponent } from '../../Overlays/confirmoverlay/confirmoverlay.component';
 
 @Component({
   selector: 'app-user',
   standalone: true,
-  imports: [CommonModule,RouterLink,MatIconModule],
+  imports: [CommonModule,RouterLink,MatIconModule,ConfirmoverlayComponent],
   templateUrl: './user.component.html',
   styleUrl: './user.component.scss'
 })
@@ -18,10 +19,18 @@ export class UserComponent implements AfterViewInit {
   hovering = false;
   active = 'userData';
   @ViewChild('fileInput') fileInput: any;
+  @ViewChild(ConfirmoverlayComponent)
+  confirmOverlay!: ConfirmoverlayComponent;
   constructor(private userService: UserService) { }
 
   async ngAfterViewInit() {
     this.getUserData();
+  }
+
+
+
+  showOverlay() {
+    this.confirmOverlay.show();
   }
 
   async getUserData() {
@@ -48,6 +57,19 @@ export class UserComponent implements AfterViewInit {
         this.getUserData();
       });
     }
+  }
+
+  async deleteUser(){
+    try{
+      let deleResponse = await this.userService.deleteUser();
+      if(deleResponse){
+        localStorage.clear();
+        window.location.reload();
+      }
+    } catch (error) {
+      console.log(error);
+    }
+
   }
 
   isMobileDevice() {

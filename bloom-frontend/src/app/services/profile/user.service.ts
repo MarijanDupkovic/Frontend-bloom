@@ -37,6 +37,11 @@ export class UserService {
     return lastValueFrom(this.http.put(url, picture, { headers }));
   }
 
+  deleteUser(){
+    const headers = new HttpHeaders().set('Authorization', `token ${localStorage.getItem('token')}`);
+    const url = environment.baseUrl + '/delete_user/' + localStorage.getItem('token') + '/';
+    return lastValueFrom(this.http.get(url, { headers }));
+  }
 
 
 }
