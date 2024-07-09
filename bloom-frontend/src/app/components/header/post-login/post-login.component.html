@@ -3,10 +3,10 @@
     <a class="prevent-select " routerLink="/"><img class="logo-full"
         src="./../../../../assets/logo/FullLogo_Transparent_NoBuffer.png" alt=""></a>
     <div class="container-header-desktop">
-      <a routerLink="site/recording" class="prevent-select" translate>Aufnehmen</a>
-      <a routerLink="site/library" class="prevent-select" translate>Videos</a>
+      <a routerLink="site/recording" routerLinkActive="active" class="prevent-select" translate>Aufnehmen</a>
+      <a routerLink="site/library" routerLinkActive="active" class="prevent-select" translate>Videos</a>
       <div class="dropdown">
-        <a class="dropdown-toggle" (click)="dropdownMenuOpened = !dropdownMenuOpened">
+        <a class="dropdown-toggle" #dropdownMenu (click)="dropdownMenuOpened = !dropdownMenuOpened">
           <img class="rounded-circle shadow-lg border border-2 border-info" style="object-fit: cover"
             [src]="convertLink(profilePicture)" alt="user" width="70" height="70" />
         </a>
@@ -29,16 +29,16 @@
   <div *ngIf="isOpen" class="container-menu">
     <div class="container-items">
       <div class="container-menu-item">
-        <a class="menu-item prevent-select" routerLink="site/recording" (click)="toggleMenu()" translate>Aufnehmen</a>
+        <a class="menu-item prevent-select" routerLinkActive="active" routerLink="site/recording" (click)="toggleMenu()" translate>Aufnehmen</a>
       </div>
       <div class="container-menu-item">
-        <a class="menu-item prevent-select" routerLink="site/library" (click)="toggleMenu()" translate>Videos</a>
+        <a class="menu-item prevent-select" routerLinkActive="active" routerLink="site/library" (click)="toggleMenu()" translate>Videos</a>
       </div>
       <div class="container-menu-item">
-        <a class="menu-item prevent-select" routerLink="site/profile" (click)="toggleMenu()" translate>Profil</a>
+        <a class="menu-item prevent-select" routerLinkActive="active" routerLink="site/profile" (click)="toggleMenu()" translate>Profil</a>
       </div>
       <div class="container-menu-item">
-        <a class="menu-item prevent-select" [href]="'#contact'" (click)="logout();dropdownMenuOpened = false"
+        <a class="menu-item prevent-select" (click)="logout();dropdownMenuOpened = false"
           translate>Logout</a>
       </div>
     </div>

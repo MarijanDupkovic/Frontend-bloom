@@ -23,8 +23,6 @@
   }
 }
 
-
-
 .container-menu {
   display: flex;
   flex-direction: column;
@@ -46,7 +44,7 @@
   }
 
   .menu-item {
-    color: #5A5A5A;
+    color: #D3D4D3;
     text-decoration: none;
     font-size: 1.5rem;
     font-weight: 900;
@@ -57,7 +55,6 @@
     }
   }
 }
-
 
 .active {
   color: #0dcaf0 !important;

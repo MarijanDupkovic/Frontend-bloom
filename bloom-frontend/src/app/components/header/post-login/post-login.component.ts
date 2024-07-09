@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import { Component, ElementRef, HostListener, Input, ViewChild } from '@angular/core';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { UserService } from '../../../services/profile/user.service';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../../../services/auth/auth.service';
@@ -9,7 +9,7 @@ import { environment } from '../../../../environtments/environtment';
 @Component({
   selector: 'app-post-login',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink,RouterLinkActive],
   templateUrl: './post-login.component.html',
   styleUrl: './post-login.component.scss'
 })
@@ -19,7 +19,16 @@ export class PostLoginComponent {
   profilePicture: string = '';
   private subscription: Subscription | undefined;
   dropdownMenuOpened = false;
+  @ViewChild('dropdownMenu')
+  dropdownMenu!: ElementRef<any>;
   constructor(private user: UserService, private auth: AuthService, private route: Router) { }
+
+  @HostListener('document:click', ['$event'])
+  clickOutside(event: Event) {
+    if (!this.dropdownMenu.nativeElement.contains(event.target)) {
+      this.dropdownMenuOpened = false;
+    }
+  }
 
   ngOnInit() {
     this.user.getUserData('/user').then((resp: any) => {
