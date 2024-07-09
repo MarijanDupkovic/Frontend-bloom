@@ -21,6 +21,7 @@ export class SendPwResetComponent {
   login_failed: boolean = false;
   fail_message: string = '';
   message = ``;
+  success: boolean = false;
 
   constructor(private http: HttpClient, private router: Router) { this.addEnterListener()}
 
@@ -47,10 +48,12 @@ export class SendPwResetComponent {
     let response: any;
     try {
       response = await lastValueFrom(this.http.post(url, body));
+      this.success = true;
       this.setErrorMessage('Email wurde versendet!', response.message);
       setTimeout(() => {
         this.router.navigateByUrl('/signin');
       }, 3000);
+      this.success = false;
     } catch (e) {
       let error: any = e;
 
@@ -59,7 +62,6 @@ export class SendPwResetComponent {
       }
       else if (error.status == 400) {
         this.setErrorMessage(' Bitte gib eine Emailadresse ein.', error);
-
       } else {
         this.setErrorMessage('Email wurde versendet!', error);
         setTimeout(() => {
@@ -67,9 +69,8 @@ export class SendPwResetComponent {
         }, 3000);
       }
     }
-
-
   }
+
   setErrorMessage(message: string, error: any) {
     this.login_failed = true;
     this.fail_message = error.error;

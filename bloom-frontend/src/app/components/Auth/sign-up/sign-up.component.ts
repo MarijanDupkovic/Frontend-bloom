@@ -29,6 +29,7 @@ export class SignUpComponent {
     password: new FormControl('', Validators.required),
     password2: new FormControl('', Validators.required),
     username: new FormControl('', Validators.required),
+    privacy: new FormControl('', Validators.requiredTrue)
   });
 
   constructor(private cdRef: ChangeDetectorRef, private authService: AuthService, private router: Router, private stepper: StepService) { this.addEnterListener() }
@@ -39,7 +40,7 @@ export class SignUpComponent {
       return !(this.signupForm.controls.username?.valid && this.signupForm.controls.email?.valid);
     }
     if (this.steps.step2) {
-      return !(this.signupForm.controls.password?.valid && this.signupForm.controls.password2?.valid);
+      return !(this.signupForm.controls.password?.valid && this.signupForm.controls.password2?.valid && this.signupForm.controls.password.value === this.signupForm.controls.password2.value && this.signupForm.controls.privacy.valid);
     }
 
     return false;
@@ -51,6 +52,7 @@ export class SignUpComponent {
       await this.authService.signUp(this.signupForm);
       this.success = true;
       setTimeout(() => this.router.navigateByUrl('/signin'), 3000);
+      this.success = false;
     } catch (e) {
       let error: any = e;
       if (error.status == 400 || error.status == 405) {

@@ -21,8 +21,8 @@
     <div class="card-title text-danger d-flex text-align-center justify-content-center align-items-center w-100"
       style="font-weight:900; font-size:4rem;">captureVue</div>
     <div class="card-body d-flex justify-content-center align-items-center flex-column">
-      <p class="text-danger" style="text-align:center">{{fail_message}}</p>
-      <span class="text-danger">{{message}}</span>
+      <p class="text-danger" [class.success]="success" style="text-align:center">{{fail_message}}</p>
+      <span [class.success]="success" class="text-danger">{{message}}</span>
     </div>
   </div>
 </div>

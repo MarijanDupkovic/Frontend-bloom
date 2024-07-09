@@ -2,10 +2,12 @@
   <div class="d-flex justify-content-center w-80 signupHead" style="min-height: calc(100vh - 100px - 124px);">
     <div class="d-flex justify-content-center align-items-center flex-column signUpContainer w-100 gap-3 h-100">
       <div class="d-flex justify-content-between w-100 steps">
-        <span id="step1" [ngClass]="steps.step1 ? 'active-link': ''" class="prevent-select" (click)="next('step1')">Schritt
+        <span id="step1" [ngClass]="steps.step1 ? 'active-link': ''" class="prevent-select"
+          (click)="next('step1')">Schritt
           1</span>
         <span class="devider prevent-select">-</span>
-        <span id="step2" [ngClass]="steps.step2 ? 'active-link': ''" class="prevent-select" (click)="next('step2')">Schritt
+        <span id="step2" [ngClass]="steps.step2 ? 'active-link': ''" class="prevent-select"
+          (click)="next('step2')">Schritt
           2</span>
       </div>
       <h1 class=" align-self-start mb-3 prevent-select">Registrierung</h1>
@@ -49,7 +51,12 @@
                 <span class="material-icons">{{hide2 ? 'visibility_off' : 'visibility'}}</span>
               </button>
               <label for="passwordField2" class="m-0 p-0 pt-2">Passwort bestätigen</label>
+
             </div>
+            <div *ngIf="steps.step2" class="d-flex justify-content-center mt-3 align-items-center gap-1">
+              <input formControlName="privacy" type="checkbox"> Ich stimme den <a class="return-to-signin" href="/privacy">Datenschutzbestimmungen</a> zu.
+            </div>
+
             <div class="d-flex gap-2 align-self-center w-100 justify-content-center buttonContainer">
               <button type="button" [disabled]="steps.step1"
                 class="w-100 btn btn-info btn-shadow align-self-center mt-3 rounded border-0"
@@ -64,7 +71,7 @@
             </div>
             <div class="mt-3 align-self-center redirectLogin ">
               <span class="prevent-select">Bereits registriert?<a routerLink="/signin" class="return-to-signin">
-                Jetzt einloggen</a></span>
+                  Jetzt einloggen</a></span>
             </div>
           </form>
         </div>
@@ -87,7 +94,7 @@
     <div class="card-title text-danger d-flex text-align-center justify-content-center align-items-center w-100"
       style="font-weight:900; font-size:4rem;">captureVue</div>
     <div class="card-body d-flex justify-content-center align-items-center flex-column">
-      <span class="text-danger">{{message}}</span>
+      <span [class.success]="success" class="text-danger">{{message}}</span>
     </div>
   </div>
 </div>
