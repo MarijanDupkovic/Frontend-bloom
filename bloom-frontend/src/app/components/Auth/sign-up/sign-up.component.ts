@@ -51,8 +51,12 @@ export class SignUpComponent {
     try {
       await this.authService.signUp(this.signupForm);
       this.success = true;
-      setTimeout(() => this.router.navigateByUrl('/signin'), 3000);
-      this.success = false;
+      setTimeout(() => {
+        this.router.navigateByUrl('/signin');
+        this.success = false;
+      }
+        , 3000);
+
     } catch (e) {
       let error: any = e;
       if (error.status == 400 || error.status == 405) {
