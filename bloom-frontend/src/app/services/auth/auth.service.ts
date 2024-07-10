@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { BehaviorSubject, lastValueFrom } from 'rxjs';
 import { environment } from '../../../environtments/environtment';
 import { FormGroup } from '@angular/forms';
+import { isPlatformBrowser } from '@angular/common';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +12,9 @@ import { FormGroup } from '@angular/forms';
 export class AuthService {
   private loggedIn = new BehaviorSubject<boolean>(false);
   loggedIn$ = this.loggedIn.asObservable();
-  constructor(private http: HttpClient) {
+  private isBrowser: boolean;
+  constructor(private http: HttpClient, @Inject(PLATFORM_ID) private platformId: Object) {
+    this.isBrowser = isPlatformBrowser(this.platformId);
     this.loggedIn.next(this.isAuthenticated());
   }
 
@@ -23,7 +26,7 @@ export class AuthService {
     };
 
     return lastValueFrom(this.http.post(url, body)).then((resp: any) => {
-      if (resp && resp['token']) {
+      if (this.isBrowser && resp && resp['token']) {
         localStorage.setItem('token', resp['token']);
         this.changeSignInState(true);
       }
@@ -36,19 +39,29 @@ export class AuthService {
   }
 
   public async logout() {
-    const url = environment.baseUrl + '/logout/' + localStorage.getItem('token') + '/';
+    let token = '';
+    if (this.isBrowser) {
+      token = localStorage.getItem('token')!;
+    }
+    const url = environment.baseUrl + '/logout/' + token + '/';
     return await lastValueFrom(this.http.get(url)).then((resp: any) => {
-      localStorage.removeItem('token');
+      if (this.isBrowser) {
+        localStorage.removeItem('token');
+
+      }
       this.changeSignInState(false);
     });
   }
 
   public isAuthenticated(): boolean {
-    const token = localStorage.getItem('token');
-    if (token === null) {
-      return false;
+    if (this.isBrowser) {
+      const token = localStorage.getItem('token');
+      if (token === null) {
+        return false;
+      }
+      return true;
     }
-    return true;
+    return false;
   }
 
   public signUp(signUpForm: FormGroup) {

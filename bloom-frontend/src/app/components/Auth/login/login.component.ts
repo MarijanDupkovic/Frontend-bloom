@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../../services/auth/auth.service';
 import { Router, RouterLink } from '@angular/router';
@@ -25,7 +25,6 @@ export class LoginComponent {
   message = ``;
 
   constructor(private authService: AuthService, private router: Router) {
-    this.addEnterListener();
   }
 
   async login() {
@@ -68,15 +67,13 @@ export class LoginComponent {
     }, 3000);
   }
 
-  async addEnterListener() {
-    addEventListener('keydown', async (e: KeyboardEvent) => {
-      if (e.key === 'Enter') {
-        e.preventDefault();
-        e.stopPropagation();
-        if (this.password !== '' && this.username !== '') this.login();
-        else this.setErrorMessage('Bitte fülle alle Felder aus!', { error: 'Bitte fülle alle Felder aus!' });
-      }
+  @HostListener('document:keydown.enter', ['$event'])
+  async handleEnterKey(event: KeyboardEvent) {
+    event.preventDefault();
+    if (this.password !== '' && this.username !== '') {
+      await this.login();
+    } else {
+      this.setErrorMessage('Bitte fülle alle Felder aus!', { error: 'Bitte fülle alle Felder aus!' });
     }
-    );
   }
 }

@@ -25,7 +25,7 @@ export class MediaStreamService {
   }
 
   async getWebcamStream() {
-    try {
+    try {;
       return await navigator.mediaDevices.getUserMedia({
         video: {
           width: { ideal: 1920 },

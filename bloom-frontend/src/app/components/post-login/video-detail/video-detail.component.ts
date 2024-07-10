@@ -24,7 +24,7 @@ export class VideoDetailComponent implements OnInit{
   async ngOnInit() {
     this.route.params.subscribe((params: any) => {
       this.id = params['str'];
-      this.link = environment.baseUrl + '/public-video/' + this.id;
+      this.link = 'https://capturevue.de/public-video/' + this.id;
     });
 
   }

@@ -1,7 +1,7 @@
 import { MatIconModule } from '@angular/material/icon';
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, Inject, PLATFORM_ID, ViewChild } from '@angular/core';
 import { UserService } from '../../../services/profile/user.service';
-import { CommonModule } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { environment } from '../../../../environtments/environtment';
 import { ConfirmoverlayComponent } from '../../Overlays/confirmoverlay/confirmoverlay.component';
@@ -17,11 +17,14 @@ export class UserComponent implements AfterViewInit {
   profileImg = 'https://www.w3schools.com/howto/img_avatar.png';
   public user: any;
   hovering = false;
+  private isBrowser: boolean;
   active = 'userData';
   @ViewChild('fileInput') fileInput: any;
   @ViewChild(ConfirmoverlayComponent)
   confirmOverlay!: ConfirmoverlayComponent;
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService,@Inject(PLATFORM_ID) private platformId: Object) {
+    this.isBrowser = isPlatformBrowser(this.platformId);
+   }
 
   async ngAfterViewInit() {
     this.getUserData();
@@ -62,7 +65,7 @@ export class UserComponent implements AfterViewInit {
   async deleteUser(){
     try{
       let deleResponse = await this.userService.deleteUser();
-      if(deleResponse){
+      if(this.isBrowser &&  deleResponse){
         localStorage.clear();
         window.location.reload();
       }
