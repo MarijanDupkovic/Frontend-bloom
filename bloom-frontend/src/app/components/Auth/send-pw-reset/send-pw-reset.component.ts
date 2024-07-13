@@ -9,7 +9,7 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-send-pw-reset',
   standalone: true,
-  imports: [FormsModule, CommonModule,HttpClientModule,RouterLink],
+  imports: [FormsModule, CommonModule, HttpClientModule, RouterLink],
   templateUrl: './send-pw-reset.component.html',
   styleUrl: './send-pw-reset.component.scss'
 })
@@ -23,22 +23,22 @@ export class SendPwResetComponent {
   message = ``;
   success: boolean = false;
 
-  constructor(private http: HttpClient, private router: Router) { this.addEnterListener()}
+  constructor(private http: HttpClient, private router: Router) { this.addEnterListener() }
 
   addEnterListener() {
     addEventListener('keydown', (e: KeyboardEvent) => {
 
-       if(e.key === 'Enter') {
+      if (e.key === 'Enter') {
         e.preventDefault();
         e.stopPropagation();
-         if(this.email !== '') {
-           this.getResetPasswordMail();
-         }else this.setErrorMessage('Bitte fülle alle Felder aus!', {error: 'Bitte fülle alle Felder aus!'}  );
-       }
+        if (this.email !== '') {
+          this.getResetPasswordMail();
+        } else this.setErrorMessage('Bitte fülle alle Felder aus!', { error: 'Bitte fülle alle Felder aus!' });
+      }
 
-   }
-   );
-   }
+    }
+    );
+  }
   async getResetPasswordMail() {
     this.send = true;
     const url = environment.baseUrl + '/resetPasswordMail/';

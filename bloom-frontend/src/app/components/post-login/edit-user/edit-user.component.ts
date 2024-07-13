@@ -54,7 +54,6 @@ export class EditUserComponent {
 
   async changeData() {
     this.send = true;
-    let resp: any;
     let body = {
       "username": this.username,
       "email": this.email,
@@ -65,7 +64,7 @@ export class EditUserComponent {
       "city": this.city,
       "country": this.country
     }
-    resp = await this.userService.changeUserData('/user', body, this.user[0].id).then((data: any) => {
+    await this.userService.changeUserData('/user', body, this.user[0].id).then((data: any) => {
       this.success = true;
       this.setErrorMessage('Daten erfolgreich geändert', 'Daten erfolgreich geändert');
 

@@ -1,3 +1,4 @@
+import { OverlayRecordingInstructionsComponent } from './../../Overlays/overlay-recording-instructions/overlay-recording-instructions.component';
 import { MediaStreamService } from './../../../services/Stream/media-stream.service';
 import { CommonModule } from '@angular/common';
 import { Component, ElementRef, HostListener, Input, ViewChild } from '@angular/core';
@@ -11,12 +12,15 @@ import { M } from 'vite/dist/node/types.d-aGj9QkWt';
 @Component({
   selector: 'app-recording',
   standalone: true,
-  imports: [CommonModule, FormsModule, MatIconModule],
+  imports: [CommonModule, FormsModule, MatIconModule, OverlayRecordingInstructionsComponent],
   providers: [FormData],
   templateUrl: './recording.component.html',
   styleUrl: './recording.component.scss'
 })
 export class RecordingComponent {
+  @ViewChild(OverlayRecordingInstructionsComponent)
+  recordingInstructions!: OverlayRecordingInstructionsComponent;
+  isHelpMenu:boolean = false;
   blur: boolean = false;
   recorder: any;
   mediaRecorder: any;
@@ -52,6 +56,14 @@ export class RecordingComponent {
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
     this.adjustCanvasSize();
+  }
+
+  showOverlay() {
+    this.recordingInstructions.show();
+  }
+
+  closeHelpMenu() {
+    this.isHelpMenu = false;
   }
 
   adjustCanvasSize() {
@@ -179,10 +191,10 @@ export class RecordingComponent {
 
   async startRecordingLive() {
     this.isRecording = true;
-    await this.getMediaDevices();
     let audioStream = await this.mediaStreamService.getAudioStream();
-    this.startRecording(audioStream);
 
+    await this.getMediaDevices();
+    this.startRecording(audioStream);
   }
 
   async startRecording(audioStream:MediaStream) {

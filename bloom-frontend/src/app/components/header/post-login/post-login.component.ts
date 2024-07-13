@@ -9,7 +9,7 @@ import { environment } from '../../../../environtments/environtment';
 @Component({
   selector: 'app-post-login',
   standalone: true,
-  imports: [CommonModule, RouterLink,RouterLinkActive],
+  imports: [CommonModule, RouterLink, RouterLinkActive],
   templateUrl: './post-login.component.html',
   styleUrl: './post-login.component.scss'
 })

@@ -19,7 +19,7 @@
                 <input type="checkbox" (change)="setBlur()">
                 <span class="slider round"></span>
               </label>
-              <span class="prevent-select">Blur {{ blur ? 'deaktivieren':'aktivieren' }}</span>
+              <span class="prevent-select">Kamera: Blur {{ blur ? 'deaktivieren':'aktivieren' }}</span>
             </div>
           </div>
           <div *ngIf="!isMenuOpen" (click)="toggleOptionsMenu()"
@@ -33,6 +33,9 @@
             d="M660-320v-320L500-480l160 160ZM200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm120-80v-560H200v560h120Zm80 0h360v-560H400v560Zm-80 0H200h120Z" />
         </svg>
       </div>
+      <h4 class="text-danger mt-3">Bitte stelle sicher, dass du deine Kamera und dein Mikrofon im Browser nicht
+        blockiert hast</h4>
+      <a (click)="isHelpMenu = true" class="outline-none border-none helpBtn"><mat-icon>help</mat-icon></a>
       <div class="d-flex flex-column align-items-center justify-content-center mb-5">
         <div class="d-flex justify-content-center align-items-center" [style]="style">
           <canvas #canvasScreen class="shadow mt-5 rounded" name="canvasScreen" id="canvasScreen" [width]="canvasWidth"
@@ -53,3 +56,6 @@
     </div>
   </div>
 </div>
+
+<app-overlay-recording-instructions #recordingInstructions (close)="closeHelpMenu()"
+  *ngIf="isHelpMenu"></app-overlay-recording-instructions>

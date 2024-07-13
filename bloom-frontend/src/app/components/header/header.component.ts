@@ -10,16 +10,13 @@ import { PostLoginComponent } from './post-login/post-login.component';
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule, RouterLink,PreLoginComponent,PostLoginComponent],
+  imports: [CommonModule, RouterLink, PreLoginComponent, PostLoginComponent],
   providers: [],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })
 export class HeaderComponent implements OnInit {
-  url: any = '';
-  isOpen: boolean = false;
   private subscription: Subscription | undefined;
-  @Input() active: boolean = false;
   signedIn: boolean = false;
 
   constructor(private authService: AuthService, private router: Router) { }
@@ -35,17 +32,6 @@ export class HeaderComponent implements OnInit {
     if (this.subscription) {
       this.subscription.unsubscribe();
     }
-  }
-
-  toggleMenu() {
-    this.isOpen = !this.isOpen;
-  }
-
-  async logout() {
-    await this.authService.logout().then(() => {
-      this.router.navigateByUrl('');
-    });
-
   }
 
 }
