@@ -4,8 +4,17 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 
-interface body { "username": '', "email": '', "first_name": '', "last_name": '', "street": '', "zip_code": '', "city": '', "country": '' };
-@Component({
+interface User {
+  id: string;
+  username: string;
+  email: string;
+  first_name: string;
+  last_name: string;
+  street: string;
+  zip_code: string;
+  city: string;
+  country: string;
+}@Component({
   selector: 'app-edit-user',
   standalone: true,
   imports: [CommonModule, FormsModule],
@@ -14,68 +23,64 @@ interface body { "username": '', "email": '', "first_name": '', "last_name": '',
 })
 export class EditUserComponent {
   send: boolean = false;
-  username: string = '';
-  firstName: string = '';
-  lastName: string = '';
-  street: string = '';
-  zipCode: string = '';
-  city: string = '';
-  country: string = '';
-  email: string = '';
-  user: any;
+  isLoading: boolean = false;
+  user: User = { id: '', username: '', email: '', first_name: '', last_name: '', street: '', zip_code: '', city: '', country: '' };
   failed: boolean = false;
-  fail_message: string = '';
-  message = ``;
-  location: any;
+  failMessage: string = '';
+  message: string = ``;
   infoType: string = 'userData';
   success: boolean = false;
-  constructor(private userService: UserService,private route: ActivatedRoute) { }
+  constructor(private userService: UserService, private route: ActivatedRoute) { }
 
   async ngOnInit() {
-    this.getData();
+    this.fetchUserData();
+    this.observeRouteChanges();
+  }
+
+  private observeRouteChanges(): void {
     this.route.queryParams.subscribe(params => {
       this.infoType = params['info'];
     });
   }
 
-  async getData() {
-    this.user = await this.userService.getUserData('/user');
-    this.username = this.user[0].username;
-    this.email = this.user[0].email;
-    this.firstName = this.user[0].first_name;
-    this.lastName = this.user[0].last_name;
-    this.street = this.user[0].street;
-    this.zipCode = this.user[0].zip_code;
-    this.city = this.user[0].city;
-    this.country = this.user[0].country;
+  private async fetchUserData(): Promise<void> {
+    try {
+      const userData = await this.userService.getUserData('/user');
+      const { id, username, email, first_name, last_name, street, zip_code, city, country } = userData[0];
+      this.user = { id, username, email, first_name, last_name, street, zip_code, city, country };
+    } catch (error) {
+      console.error('Fehler beim Abrufen der Benutzerdaten:', error);
+    }
   }
 
-
-
-  async changeData() {
-    this.send = true;
-    let body = {
-      "username": this.username,
-      "email": this.email,
-      "first_name": this.firstName,
-      "last_name": this.lastName,
-      "street": this.street,
-      "zip_code": this.zipCode,
-      "city": this.city,
-      "country": this.country
-    }
-    await this.userService.changeUserData('/user', body, this.user[0].id).then((data: any) => {
+  async updateUserData(): Promise<void> {
+    this.isLoading = true;
+    try {
+      console.log(this.user);
+      await this.userService.changeUserData('/user', this.user, this.user.id);
       this.success = true;
       this.setErrorMessage('Daten erfolgreich geändert', 'Daten erfolgreich geändert');
+    } catch (error) {
+      this.handleUpdateError(error);
+    } finally {
+      this.isLoading = false;
+    }
+  }
 
-    }).catch((err) => {
-      if (err.status == 404) {
-        this.setErrorMessage(' Benutzer mit dieser Emailadresse nicht vorhanden.', err);
-      }
-      else if (err.status == 400) {
-        this.setErrorMessage(' Bitte gib eine Emailadresse ein.', err);
-      }
-    });
+  private handleUpdateError(error: any): void {
+    this.failed = true;
+    this.failMessage = error.error;
+    switch (error.status) {
+      case 404:
+        this.message = 'Benutzer mit dieser Emailadresse nicht vorhanden.';
+        break;
+      case 400:
+        this.message = 'Bitte gib eine Emailadresse ein.';
+        break;
+      default:
+        this.message = 'Ein unbekannter Fehler ist aufgetreten.';
+    }
+    this.resetErrorMessage();
   }
 
   back() {
@@ -84,7 +89,7 @@ export class EditUserComponent {
 
   setErrorMessage(message: string, error: any) {
     this.failed = true;
-    this.fail_message = error.error;
+    this.failMessage = error.error;
     this.message = message;
     this.resetErrorMessage();
   }
@@ -92,7 +97,7 @@ export class EditUserComponent {
   resetErrorMessage() {
     setTimeout(() => {
       this.failed = false;
-      this.fail_message = '';
+      this.failMessage = '';
       this.message = '';
       this.send = false;
       this.back();
