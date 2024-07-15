@@ -38,7 +38,7 @@ export class SignUpComponent {
     privacy: new FormControl('', Validators.requiredTrue)
   });
 
-  constructor(private errorService: UserfeedbackService,private metaTagService: Meta,private cdRef: ChangeDetectorRef, private authService: AuthService, private router: Router, private stepper: StepService) { this.addEnterListener() }
+  constructor(private errorService: UserfeedbackService, private metaTagService: Meta, private cdRef: ChangeDetectorRef, private authService: AuthService, private router: Router, private stepper: StepService) { this.addEnterListener() }
 
   ngOnInit() {
     this.metaTagService.updateTag(
@@ -58,7 +58,6 @@ export class SignUpComponent {
     if (this.steps.step2) {
       return !(this.signupForm.controls.password?.valid && this.signupForm.controls.password2?.valid && this.signupForm.controls.password.value === this.signupForm.controls.password2.value && this.signupForm.controls.privacy.valid);
     }
-
     return false;
   }
 
@@ -73,14 +72,10 @@ export class SignUpComponent {
       }
         , 3000);
 
-    } catch (e) {
-      let error: any = e;
-      if (error.status == 400 || error.status == 405) {
-        this.errorService.handleError(error);
-      }
+    } catch (error: any) {
+      if (error.status == 400 || error.status == 405) this.errorService.handleError(error);
     }
   }
-
 
   togglePWField(e: Event) {
     e.preventDefault();
@@ -96,22 +91,15 @@ export class SignUpComponent {
 
   addEnterListener() {
     if (typeof window !== 'undefined') {
-    window.addEventListener('keydown', (e: KeyboardEvent) => {
+      window.addEventListener('keydown', async (e: KeyboardEvent) => {
 
-      if (e.key === 'Enter') {
-        e.preventDefault();
-        e.stopPropagation();
-        if (this.signupForm.controls.password && this.signupForm.controls.password2 && this.signupForm.controls.email) {
-          try {
-          this.signup();
-          } catch (error: any) {
-            this.errorService.handleError(error);
-          }
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          e.stopPropagation();
+          if (this.signupForm.valid) this.signup();
         }
-      }
+      });
     }
-    );
-  }
   }
 
   next(step: string) {

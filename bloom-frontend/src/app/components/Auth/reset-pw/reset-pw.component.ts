@@ -5,6 +5,8 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { UserFeedBackComponent } from '../../Overlays/user-feed-back/user-feed-back.component';
+import { UserfeedbackService } from '../../../services/userFeedback/userfeedback.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-reset-pw',
@@ -13,23 +15,26 @@ import { UserFeedBackComponent } from '../../Overlays/user-feed-back/user-feed-b
   templateUrl: './reset-pw.component.html',
   styleUrl: './reset-pw.component.scss'
 })
-export class ResetPwComponent implements OnInit{
+export class ResetPwComponent implements OnInit {
   password: string = '';
   password2: string = '';
   hide: boolean = true;
   hide2: boolean = true;
   send: boolean = false;
-  loginFailed: boolean = false;
-  failMessage: string = '';
   message = ``;
+  errorSubscription: Subscription = new Subscription;
+  errorMessage: string = '';
 
-  constructor(private route: ActivatedRoute, private http: HttpClient, private userService: UserService) {
-
+  constructor(private userfeedback: UserfeedbackService, private route: ActivatedRoute, private http: HttpClient, private userService: UserService) {
+    this.errorSubscription = this.userfeedback.errorMessage$.subscribe((error: any) => {
+      this.errorMessage = error;
+      this.message = error;
+    });
   }
 
   ngOnInit() {
 
-    // this.addEnterListener();
+    this.addEnterListener();
   }
 
   togglePWField(e: Event) {
@@ -49,48 +54,26 @@ export class ResetPwComponent implements OnInit{
       if (e.key === 'Enter') {
         e.preventDefault();
         e.stopPropagation();
-        if (this.password !== '' && this.password2 !== '') {
-          this.resetPassword();
-        } else this.setErrorMessage('Passwort darf nicht leer sein', { error: 'Bitte fülle alle Felder aus!' });
+        this.resetPassword();
       }
     }
     );
   }
 
-
   async resetPassword() {
     const token = this.route.snapshot.paramMap.get('token');
-      const url = '/resetPassword/' + token + '/';
-      let response = await this.userService.resetPassword(url, {
-        pw1: this.password,
-        pw2: this.password2
-      });
-      if ((response as any).message === 'Passwort stimmt nicht mit Passwort2 überein!') {
-        this.setErrorMessage('Passwort stimmt nicht mit Passwort2 überein!', response);
-      } else {
-        this.setErrorMessage('Passwort erfolgreich geändert! Du wirst zum Login weitergeleitet', response);
-        setTimeout(() => {
-          window.location.href = '/signin';
-        }, 3000);
-      }
-  }
+    const url = '/resetPassword/' + token + '/';
 
-  setErrorMessage(message: string, error: any) {
-    this.loginFailed = true;
-    this.failMessage = error.error;
-    this.message = message;
-    this.resetErrorMessage();
-  }
+    try {
+      await this.userService.resetPassword(url, { pw1: this.password, pw2: this.password2 });
+      setTimeout(() => {
+        window.location.href = '/signin';
+      }, 3000);
 
-  resetErrorMessage() {
-    setTimeout(() => {
-      this.loginFailed = false;
-      this.failMessage = '';
-      this.message = '';
-      this.send = false;
-      this.clearPasswordFields()
-    }, 3000);
-
+    } catch (error: any) {
+      this.userfeedback.handleError(error);
+      this.clearPasswordFields();
+    }
   }
 
   private clearPasswordFields(): void {
