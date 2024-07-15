@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Meta } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-legal',
@@ -8,5 +9,12 @@ import { Component } from '@angular/core';
   styleUrl: './legal.component.scss'
 })
 export class LegalComponent {
+  constructor(private metaTagService: Meta) {}
+
+  ngOnInit() {
+    this.metaTagService.updateTag(
+      { name: 'description', content: 'Kostenloser Bildschirmrekorder für PC und Mac. Mit captureVue kannst du deinen Bildschirm aufnehmen, Videos erstellen und mit anderen teilen.' }
+    );
+  }
 
 }

@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../../services/auth/auth.service';
 import { Router, RouterLink } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
+import { Meta } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-login',
@@ -24,7 +25,13 @@ export class LoginComponent {
   fail_message: string = '';
   message = ``;
 
-  constructor(private authService: AuthService, private router: Router) {
+  constructor(private metaTagService: Meta,private authService: AuthService, private router: Router) {
+  }
+
+  ngOnInit() {
+    this.metaTagService.updateTag(
+      { name: 'description', content: 'Kostenloser Bildschirmrekorder für PC und Mac. Mit captureVue kannst du deinen Bildschirm aufnehmen, Videos erstellen und mit anderen teilen.' }
+    );
   }
 
   async login() {

@@ -6,6 +6,8 @@ import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { StepService, STEP_1, STEP_2, STEP_3, STEP_4 } from '../../../services/Stepper/step.service';
 import { ChangeDetectorRef } from '@angular/core';
+import { Meta } from '@angular/platform-browser';
+
 @Component({
   selector: 'app-sign-up',
   standalone: true,
@@ -32,7 +34,13 @@ export class SignUpComponent {
     privacy: new FormControl('', Validators.requiredTrue)
   });
 
-  constructor(private cdRef: ChangeDetectorRef, private authService: AuthService, private router: Router, private stepper: StepService) { this.addEnterListener() }
+  constructor(private metaTagService: Meta,private cdRef: ChangeDetectorRef, private authService: AuthService, private router: Router, private stepper: StepService) { this.addEnterListener() }
+
+  ngOnInit() {
+    this.metaTagService.updateTag(
+      { name: 'description', content: 'Registriere dich für captureVue dem kostenlosen Bildschirmrekorder für PC und Mac. Mit captureVue kannst du deinen Bildschirm aufnehmen, Videos erstellen und mit anderen teilen.' }
+    );
+  }
 
   isDisabled() {
     this.steps = this.stepper.getSteps();
@@ -93,7 +101,8 @@ export class SignUpComponent {
   }
 
   addEnterListener() {
-    addEventListener('keydown', (e: KeyboardEvent) => {
+    if (typeof window !== 'undefined') {
+    window.addEventListener('keydown', (e: KeyboardEvent) => {
 
       if (e.key === 'Enter') {
         e.preventDefault();
@@ -104,6 +113,7 @@ export class SignUpComponent {
       }
     }
     );
+  }
   }
 
   next(step: string) {

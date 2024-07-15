@@ -18,8 +18,8 @@ import { PrivacyComponent } from './components/privacy/privacy.component';
 import { LegalComponent } from './components/legal/legal.component';
 
 export const routes: Routes = [
-    { path: '', redirectTo: 'home', pathMatch: 'full' },
-    { path: 'home', component: ContentComponent },
+    { path: '', redirectTo: '', pathMatch: 'full' },
+    { path: '', component: ContentComponent },
     { path: 'signin', component: LoginComponent },
     { path: 'signup', component: SignUpComponent },
     { path: 'reset-mail', component: SendPwResetComponent },
