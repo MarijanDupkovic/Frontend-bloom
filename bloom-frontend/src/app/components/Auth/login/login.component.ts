@@ -20,7 +20,6 @@ export class LoginComponent {
   hide: boolean = true;
   send: boolean = false;
   signedIn: boolean = false;
-
   login_failed: boolean = false;
   fail_message: string = '';
   message = ``;

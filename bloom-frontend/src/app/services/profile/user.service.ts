@@ -3,6 +3,7 @@ import { environment } from '../../../environtments/environtment';
 import { BehaviorSubject, lastValueFrom } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { isPlatformBrowser } from '@angular/common';
+import { Obj } from '@popperjs/core';
 
 @Injectable({
   providedIn: 'root'
@@ -47,6 +48,11 @@ export class UserService {
     const headers = new HttpHeaders().set('Authorization', `token ${this.getToken()}`);
     const url = environment.baseUrl + '/delete_user/' + this.getToken() + '/';
     return lastValueFrom(this.http.get(url, { headers }));
+  }
+
+  resetPassword(path: string, body: Object){
+    const url = environment.baseUrl + path;
+    return lastValueFrom(this.http.post(url, body));
   }
 
 

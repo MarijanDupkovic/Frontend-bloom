@@ -1,3 +1,4 @@
+import { UserService } from './../../../services/profile/user.service';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
@@ -19,11 +20,11 @@ export class ResetPwComponent implements OnInit{
   hide: boolean = true;
   hide2: boolean = true;
   send: boolean = false;
-  login_failed: boolean = false;
-  fail_message: string = '';
+  loginFailed: boolean = false;
+  failMessage: string = '';
   message = ``;
 
-  constructor(private route: ActivatedRoute, private http: HttpClient) {
+  constructor(private route: ActivatedRoute, private http: HttpClient, private userService: UserService) {
 
   }
 
@@ -57,14 +58,14 @@ export class ResetPwComponent implements OnInit{
     );
   }
 
+
   async resetPassword() {
-    this.route.params.subscribe(async params => {
-      const url = environment.baseUrl + '/resetPassword/' + params['token'] + '/';
-      const data = {
+    const token = this.route.snapshot.paramMap.get('token');
+      const url = '/resetPassword/' + token + '/';
+      let response = await this.userService.resetPassword(url, {
         pw1: this.password,
         pw2: this.password2
-      };
-      let response = await lastValueFrom(this.http.post(url, data));
+      });
       if ((response as any).message === 'Passwort stimmt nicht mit Passwort2 überein!') {
         this.setErrorMessage('Passwort stimmt nicht mit Passwort2 überein!', response);
       } else {
@@ -73,28 +74,28 @@ export class ResetPwComponent implements OnInit{
           window.location.href = '/signin';
         }, 3000);
       }
-    });
   }
 
   setErrorMessage(message: string, error: any) {
-    this.login_failed = true;
-    this.fail_message = error.error;
+    this.loginFailed = true;
+    this.failMessage = error.error;
     this.message = message;
     this.resetErrorMessage();
   }
 
   resetErrorMessage() {
     setTimeout(() => {
-
-      this.login_failed = false;
-      this.fail_message = '';
+      this.loginFailed = false;
+      this.failMessage = '';
       this.message = '';
       this.send = false;
-      const passwordField = document.getElementById('passwordField') as HTMLInputElement;
-      passwordField.value = '';
-      const passwordField2 = document.getElementById('passwordField2') as HTMLInputElement;
-      passwordField2.value = '';
+      this.clearPasswordFields()
     }, 3000);
 
+  }
+
+  private clearPasswordFields(): void {
+    this.password = '';
+    this.password2 = '';
   }
 }
