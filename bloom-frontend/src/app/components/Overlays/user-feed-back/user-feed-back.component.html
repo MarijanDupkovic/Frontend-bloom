@@ -1,10 +1,8 @@
-<div class="overlay" *ngIf="loginFailed">
-  <div class="overlay-content">
-    <div class="card-title text-danger d-flex text-align-center justify-content-center align-items-center w-100"
-      style="font-weight:900; font-size:4rem;">captureVue</div>
-    <div class="card-body d-flex justify-content-center align-items-center flex-column">
-      <p class="text-danger" style="text-align:center">{{failMessage}}</p>
-      <span class="text-danger">{{message}}</span>
+<div class="overlay" *ngIf="failed">
+  <div class="overlay-content text-center">
+    <img src="../../../../assets/logo/FullLogo_Transparent_NoBuffer.webp" class="text-center" alt="captureVue-Logo">
+    <div>
+      <span class="text-danger" style="font-size: 1.75rem;font-weight: 900;">{{message}}</span>
     </div>
   </div>
 </div>

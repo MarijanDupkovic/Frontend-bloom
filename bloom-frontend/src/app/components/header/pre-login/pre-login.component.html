@@ -21,7 +21,7 @@
 
     <div class="container-items">
       <div class="container-menu-item">
-        <a class="menu-item prevent-select" routerLink="/" [routerLinkActive]="'active'" (click)="toggleMenu()"
+        <a class="menu-item prevent-select" routerLink="/" [routerLinkActive]="'active'" [routerLinkActiveOptions]="{exact: true}" (click)="toggleMenu()"
           translate>Start</a>
       </div>
       <div class="container-menu-item">

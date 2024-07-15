@@ -8,6 +8,8 @@ import { StepService, STEP_1, STEP_2, STEP_3, STEP_4 } from '../../../services/S
 import { ChangeDetectorRef } from '@angular/core';
 import { Meta } from '@angular/platform-browser';
 import { UserFeedBackComponent } from '../../Overlays/user-feed-back/user-feed-back.component';
+import { UserfeedbackService } from '../../../services/userFeedback/userfeedback.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-sign-up',
@@ -22,8 +24,8 @@ export class SignUpComponent {
   hide: boolean = true;
   hide2: boolean = true;
   send: boolean = false;
-  failMessage: string = '';
-  loginFailed: boolean = false;
+  errorSubscription: Subscription = new Subscription;
+  errorMessage: string = '';
 
   message = ``;
   success: boolean = false;
@@ -36,12 +38,16 @@ export class SignUpComponent {
     privacy: new FormControl('', Validators.requiredTrue)
   });
 
-  constructor(private metaTagService: Meta,private cdRef: ChangeDetectorRef, private authService: AuthService, private router: Router, private stepper: StepService) { this.addEnterListener() }
+  constructor(private errorService: UserfeedbackService,private metaTagService: Meta,private cdRef: ChangeDetectorRef, private authService: AuthService, private router: Router, private stepper: StepService) { this.addEnterListener() }
 
   ngOnInit() {
     this.metaTagService.updateTag(
       { name: 'description', content: 'Registriere dich für captureVue dem kostenlosen Bildschirmrekorder für PC und Mac. Mit captureVue kannst du deinen Bildschirm aufnehmen, Videos erstellen und mit anderen teilen.' }
     );
+    this.errorSubscription = this.errorService.errorMessage$.subscribe((error: any) => {
+      this.errorMessage = error;
+      this.message = error;
+    });
   }
 
   isDisabled() {
@@ -70,25 +76,11 @@ export class SignUpComponent {
     } catch (e) {
       let error: any = e;
       if (error.status == 400 || error.status == 405) {
-        this.setErrorMessage('E-Mail-Adresse oder Benutzername bereits in Verwendung!', error);
+        this.errorService.handleError(error);
       }
     }
   }
 
-  resetErrorMessage() {
-    setTimeout(() => {
-      this.loginFailed = false;
-      this.failMessage = '';
-      this.message = '';
-      this.send = false;
-    }, 3000);
-  }
-
-  setErrorMessage(message: string, error: any) {
-    this.loginFailed = true;
-    this.message = message;
-    this.resetErrorMessage();
-  }
 
   togglePWField(e: Event) {
     e.preventDefault();
@@ -110,8 +102,12 @@ export class SignUpComponent {
         e.preventDefault();
         e.stopPropagation();
         if (this.signupForm.controls.password && this.signupForm.controls.password2 && this.signupForm.controls.email) {
+          try {
           this.signup();
-        } else this.setErrorMessage('Bitte fülle alle Felder aus!', { error: 'Bitte fülle alle Felder aus!' });
+          } catch (error: any) {
+            this.errorService.handleError(error);
+          }
+        }
       }
     }
     );

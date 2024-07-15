@@ -1,3 +1,4 @@
+import { UserfeedbackService } from './../../../services/userFeedback/userfeedback.service';
 import { CommonModule, NgIf } from '@angular/common';
 import { Component, HostListener } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -6,12 +7,13 @@ import { Router, RouterLink } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { Meta } from '@angular/platform-browser';
 import { UserFeedBackComponent } from '../../Overlays/user-feed-back/user-feed-back.component';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-login',
   standalone: true,
   imports: [FormsModule, CommonModule, RouterLink, HttpClientModule, UserFeedBackComponent, NgIf],
-  providers: [ ],
+  providers: [],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
@@ -21,17 +23,28 @@ export class LoginComponent {
   hide: boolean = true;
   send: boolean = false;
   signedIn: boolean = false;
-  loginFailed: boolean = false;
-  failMessage: string = '';
+  failed: boolean = false;
   message = ``;
 
-  constructor(private metaTagService: Meta,private authService: AuthService, private router: Router) {
+
+  errorSubscription: Subscription = new Subscription;
+  errorMessage: string = '';
+
+  constructor(private errorService: UserfeedbackService, private metaTagService: Meta, private authService: AuthService, private router: Router) {
   }
 
   ngOnInit() {
     this.metaTagService.updateTag(
       { name: 'description', content: 'Kostenloser Bildschirmrekorder für PC und Mac. Mit captureVue kannst du deinen Bildschirm aufnehmen, Videos erstellen und mit anderen teilen.' }
     );
+    this.errorSubscription = this.errorService.errorMessage$.subscribe((error: any) => {
+      this.errorMessage = error;
+      this.message = error;
+    });
+  }
+
+  ngOnDestroy() {
+    this.errorSubscription.unsubscribe();
   }
 
   async login() {
@@ -40,10 +53,9 @@ export class LoginComponent {
       await this.authService.loginWithUsernameAndPassword(this.username, this.password).then(() => {
         this.router.navigateByUrl('/site/library');
       });
-    } catch (error:any){
-      if (error.status == 403) this.setErrorMessage(' Bitte bestätige zuerst deine Emailadresse.', error);
-      else if (error.status == 401) this.setErrorMessage(' Benutzername oder Password ist nicht korrekt.', error);
-      else if (error.status == 404) this.setErrorMessage('Benutzername oder Password ist nicht korrekt.', error);
+    } catch (error: any) {
+      await this.errorService.handleError(error);
+      this.send = false;
     }
   }
 
@@ -53,34 +65,15 @@ export class LoginComponent {
     this.hide = !this.hide;
   }
 
-  setErrorMessage(message: string, error: any) {
-    this.loginFailed = true;
-    this.failMessage = error.error;
-    this.message = message;
-    this.resetErrorMessage();
-  }
-
-  resetErrorMessage() {
-    setTimeout(() => {
-      if (this.loginFailed) {
-        const passwordField = document.getElementById('passwordField') as HTMLInputElement;
-        passwordField.value = '';
-      }
-      this.loginFailed = false;
-      this.failMessage = '';
-      this.message = '';
-      this.send = false;
-
-    }, 3000);
-  }
-
   @HostListener('document:keydown.enter', ['$event'])
   async handleEnterKey(event: KeyboardEvent) {
     event.preventDefault();
     if (this.password !== '' && this.username !== '') {
-      await this.login();
-    } else {
-      this.setErrorMessage('Bitte fülle alle Felder aus!', { error: 'Bitte fülle alle Felder aus!' });
+      try {
+        await this.login();
+      } catch (error: any) {
+        this.errorService.handleError(error);
+      }
     }
   }
 }

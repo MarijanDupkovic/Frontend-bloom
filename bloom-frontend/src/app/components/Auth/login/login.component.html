@@ -33,13 +33,14 @@
           <a routerLink="/reset-mail"> <span class="prevent-select return-to-signin">Passwort vergessen?</span></a>
         </div>
         <div class="align-self-center redirectSignUp">
-          <span class="prevent-select">Neu bei captureVue?<a routerLink="/signup" class="prevent-select return-to-signin"> Jetzt
+          <span class="prevent-select">Neu bei captureVue?<a routerLink="/signup"
+              class="prevent-select return-to-signin"> Jetzt
               registrieren</a></span>
         </div>
       </form>
 
     </div>
-    <app-user-feed-back [loginFailed]="loginFailed" [failMessage]="failMessage" [message]="message"></app-user-feed-back>
+    <app-user-feed-back [message]="message"></app-user-feed-back>
 
   </div>
 </div>
