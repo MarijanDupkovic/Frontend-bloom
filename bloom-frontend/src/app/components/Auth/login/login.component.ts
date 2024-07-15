@@ -1,15 +1,16 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgIf } from '@angular/common';
 import { Component, HostListener } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../../services/auth/auth.service';
 import { Router, RouterLink } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { Meta } from '@angular/platform-browser';
+import { UserFeedBackComponent } from '../../Overlays/user-feed-back/user-feed-back.component';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule, CommonModule, RouterLink, HttpClientModule],
+  imports: [FormsModule, CommonModule, RouterLink, HttpClientModule, UserFeedBackComponent, NgIf],
   providers: [ ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
@@ -20,8 +21,8 @@ export class LoginComponent {
   hide: boolean = true;
   send: boolean = false;
   signedIn: boolean = false;
-  login_failed: boolean = false;
-  fail_message: string = '';
+  loginFailed: boolean = false;
+  failMessage: string = '';
   message = ``;
 
   constructor(private metaTagService: Meta,private authService: AuthService, private router: Router) {
@@ -42,7 +43,7 @@ export class LoginComponent {
     } catch (error:any){
       if (error.status == 403) this.setErrorMessage(' Bitte bestätige zuerst deine Emailadresse.', error);
       else if (error.status == 401) this.setErrorMessage(' Benutzername oder Password ist nicht korrekt.', error);
-      else if (error.status == 404) this.setErrorMessage('Emailadresse ist nicht korrekt.', error);
+      else if (error.status == 404) this.setErrorMessage('Benutzername oder Password ist nicht korrekt.', error);
     }
   }
 
@@ -53,20 +54,20 @@ export class LoginComponent {
   }
 
   setErrorMessage(message: string, error: any) {
-    this.login_failed = true;
-    this.fail_message = error.error;
+    this.loginFailed = true;
+    this.failMessage = error.error;
     this.message = message;
     this.resetErrorMessage();
   }
 
   resetErrorMessage() {
     setTimeout(() => {
-      if (this.login_failed) {
+      if (this.loginFailed) {
         const passwordField = document.getElementById('passwordField') as HTMLInputElement;
         passwordField.value = '';
       }
-      this.login_failed = false;
-      this.fail_message = '';
+      this.loginFailed = false;
+      this.failMessage = '';
       this.message = '';
       this.send = false;
 

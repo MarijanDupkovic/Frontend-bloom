@@ -72,13 +72,6 @@
     </div>
   </div>
 
-  <div class="card bg-info rounded-3" *ngIf="failed"
-    style="position:absolute;z-index:100;max-width:25rem;min-width:20rem;min-height:15rem;">
-    <div class="card-title text-danger d-flex text-align-center justify-content-center align-items-center w-100"
-      style="font-weight:900; font-size:4rem;">captureVue</div>
-    <div [class.success]="success" class="card-body d-flex justify-content-center align-items-center flex-column">
-      <p class="text-danger" style="text-align:center">{{failMessage}}</p>
-      <span class="text-danger">{{message}}</span>
-    </div>
-  </div>
+  <app-user-feed-back [loginFailed]="loginFailed" [failMessage]="failMessage" [message]="message"></app-user-feed-back>
+
 </div>

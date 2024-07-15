@@ -2,15 +2,14 @@ import { UserService } from './../../../services/profile/user.service';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { lastValueFrom } from 'rxjs';
-import { environment } from '../../../../environtments/environtment';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { UserFeedBackComponent } from '../../Overlays/user-feed-back/user-feed-back.component';
 
 @Component({
   selector: 'app-reset-pw',
   standalone: true,
-  imports: [FormsModule, CommonModule, HttpClientModule, RouterLink],
+  imports: [FormsModule, CommonModule, HttpClientModule, RouterLink, UserFeedBackComponent],
   templateUrl: './reset-pw.component.html',
   styleUrl: './reset-pw.component.scss'
 })

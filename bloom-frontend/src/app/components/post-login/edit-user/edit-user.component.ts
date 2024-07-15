@@ -3,6 +3,7 @@ import { UserService } from '../../../services/profile/user.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { UserFeedBackComponent } from '../../Overlays/user-feed-back/user-feed-back.component';
 
 interface User {
   id: string;
@@ -17,7 +18,7 @@ interface User {
 }@Component({
   selector: 'app-edit-user',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, UserFeedBackComponent],
   templateUrl: './edit-user.component.html',
   styleUrl: './edit-user.component.scss'
 })
@@ -25,7 +26,7 @@ export class EditUserComponent {
   send: boolean = false;
   isLoading: boolean = false;
   user: User = { id: '', username: '', email: '', first_name: '', last_name: '', street: '', zip_code: '', city: '', country: '' };
-  failed: boolean = false;
+  loginFailed: boolean = false;
   failMessage: string = '';
   message: string = ``;
   infoType: string = 'userData';
@@ -68,7 +69,7 @@ export class EditUserComponent {
   }
 
   private handleUpdateError(error: any): void {
-    this.failed = true;
+    this.loginFailed = true;
     this.failMessage = error.error;
     switch (error.status) {
       case 404:
@@ -88,7 +89,7 @@ export class EditUserComponent {
   }
 
   setErrorMessage(message: string, error: any) {
-    this.failed = true;
+    this.loginFailed = true;
     this.failMessage = error.error;
     this.message = message;
     this.resetErrorMessage();
@@ -96,7 +97,7 @@ export class EditUserComponent {
 
   resetErrorMessage() {
     setTimeout(() => {
-      this.failed = false;
+      this.loginFailed = false;
       this.failMessage = '';
       this.message = '';
       this.send = false;

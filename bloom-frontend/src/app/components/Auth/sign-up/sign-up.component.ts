@@ -7,11 +7,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { StepService, STEP_1, STEP_2, STEP_3, STEP_4 } from '../../../services/Stepper/step.service';
 import { ChangeDetectorRef } from '@angular/core';
 import { Meta } from '@angular/platform-browser';
+import { UserFeedBackComponent } from '../../Overlays/user-feed-back/user-feed-back.component';
 
 @Component({
   selector: 'app-sign-up',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, HttpClientModule, RouterLink, RouterLinkActive, NgIf],
+  imports: [ReactiveFormsModule, CommonModule, HttpClientModule, RouterLink, RouterLinkActive, NgIf, UserFeedBackComponent],
   providers: [],
   templateUrl: './sign-up.component.html',
   styleUrl: './sign-up.component.scss'
@@ -21,10 +22,11 @@ export class SignUpComponent {
   hide: boolean = true;
   hide2: boolean = true;
   send: boolean = false;
-  fail_message: string = '';
+  failMessage: string = '';
+  loginFailed: boolean = false;
+
   message = ``;
   success: boolean = false;
-  signup_failed: boolean = false;
   steps = this.stepper.getSteps();
   signupForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
@@ -75,15 +77,15 @@ export class SignUpComponent {
 
   resetErrorMessage() {
     setTimeout(() => {
-      this.signup_failed = false;
-      this.fail_message = '';
+      this.loginFailed = false;
+      this.failMessage = '';
       this.message = '';
       this.send = false;
     }, 3000);
   }
 
   setErrorMessage(message: string, error: any) {
-    this.signup_failed = true;
+    this.loginFailed = true;
     this.message = message;
     this.resetErrorMessage();
   }

@@ -1,9 +1,11 @@
 <div class="container-header">
-  <div class="d-flex justify-content-between align-items-center w-80" >
-    <a class="prevent-select " routerLink="/"><img class="logo-full" src="./../../../../assets/logo/FullLogo_Transparent_NoBuffer.webp" alt=""></a>
+  <div class="d-flex justify-content-between align-items-center w-80">
+    <a class="prevent-select " routerLink="/"><img class="logo-full"
+        src="./../../../../assets/logo/FullLogo_Transparent_NoBuffer.webp" alt=""></a>
     <div class="container-header-desktop">
 
-      <a routerLink="/" [routerLinkActive]="'active'" class="prevent-select" translate>Start</a>
+      <a routerLink="/" [routerLinkActive]="'active'" [routerLinkActiveOptions]="{exact: true}" class="prevent-select"
+        translate>Start</a>
       <a routerLink="signin" [routerLinkActive]="'active'" class="prevent-select" translate>Login</a>
       <a routerLink="signup" [routerLinkActive]="'active'" class="prevent-select" translate>Registrieren</a>
       <a routerLink="/contact" [routerLinkActive]="'active'" class="prevent-select" translate>Kontakt</a>
@@ -19,16 +21,20 @@
 
     <div class="container-items">
       <div class="container-menu-item">
-        <a class="menu-item prevent-select" routerLink="/" [routerLinkActive]="'active'" (click)="toggleMenu()" translate>Start</a>
+        <a class="menu-item prevent-select" routerLink="/" [routerLinkActive]="'active'" (click)="toggleMenu()"
+          translate>Start</a>
       </div>
       <div class="container-menu-item">
-        <a class="menu-item prevent-select" routerLink="/signin" [routerLinkActive]="'active'" (click)="toggleMenu()" translate>Login</a>
+        <a class="menu-item prevent-select" routerLink="/signin" [routerLinkActive]="'active'" (click)="toggleMenu()"
+          translate>Login</a>
       </div>
       <div class="container-menu-item">
-        <a class="menu-item prevent-select" routerLink="/signup" [routerLinkActive]="'active'" (click)="toggleMenu()" translate>Registrieren</a>
+        <a class="menu-item prevent-select" routerLink="/signup" [routerLinkActive]="'active'" (click)="toggleMenu()"
+          translate>Registrieren</a>
       </div>
       <div class="container-menu-item">
-        <a class="menu-item prevent-select" routerLink="/contact" [routerLinkActive]="'active'" (click)="toggleMenu()" translate>Kontakt</a>
+        <a class="menu-item prevent-select" routerLink="/contact" [routerLinkActive]="'active'" (click)="toggleMenu()"
+          translate>Kontakt</a>
       </div>
     </div>
   </div>

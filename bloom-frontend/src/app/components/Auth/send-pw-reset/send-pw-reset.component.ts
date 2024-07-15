@@ -5,11 +5,12 @@ import { lastValueFrom } from 'rxjs';
 import { environment } from '../../../../environtments/environtment';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { UserFeedBackComponent } from '../../Overlays/user-feed-back/user-feed-back.component';
 
 @Component({
   selector: 'app-send-pw-reset',
   standalone: true,
-  imports: [FormsModule, CommonModule, HttpClientModule, RouterLink],
+  imports: [FormsModule, CommonModule, HttpClientModule, RouterLink,UserFeedBackComponent],
   templateUrl: './send-pw-reset.component.html',
   styleUrl: './send-pw-reset.component.scss'
 })
@@ -18,8 +19,8 @@ export class SendPwResetComponent {
   password: string = '';
   hide: boolean = true;
   send: boolean = false;
-  login_failed: boolean = false;
-  fail_message: string = '';
+  loginFailed: boolean = false;
+  failMessage: string = '';
   message = ``;
   success: boolean = false;
 
@@ -72,16 +73,16 @@ export class SendPwResetComponent {
   }
 
   setErrorMessage(message: string, error: any) {
-    this.login_failed = true;
-    this.fail_message = error.error;
+    this.loginFailed = true;
+    this.failMessage = error.error;
     this.message = message;
     this.resetErrorMessage();
   }
 
   resetErrorMessage() {
     setTimeout(() => {
-      this.login_failed = false;
-      this.fail_message = '';
+      this.loginFailed = false;
+      this.failMessage = '';
       this.message = '';
       this.send = false;
       const emailField = document.getElementById('emailField') as HTMLInputElement;
