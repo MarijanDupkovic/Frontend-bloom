@@ -1,0 +1,26 @@
+input:-webkit-autofill {
+  -webkit-text-fill-color: #000 !important;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+.signInContainer {
+
+  @media(min-width: 900px) {
+    h1 {
+      font-size: 4rem;
+    }
+  }
+}
+
+.buttonContainer {
+  @media(min-width: 900px) {
+    margin-top: 4rem !important;
+    margin-bottom: 3rem !important;
+  }
+}
+
+.redirectSignUp {
+  @media(min-width: 900px) {
+    font-size: 1.5rem !important;
+  }
+}

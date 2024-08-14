@@ -1,0 +1,108 @@
+<div class="d-flex align-items-center flex-column w-100" style="min-height: calc(100vh - 100px - 124px)">
+  <div class="w-80 ">
+    <div class="d-flex w-100 mb-2 ">
+      <h1 class="m-0 p-0 mb-3 mt-5 prevent-select" style="font-weight: 700">Profil</h1>
+      <div class="d-flex justify-content-end align-items-center w-100 mt-5 mb-3 menu-container">
+        <a id="editDetails" title="Daten bearbeiten" alt="Daten bearbeiten" routerLink="/site/edit-profile"
+          [queryParams]="{info: active}">
+          <mat-icon class="editDetailsIcon prevent-select">edit</mat-icon>
+        </a>
+        <a (click)="showOverlay()" alt="Account löschen" title="Account löschen"><mat-icon
+            class="editDetailsIcon prevent-select">delete_forever</mat-icon></a>
+      </div>
+    </div>
+    <div class="d-flex justify-content-center flex-column align-items-center w-100">
+      <form class="d-flex flex-column justify-content-center align-items-center position-relative " id="uploadform"
+        method="put" enctype="multipart/form-data" (mouseenter)="hovering = true" (mouseleave)="hovering = false">
+        <img [src]="profileImg" class="rounded-circle shadow-lg border border-2 border-info profileImg"
+          style="object-fit: cover" alt="" />
+        <label *ngIf="hovering"
+          class="d-flex align-items-center position-absolute profileImgLabel w-100 h-100 justify-content-center rounded-circle"
+          for="choose-image">
+          <mat-icon class="profileImgIcon prevent-select">edit</mat-icon>
+        </label>
+        <label *ngIf="isMobileDevice()"
+          class="d-flex align-items-center w-100 h-100 justify-content-center prevent-select" for="choose-image">
+          Profilbild ändern
+        </label>
+        <input class="d-none prevent-select" type="file" id="choose-image" name="img" (change)="handleFileInput()"
+          #fileInput accept=".jpg,.jpeg,.png" />
+      </form>
+
+      <div class="d-flex justify-content-between w-100 mt-2" style="max-width: 720px;">
+        <div class="d-flex gap-2 align-self-start">
+          <button class="prevent-select" (click)="active = 'userData'"
+            style="outline: none;border: none;background-color: white;padding: 0.25rem;"
+            [class.active]="active === 'userData'">Benutzerdaten</button>
+          <button class="prevent-select" (click)="active = 'personal'"
+            style="outline: none;border: none;background-color: white;padding: 0.25rem;"
+            [class.active]="active === 'personal'">Persönliches</button>
+          <button class="prevent-select" (click)="active = 'address'"
+            style="outline: none;border: none;background-color: white;padding: 0.25rem;"
+            [class.active]="active === 'address'">Adresse</button>
+        </div>
+
+
+      </div>
+      <table *ngIf="active === 'userData'" class="w-100 mt-2" style="max-width:720px">
+        <tr>
+          <th>
+            <h5 style="font-weight: 500" class="prevent-select">Benutzername</h5>
+          </th>
+          <th>
+            <h5 style="font-weight: 500" class="prevent-select">Email</h5>
+          </th>
+
+        </tr>
+        <tr>
+          <td><span id="username" *ngIf="user" class="prevent-select">{{ user[0].username }}</span></td>
+
+          <td><span id="email" *ngIf="user" class="prevent-select">{{ user[0].email }}</span></td>
+        </tr>
+      </table>
+      <table *ngIf="active === 'personal'" class="w-100 mt-2" style="max-width:720px">
+        <tr>
+          <th>
+            <h5 style="font-weight: 500" class="prevent-select">Vorname</h5>
+          </th>
+          <th>
+            <h5 style="font-weight: 500" class="prevent-select">Nachname</h5>
+          </th>
+        </tr>
+        <tr>
+          <td><span id="firstName" *ngIf="user" class="prevent-select">{{ user[0].first_name }}</span></td>
+          <td><span id="lastName" *ngIf="user" class="prevent-select">{{ user[0].last_name }}</span></td>
+        </tr>
+      </table>
+      <table *ngIf="active === 'address'" class="w-100 mt-2" style="max-width:720px">
+        <tr>
+          <th>
+            <h5 style="font-weight: 500" class="prevent-select">Straße</h5>
+          </th>
+          <th>
+            <h5 style="font-weight: 500" class="prevent-select">Stadt</h5>
+          </th>
+
+        </tr>
+        <tr>
+          <td><span id="street" *ngIf="user" class="prevent-select">{{ user[0].street }}</span></td>
+          <td><span id="city" *ngIf="user" class="prevent-select">{{ user[0].city }}</span></td>
+
+        </tr>
+
+        <tr>
+          <th>
+            <h5 style="font-weight: 500" class="prevent-select">Postleitzahl</h5>
+          </th>
+          <th>
+            <h5 style="font-weight: 500" class="prevent-select">Land</h5>
+          </th>
+        </tr>
+        <tr>
+          <td><span id="zip" *ngIf="user" class="prevent-select">{{ user[0].zip_code }}</span></td>
+          <td><span id="country" *ngIf="user" class="prevent-select">{{ user[0].country }}</span></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <app-confirmoverlay #confirmOverlay (confirm)="deleteUser()"></app-confirmoverlay>

@@ -1,0 +1,18 @@
+
+
+a{
+    color: #007bff;
+    text-decoration: none;
+    cursor: pointer;
+    &:hover{
+        text-decoration: underline;
+    }
+}
+
+button {
+  &:hover {
+    background-color: #0dcaf0;
+    color: white;
+    font-weight: 500;
+  }
+}
