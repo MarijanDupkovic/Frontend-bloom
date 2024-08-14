@@ -69,8 +69,7 @@ export class SignUpComponent {
       setTimeout(() => {
         this.router.navigateByUrl('/signin');
         this.success = false;
-      }
-        , 3000);
+      },3000);
 
     } catch (error: any) {
       if (error.status == 400 || error.status == 405) this.errorService.handleError(error);

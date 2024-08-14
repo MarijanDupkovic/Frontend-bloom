@@ -80,4 +80,9 @@ export class AuthService {
     };
     return lastValueFrom(this.http.post(url, body));
   }
+
+  public activateUser(token: string) {
+    const url = environment.baseUrl + '/activate/' + token;
+    return lastValueFrom(this.http.get(url));
+  }
 }

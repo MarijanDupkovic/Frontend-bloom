@@ -9,14 +9,5 @@ import { RouterLink } from '@angular/router';
   styleUrl: './top-section.component.scss'
 })
 export class TopSectionComponent {
-  videos = [
-    "assets/videos/video1.mp4",
-    "assets/videos/video2.mp4",
-    "assets/videos/video3.mp4"
-  ];
-  currentVideoIndex = 0;
 
-  nextVideo() {
-    this.currentVideoIndex = (this.currentVideoIndex + 1) % this.videos.length;
-  }
 }
