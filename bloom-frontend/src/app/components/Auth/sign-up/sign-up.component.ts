@@ -69,7 +69,7 @@ export class SignUpComponent {
       setTimeout(() => {
         this.router.navigateByUrl('/signin');
         this.success = false;
-      },3000);
+      }, 3000);
 
     } catch (error: any) {
       if (error.status == 400 || error.status == 405) this.errorService.handleError(error);
@@ -103,6 +103,10 @@ export class SignUpComponent {
 
   next(step: string) {
     setTimeout(() => {
+
+
+
+
       if (step === STEP_1) {
         this.stepper.setStep(STEP_1);
       } else if (step === STEP_2 && this.signupForm.controls.password.valid && this.signupForm.controls.password2.valid) {
@@ -113,6 +117,8 @@ export class SignUpComponent {
   }
 
   back() {
+
+
     setTimeout(() => {
       this.steps = this.stepper.getSteps();
       if (this.steps.step2) {
