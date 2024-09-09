@@ -22,11 +22,7 @@ export class LoginComponent {
   password: string = '';
   hide: boolean = true;
   send: boolean = false;
-  signedIn: boolean = false;
-  failed: boolean = false;
   message = ``;
-
-
   errorSubscription: Subscription = new Subscription;
   errorMessage: string = '';
 
@@ -34,9 +30,10 @@ export class LoginComponent {
   }
 
   ngOnInit() {
-    this.metaTagService.updateTag(
-      { name: 'description', content: 'Kostenloser Bildschirmrekorder für PC und Mac. Mit captureVue kannst du deinen Bildschirm aufnehmen, Videos erstellen und mit anderen teilen.' }
-    );
+    this.metaTagService.updateTag({
+      name: 'description',
+      content: 'Kostenloser Bildschirmrekorder für PC und Mac. Mit captureVue kannst du deinen Bildschirm aufnehmen, Videos erstellen und mit anderen teilen.'
+    });
     this.errorSubscription = this.errorService.errorMessage$.subscribe((error: any) => {
       this.errorMessage = error;
       this.message = error;
@@ -50,9 +47,8 @@ export class LoginComponent {
   async login() {
     this.send = true;
     try {
-      await this.authService.loginWithUsernameAndPassword(this.username, this.password).then(() => {
-        this.router.navigateByUrl('/site/library');
-      });
+      await this.authService.loginWithUsernameAndPassword(this.username, this.password);
+      this.router.navigateByUrl('/site/library');
     } catch (error: any) {
       await this.errorService.handleError(error);
       this.send = false;
@@ -68,12 +64,10 @@ export class LoginComponent {
   @HostListener('document:keydown.enter', ['$event'])
   async handleEnterKey(event: KeyboardEvent) {
     event.preventDefault();
-    if (this.password !== '' && this.username !== '') {
-      try {
-        await this.login();
-      } catch (error: any) {
-        this.errorService.handleError(error);
-      }
-    }
+    if (this.password && this.username) await this.login()
+  }
+
+  private handleError(error: any) {
+    this.errorService.handleError(error);
   }
 }

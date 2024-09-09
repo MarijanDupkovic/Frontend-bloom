@@ -3,18 +3,14 @@
     <div class="d-flex justify-content-center align-items-center flex-column w-100 signInContainer gap-5 h-100"
       style="min-height: calc(100vh - 100px - 124px);">
       <h1 class="align-self-start prevent-select">Einloggen</h1>
-
       <form class="d-flex flex-column form-floating w-100 h-100" (ngSubmit)="login()">
-
         <div class="form-floating mb-3 w-100 align-self-center " style="max-width:20rem;">
           <input type="email" style="background: transparent;"
             class="form-control text-secondary border-0 rounded-5 w-100" placeholder="name@example.com" name="email"
             id="emailField" [(ngModel)]="username" required>
           <label for="emailField" class="m-0 p-0 pt-2">Benutzername</label>
-
         </div>
         <div class="form-floating w-100 align-self-center d-flex rounded-5" style="max-width:20rem;">
-
           <input [type]="hide ? 'password' : 'text'" style="background: transparent;"
             class="form-control text-secondary border-0 w-100 rounded-5" name="password" id="passwordField"
             [(ngModel)]="password" placeholder="Enter your password">
@@ -24,7 +20,6 @@
             <span class="material-icons rounded-5">{{hide ? 'visibility_off' : 'visibility'}}</span>
           </button>
           <label for="passwordField" class="m-0 p-0 pt-2">Passwort</label>
-
         </div>
         <button class="w-100 btn btn-info btn-shadow align-self-center mt-4 rounded border-0 buttonContainer"
           style="max-width:8rem;max-height:3rem;height:2.5rem;"
@@ -38,7 +33,6 @@
               registrieren</a></span>
         </div>
       </form>
-
     </div>
     <app-user-feed-back [message]="message"></app-user-feed-back>
 
