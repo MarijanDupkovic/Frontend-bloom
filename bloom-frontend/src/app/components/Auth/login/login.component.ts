@@ -8,11 +8,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { Meta } from '@angular/platform-browser';
 import { UserFeedBackComponent } from '../../Overlays/user-feed-back/user-feed-back.component';
 import { Subscription } from 'rxjs';
+import { LoginFormComponent } from '../login-form/login-form.component';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule, CommonModule, RouterLink, HttpClientModule, UserFeedBackComponent, NgIf],
+  imports: [FormsModule, CommonModule, RouterLink, HttpClientModule, NgIf, LoginFormComponent],
   providers: [],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
@@ -23,8 +24,7 @@ export class LoginComponent {
   hide: boolean = true;
   send: boolean = false;
   message = ``;
-  errorSubscription: Subscription = new Subscription;
-  errorMessage: string = '';
+
 
   constructor(private errorService: UserfeedbackService, private metaTagService: Meta, private authService: AuthService, private router: Router) {
   }
@@ -34,40 +34,24 @@ export class LoginComponent {
       name: 'description',
       content: 'Kostenloser Bildschirmrekorder für PC und Mac. Mit captureVue kannst du deinen Bildschirm aufnehmen, Videos erstellen und mit anderen teilen.'
     });
-    this.errorSubscription = this.errorService.errorMessage$.subscribe((error: any) => {
-      this.errorMessage = error;
-      this.message = error;
-    });
+
   }
 
-  ngOnDestroy() {
-    this.errorSubscription.unsubscribe();
-  }
 
-  async login() {
-    this.send = true;
-    try {
-      await this.authService.loginWithUsernameAndPassword(this.username, this.password);
-      this.router.navigateByUrl('/site/library');
-    } catch (error: any) {
-      await this.errorService.handleError(error);
-      this.send = false;
-    }
-  }
 
-  togglePWField(e: Event) {
-    e.preventDefault();
-    e.stopPropagation();
-    this.hide = !this.hide;
-  }
 
-  @HostListener('document:keydown.enter', ['$event'])
-  async handleEnterKey(event: KeyboardEvent) {
-    event.preventDefault();
-    if (this.password && this.username) await this.login()
-  }
 
-  private handleError(error: any) {
-    this.errorService.handleError(error);
-  }
+  // togglePWField(e: Event) {
+  //   e.preventDefault();
+  //   e.stopPropagation();
+  //   this.hide = !this.hide;
+  // }
+
+  // @HostListener('document:keydown.enter', ['$event'])
+  // async handleEnterKey(event: KeyboardEvent) {
+  //   event.preventDefault();
+  //   if (this.password && this.username) await this.login()
+  // }
+
+
 }
